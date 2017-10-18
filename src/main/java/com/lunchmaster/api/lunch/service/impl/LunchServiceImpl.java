@@ -15,15 +15,12 @@ import java.util.List;
 public class LunchServiceImpl implements LunchService{
 
 
+        @Autowired
         private LunchDao lunchDao;
 
         public List<Lunch> getLunches() {
             return lunchDao.findAll();
         }
 
-        @Autowired
-        public LunchServiceImpl(LunchDao lunchDao){
-            this.lunchDao=lunchDao;
-        }
 }
 

@@ -35,7 +35,7 @@ dependencies {
 	//compile('org.springframework.boot:spring-boot-starter-security')
 	//compile('org.springframework.session:spring-session')
 
-	runtime('mysql:mysql-connector-java')
+	compile('mysql:mysql-connector-java')
 	//runtime('com.h2database:h2')
 
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')

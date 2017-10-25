@@ -14,17 +14,14 @@ import java.util.List;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
-
+    @Autowired
     private RestaurantDao restaurantDao;
 
     public List<Restaurant> getAllRestaurants() {
         return restaurantDao.findAll();
     }
 
-    @Autowired
-    public RestaurantServiceImpl(RestaurantDao restaurantDao){
-        this.restaurantDao=restaurantDao;
-    }
+
 
 
 }

@@ -1,0 +1,7 @@
+<div class="wall" #wall>
+  <div class="tiles">
+    <tile *ngFor="let lunch of lunches; trackBy: track"
+          [lunch]="lunch" (click)="expand(lunch.id)"
+          (closed)="collapse($event)"></tile>
+  </div>
+</div>

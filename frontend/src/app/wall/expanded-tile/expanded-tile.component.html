@@ -1,0 +1,28 @@
+<div class="wrapper">
+
+  <div class="mainColumn">
+
+    <div class="lunchmasterBox">
+      <span>Lunchmaster:</span>
+      <span class="name">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</span>
+    </div>
+
+    <div class="lunchmasterInfo">
+      <span>Phone: {{lunch.lunchMaster.mobile}}</span>
+      <span style="margin-left: 15px">Bank: {{lunch.lunchMaster.bankAccount}}</span>
+      <!--<span style="margin-left: 15px">Floor: {{lunch.lunchMaster.floor}}</span>-->
+    </div>
+
+    <div class="hoursBox">
+      <span class="hoursLabel">Order deadline:</span>
+      <span class="hoursLabel">Expected delivery:</span>
+      <span class="hours">{{lunch.deadline | date:'HH:mm'}}</span>
+      <span class="hours">{{lunch.deadline | addMinutes: lunch.expectedDelivery | date:'HH:mm'}}</span>
+    </div>
+
+    <div class="empty"></div>
+
+    <order class="listPosition" *ngFor="let order of lunch.orders; let i = index" [order]="order" (click)="clicked(i)"></order>
+
+  </div>
+</div>

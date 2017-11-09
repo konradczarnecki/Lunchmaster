@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" [ngStyle]="{background: theme.secColor}">
 
   <div id="grid">
     <app-tile *ngFor="let lunch of lunches" [lunch]="lunch"></app-tile>

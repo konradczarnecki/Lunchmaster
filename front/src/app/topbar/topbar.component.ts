@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ThemeService} from "../theme/theme.service";
+import {Theme, themes} from '../theme/themes'
 
 @Component({
   selector: 'app-topbar',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopbarComponent implements OnInit {
 
-  constructor() { }
+  themes: Theme[];
+
+  constructor(private theme: ThemeService) { }
 
   ngOnInit() {
+
+    this.themes = themes;
   }
 
 }

@@ -1,6 +1,8 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { Lunch } from '../model';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+
 import { WallService } from './service/wall.service';
+import { ThemeService} from "../theme/theme.service";
+import { Lunch } from '../model';
 
 @Component({
   selector: 'app-wall',
@@ -11,7 +13,9 @@ export class WallComponent implements OnInit {
 
   lunches: Lunch[];
 
-  constructor(private service: WallService, private changeDet: ChangeDetectorRef) { }
+  constructor(private service: WallService,
+              private changeDet: ChangeDetectorRef,
+              private theme: ThemeService) { }
 
   ngOnInit() {
 
@@ -26,7 +30,7 @@ export class WallComponent implements OnInit {
 
       this.lunches = lunches;
       this.changeDet.detectChanges();
-      setTimeout(this.adjustGrid.bind(this), 50);
+      setTimeout(this.adjustGrid.bind(this), 150);
     });
   }
 
@@ -39,6 +43,7 @@ export class WallComponent implements OnInit {
     const multiplier = extraGap > 0.3 ? Math.floor(tilesInWindow + 0.3) : tilesInWindow;
     const gridWidth =  multiplier  * (tileWidth + 15);
     document.getElementById('grid').style.width = gridWidth + 'px';
+    this.changeDet.detectChanges();
   }
 
 }

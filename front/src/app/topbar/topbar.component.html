@@ -1,3 +1,11 @@
-<div class="wrapper">
+<div class="wrapper" [ngStyle]="{background : theme.mainColor}">
 
+  <div id="themes">
+
+    <div class="theme"
+         *ngFor="let th of themes; let i = index;"
+         [ngStyle]="{background : th.secColor}"
+         (click)="theme.setTheme(i)"
+         [ngClass]="{'selected' : theme.current == i}"></div>
+  </div>
 </div>

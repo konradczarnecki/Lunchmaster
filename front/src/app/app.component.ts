@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
+import {ThemeService} from "./theme/theme.service";
 
 @Component({
   selector: 'app-root',
@@ -8,13 +9,10 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  @ViewChild('wrapper') wrapper: ElementRef;
-
-  constructor(private router: Router) {}
+  constructor(private router: Router, private theme: ThemeService) {}
 
   ngOnInit() {
 
     if(location.pathname === '/') this.router.navigate(['/wall']);
-    this.wrapper.nativeElement.style.backgroundImage = `url('/assets/images/back${Math.floor(1 + Math.random() * 5)}.png')`;
   }
 }

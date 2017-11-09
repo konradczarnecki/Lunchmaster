@@ -53,9 +53,10 @@ dependencies {
 node {
 	version = '6.11.5'
 	npmVersion = '5.5.1'
+	download = true
 	workDir = file("${project.buildDir}/nodejs")
-	npmWorkDir = file("${project.projectDir}/frontend")
-	nodeModulesDir = file("${project.projectDir}/frontend")
+	npmWorkDir = file("${project.projectDir}/front")
+	nodeModulesDir = file("${project.projectDir}/front")
 }
 
 task buildFrontend(type: NpmTask){
@@ -67,6 +68,9 @@ task copyWebcontent(type: Copy){
 	group "build"
 	from "${projectDir}/front/dist"
 	into "${projectDir}/src/main/resources/static"
-	include "*"
+	include '*', '*/*', '*/**'
 	dependsOn buildFrontend
 }
+
+jar.dependsOn copyWebcontent
+buildFrontend.dependsOn npmInstall

@@ -1,0 +1,21 @@
+.wrapper {
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  overflow: hidden;
+  background-image: url('/assets/images/back2.png');
+  background-size: cover;
+}
+
+app-topbar {
+  z-index: 2;
+}
+
+.main {
+
+}

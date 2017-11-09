@@ -60,14 +60,13 @@ node {
 
 task buildFrontend(type: NpmTask){
 	group 'build'
-	args = ['run', 'build']
+	args = ['run', 'build-jar']
 }
 
 task copyWebcontent(type: Copy){
 	group "build"
-	from "${projectDir}/frontend/dist"
+	from "${projectDir}/front/dist"
 	into "${projectDir}/src/main/resources/static"
 	include "*"
 	dependsOn buildFrontend
-	mustRunAfter buildFrontend
 }

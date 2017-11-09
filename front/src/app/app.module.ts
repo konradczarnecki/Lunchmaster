@@ -7,6 +7,7 @@ import { WallModule } from './wall/wall.module';
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { WallComponent } from './wall/wall.component';
+import {ThemeService} from "./theme/theme.service";
 
 const routes: Routes = [
   { path : 'wall', component: WallComponent }
@@ -24,7 +25,7 @@ const routes: Routes = [
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [ ThemeService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

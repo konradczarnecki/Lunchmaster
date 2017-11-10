@@ -360,7 +360,7 @@ var _a;
 /***/ "../../../../../src/app/wall/tile/tile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"tile\">\n  <div class=\"filler\"></div>\n  <img [src]=\"lunch.restaurant.logo\"/>\n  <div id=\"details\">\n    <div id=\"restaurant\">{{lunch.restaurant.name}}</div>\n    <div id=\"lunchmaster\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"tile\">\r\n  <div class=\"filler\"></div>\r\n  <img [src]=\"lunch.restaurant.logo\"/>\r\n  <div id=\"details\">\r\n    <div id=\"restaurant\">{{lunch.restaurant.name}}</div>\r\n    <div id=\"lunchmaster\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 

@@ -148,7 +148,7 @@ AppModule = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ThemeService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_themes__ = __webpack_require__("../../../../../src/app/theme/themes.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__themes__ = __webpack_require__("../../../../../src/app/theme/themes.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -162,7 +162,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var ThemeService = (function () {
     function ThemeService() {
-        this.themes = __WEBPACK_IMPORTED_MODULE_1__theme_themes__["a" /* themes */];
+        this.themes = __WEBPACK_IMPORTED_MODULE_1__themes__["a" /* themes */];
         this.current = 0;
     }
     Object.defineProperty(ThemeService.prototype, "mainColor", {
@@ -225,22 +225,22 @@ ThemeService = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export pinkrazeTheme */
 /* unused harmony export defaultTheme */
+/* unused harmony export pinkrazeTheme */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return themes; });
+var defaultTheme = {
+    name: 'default',
+    mainColor: 'rgba(161, 157, 163, 0.93)',
+    secColor: 'rgba(231, 227, 233, 0.88)',
+    fontColor: 'rgba(43, 43, 43, 0.81)',
+    backgroundCount: 1
+};
 var pinkrazeTheme = {
     name: 'pinkraze',
     mainColor: 'rgba(221, 174, 230, 0.97)',
     secColor: 'rgba(88, 113, 238, 0.95)',
     fontColor: 'rgba(43, 43, 43, 0.81)',
     backgroundCount: 5
-};
-var defaultTheme = {
-    name: 'default',
-    mainColor: 'rgba(150, 120, 230, 0.97)',
-    secColor: 'rgba(188, 113, 228, 0.95)',
-    fontColor: 'rgba(43, 43, 43, 0.81)',
-    backgroundCount: 1
 };
 var themes = [defaultTheme, pinkrazeTheme];
 //# sourceMappingURL=themes.js.map
@@ -250,7 +250,7 @@ var themes = [defaultTheme, pinkrazeTheme];
 /***/ "../../../../../src/app/topbar/topbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\" [ngStyle]=\"{background : theme.mainColor}\">\r\n  <div id=\"themes\">\r\n    <div class=\"theme\"\r\n         *ngFor=\"let th of themes; let i = index;\"\r\n         [ngStyle]=\"{background : th.secColor}\"\r\n         (click)=\"theme.setTheme(i)\"></div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"wrapper\" [ngStyle]=\"{background : theme.mainColor}\">\r\n\r\n  <div id=\"themes\">\r\n\r\n    <div class=\"theme\"\r\n         *ngFor=\"let th of themes; let i = index;\"\r\n         [ngStyle]=\"{background : th.secColor}\"\r\n         (click)=\"theme.setTheme(i)\"\r\n         [ngClass]=\"{'selected' : theme.current == i}\"></div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -262,7 +262,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  background: rgba(221, 174, 230, 0.97);\n  box-shadow: 0px 4px 8px rgba(60, 60, 60, 0.17);\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 150px 20px;\n      grid-template-columns: 1fr 150px 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n#themes {\n  -ms-grid-column: 2;\n      grid-column: 2;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  grid-auto-columns: 25px;\n  grid-auto-flow: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.theme {\n  width: 20px;\n  height: 20px;\n  border: solid 1px rgba(138, 138, 138, 0.36); }\n\n.theme:hover {\n  cursor: pointer; }\n", ""]);
+exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  background: rgba(221, 174, 230, 0.97);\n  box-shadow: 0 4px 8px rgba(60, 60, 60, 0.17);\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 150px 20px;\n      grid-template-columns: 1fr 150px 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n#themes {\n  -ms-grid-column: 2;\n      grid-column: 2;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  grid-auto-columns: 25px;\n  grid-auto-flow: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.theme {\n  width: 20px;\n  height: 20px;\n  border: solid 1px rgba(138, 138, 138, 0.36); }\n\n.theme:hover {\n  cursor: pointer; }\n\n.selected {\n  border: solid rgba(22, 21, 23, 0.61) 2px; }\n", ""]);
 
 // exports
 
@@ -360,7 +360,7 @@ var _a;
 /***/ "../../../../../src/app/wall/tile/tile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"tile\">\r\n  <div class=\"filler\"></div>\r\n  <img [src]=\"lunch.restaurant.logo\"/>\r\n  <div id=\"details\">\r\n    <div id=\"restaurant\">{{lunch.restaurant.name}}</div>\r\n    <div id=\"lunchmaster\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"tile\">\n  <div class=\"filler\"></div>\n  <img [src]=\"lunch.restaurant.logo\"/>\n  <div id=\"details\">\n    <div id=\"restaurant\">{{lunch.restaurant.name}}</div>\n    <div id=\"lunchmaster\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -482,13 +482,11 @@ var WallComponent = (function () {
         var _this = this;
         this.service.getLunches().then(function (lunches) {
             _this.lunches = lunches;
-            _this.changeDet.detectChanges();
-            setTimeout(_this.adjustGrid.bind(_this), 50);
+            _this.adjustGrid();
         });
     };
     WallComponent.prototype.adjustGrid = function () {
-        var tileWidthStr = getComputedStyle(document.getElementsByTagName('app-tile')[0]).getPropertyValue('width');
-        var tileWidth = Number(tileWidthStr.substring(0, tileWidthStr.indexOf('p')));
+        var tileWidth = 400;
         var tilesInWindow = 0.8 * window.innerWidth / tileWidth;
         var extraGap = tilesInWindow - Math.floor(tilesInWindow);
         var multiplier = extraGap > 0.3 ? Math.floor(tilesInWindow + 0.3) : tilesInWindow;

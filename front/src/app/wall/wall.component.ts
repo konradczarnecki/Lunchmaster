@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 
 import { WallService } from './service/wall.service';
-import { ThemeService} from "../theme/theme.service";
+import { ThemeService} from '../theme/theme.service';
 import { Lunch } from '../model';
 
 @Component({
@@ -29,15 +29,13 @@ export class WallComponent implements OnInit {
     this.service.getLunches().then(lunches => {
 
       this.lunches = lunches;
-      this.changeDet.detectChanges();
-      setTimeout(this.adjustGrid.bind(this), 150);
+      this.adjustGrid();
     });
   }
 
   adjustGrid() {
 
-    const tileWidthStr: string = getComputedStyle(document.getElementsByTagName('app-tile')[0]).getPropertyValue('width');
-    const tileWidth: number = Number(tileWidthStr.substring(0, tileWidthStr.indexOf('p')));
+    const tileWidth = 400;
     const tilesInWindow = 0.8 * window.innerWidth / tileWidth;
     const extraGap = tilesInWindow - Math.floor(tilesInWindow);
     const multiplier = extraGap > 0.3 ? Math.floor(tilesInWindow + 0.3) : tilesInWindow;

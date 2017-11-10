@@ -64,13 +64,19 @@ task buildFrontend(type: NpmTask){
 	args = ['run', 'build-jar']
 }
 
+task cleanFrontend(type: Delete){
+	delete "${projectDir}/front/dist", "${projectDir}/src/main/resources/static"
+}
+
 task copyWebcontent(type: Copy){
 	group "build"
 	from "${projectDir}/front/dist"
 	into "${projectDir}/src/main/resources/static"
 	include '*', '*/*', '*/**'
 	dependsOn buildFrontend
+	outputs.upToDateWhen {false}
 }
 
-jar.dependsOn copyWebcontent
+compileJava.dependsOn copyWebcontent
+clean.dependsOn cleanFrontend
 buildFrontend.dependsOn npmInstall

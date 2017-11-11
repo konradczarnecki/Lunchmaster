@@ -7,11 +7,13 @@ export class ThemeService {
 
   themes: Theme[];
   current: number;
+  back: number;
 
   constructor() {
 
     this.themes = themes;
     this.current = 0;
+    this.back = 1;
   }
 
   get mainColor(){
@@ -20,6 +22,10 @@ export class ThemeService {
 
   get secColor(){
     return this.themes[this.current].secColor;
+  }
+
+  get highlightColor(){
+    return this.themes[this.current].highlightColor;
   }
 
   get fontColor(){
@@ -31,7 +37,7 @@ export class ThemeService {
   }
 
   get background(){
-    return Math.floor(1 + Math.random() * this.themes[this.current].backgroundCount);
+    return this.back;
   }
 
   get name() {
@@ -41,6 +47,11 @@ export class ThemeService {
   setTheme(index: number){
 
     this.current = index;
+    this.pickBackground();
+  }
+
+  pickBackground() {
+    this.back = Math.floor(1 + Math.random() * this.themes[this.current].backgroundCount);
   }
 
 }

@@ -10,6 +10,5 @@ import java.util.List;
  */
 
 public interface LunchDao extends JpaRepository<Lunch, Integer> {
-
     List<Lunch> findAll();
 }

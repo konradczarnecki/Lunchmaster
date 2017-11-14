@@ -16,9 +16,9 @@
       <div id="restaurantName" class="infoHeader">{{lunch.restaurant.name}}</div>
 
       <div id="restaurantDetails" class="infoDetails">
-        tel: {{lunch.restaurant.phone}}<br>
-        <a >{{lunch.restaurant.link}}</a><br>
-        avg: {{lunch.restaurant.avgDeliveryTime}} min
+        tel:&nbsp; {{lunch.restaurant.phone}}<br>
+        avg:&nbsp; {{lunch.restaurant.avgDeliveryTime}} min
+        <a target="_blank" [href]="'http://' + lunch.restaurant.link" [ngStyle]="{color : theme.secFontColor}">website</a><br>
       </div>
 
     </div>
@@ -29,8 +29,8 @@
 
       <div id="lunchmasterDetails" class="infoDetails">
         {{lunch.lunchMaster.part}}, {{lunch.lunchMaster.group}}, {{lunch.lunchMaster.floor}} floor<br>
-        bank: {{lunch.lunchMaster.bankAccount}}<br>
-        tel: {{lunch.lunchMaster.mobile}}
+        bank:&nbsp; {{lunch.lunchMaster.bankAccount}}<br>
+        tel:&nbsp; {{lunch.lunchMaster.mobile}}
       </div>
 
     </div>

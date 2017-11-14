@@ -22,6 +22,7 @@
   grid-row-gap: 20px;
 }
 
+
 #close {
   position: absolute;
   top: 10px;
@@ -38,7 +39,7 @@
   font-size: 50px;
 
   img {
-    width: 250px;
+    width: 220px;
     height: 90%;
     margin: 10px;
   }
@@ -46,9 +47,11 @@
   display: grid;
   align-items: center;
   justify-items: center;
+  margin-top: 10px;
 }
 
-$side-column: 25%;
+
+$side-column: 23%;
 #info {
 
   width: 90%;
@@ -71,13 +74,18 @@ $side-column: 25%;
   grid-template-columns: 1fr;
   grid-template-rows: 20px 1fr 20px 1fr;
   align-items: center;
-  justify-items: center;
+  justify-items: stretch;
   text-align: left;
 }
 
 #restaurant {
   text-align: right;
   padding-right: 30px;
+}
+
+#lunchmaster {
+  text-align: left;
+  padding-left: 30px;
 }
 
 .labels {
@@ -89,12 +97,8 @@ $side-column: 25%;
 }
 
 .labels, .hours {
-  justify-self: center;
+  padding-left: 30px;
   text-align: left;
-}
-
-.section {
-  text-align: center;
 }
 
 .infoDetails {
@@ -176,7 +180,7 @@ $side-column: 25%;
   }
 
   div:hover {
-    cursor: default;
+    cursor: pointer;
     background-color: rgba(168, 168, 168, 0.14);
   }
 }

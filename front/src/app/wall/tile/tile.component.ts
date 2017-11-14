@@ -31,7 +31,7 @@ export class TileComponent implements OnInit {
 
   mouseDown(){
 
-    this.tile.nativeElement.style.boxShadow = 'inset 1px 1px 6px ' + this.theme.highlightColor;
+    this.tile.nativeElement.style.boxShadow = 'inset 1px 1px 3px ' + this.theme.highlightColor;
   }
 
   mouseUp(){

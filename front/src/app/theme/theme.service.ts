@@ -7,13 +7,13 @@ export class ThemeService {
 
   themes: Theme[];
   current: number;
-  back: number;
+  backgroundIdx: number;
 
   constructor() {
 
     this.themes = themes;
-    this.current = 0;
-    this.back = 1;
+    this.backgroundIdx = 1;
+    this.current = Number(localStorage.getItem('theme'));
   }
 
   get mainColor(){
@@ -32,12 +32,20 @@ export class ThemeService {
     return this.themes[this.current].fontColor;
   }
 
+  get secFontColor(){
+
+    const value = this.themes[this.current].secFontColor == undefined ?
+      this.themes[this.current].mainColor : this.themes[this.current].secFontColor;
+
+    return value;
+  }
+
   get backgroundCount(){
     return this.themes[this.current].backgroundCount;
   }
 
   get background(){
-    return this.back;
+    return this.backgroundIdx;
   }
 
   get name() {
@@ -47,11 +55,12 @@ export class ThemeService {
   setTheme(index: number){
 
     this.current = index;
+    localStorage.setItem('theme', String(index));
     this.pickBackground();
   }
 
   pickBackground() {
-    this.back = Math.floor(1 + Math.random() * this.themes[this.current].backgroundCount);
+    this.backgroundIdx = Math.floor(1 + Math.random() * this.themes[this.current].backgroundCount);
   }
 
 }

@@ -4,6 +4,7 @@ export interface Theme {
   secColor: string;
   highlightColor: string;
   fontColor: string;
+  secFontColor?: string;
   backgroundCount: number;
 }
 
@@ -20,8 +21,9 @@ export const pinkrazeTheme: Theme = {
   name : 'pinkraze',
   mainColor : 'rgba(221, 174, 230, 0.97)',
   secColor : 'rgba(88, 113, 238, 0.95)',
-  highlightColor : 'rgba(221, 174, 230, 0.7)',
+  highlightColor : 'rgba(221, 174, 230, 0.5)',
   fontColor : 'rgba(43, 43, 43, 0.81)',
+  secFontColor : 'rgba(43, 43, 43, 0.81)',
   backgroundCount : 5
 };
 

@@ -1,7 +1,11 @@
 <div class="wrapper" [ngStyle]="{background: theme.secColor}">
 
   <div id="grid">
-    <app-tile *ngFor="let lunch of lunches" [lunch]="lunch"></app-tile>
+
+    <app-tile *ngFor="let lunch of lunches; let i = index;"
+              [lunch]="lunch" (click)="selected = i"></app-tile>
   </div>
+
+  <app-details *ngIf="selected != -1" [lunch]="lunches[selected]" (close)="selected = -1"></app-details>
 
 </div>

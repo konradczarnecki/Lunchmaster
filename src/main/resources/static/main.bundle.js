@@ -163,7 +163,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ThemeService = (function () {
     function ThemeService() {
         this.themes = __WEBPACK_IMPORTED_MODULE_1__themes__["a" /* themes */];
-        this.current = 0;
+        this.backgroundIdx = 1;
+        this.current = Number(localStorage.getItem('theme'));
     }
     Object.defineProperty(ThemeService.prototype, "mainColor", {
         get: function () {
@@ -179,9 +180,25 @@ var ThemeService = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ThemeService.prototype, "highlightColor", {
+        get: function () {
+            return this.themes[this.current].highlightColor;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ThemeService.prototype, "fontColor", {
         get: function () {
             return this.themes[this.current].fontColor;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ThemeService.prototype, "secFontColor", {
+        get: function () {
+            var value = this.themes[this.current].secFontColor == undefined ?
+                this.themes[this.current].mainColor : this.themes[this.current].secFontColor;
+            return value;
         },
         enumerable: true,
         configurable: true
@@ -195,7 +212,7 @@ var ThemeService = (function () {
     });
     Object.defineProperty(ThemeService.prototype, "background", {
         get: function () {
-            return Math.floor(1 + Math.random() * this.themes[this.current].backgroundCount);
+            return this.backgroundIdx;
         },
         enumerable: true,
         configurable: true
@@ -209,6 +226,11 @@ var ThemeService = (function () {
     });
     ThemeService.prototype.setTheme = function (index) {
         this.current = index;
+        localStorage.setItem('theme', String(index));
+        this.pickBackground();
+    };
+    ThemeService.prototype.pickBackground = function () {
+        this.backgroundIdx = Math.floor(1 + Math.random() * this.themes[this.current].backgroundCount);
     };
     return ThemeService;
 }());
@@ -232,6 +254,7 @@ var defaultTheme = {
     name: 'default',
     mainColor: 'rgba(161, 157, 163, 0.93)',
     secColor: 'rgba(231, 227, 233, 0.88)',
+    highlightColor: 'rgba(161, 157, 163, 0.4)',
     fontColor: 'rgba(43, 43, 43, 0.81)',
     backgroundCount: 1
 };
@@ -239,7 +262,9 @@ var pinkrazeTheme = {
     name: 'pinkraze',
     mainColor: 'rgba(221, 174, 230, 0.97)',
     secColor: 'rgba(88, 113, 238, 0.95)',
+    highlightColor: 'rgba(221, 174, 230, 0.7)',
     fontColor: 'rgba(43, 43, 43, 0.81)',
+    secFontColor: 'rgba(43, 43, 43, 0.81)',
     backgroundCount: 5
 };
 var themes = [defaultTheme, pinkrazeTheme];
@@ -315,6 +340,83 @@ var _a;
 
 /***/ }),
 
+/***/ "../../../../../src/app/wall/details/details.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"frame\"\n     [ngStyle]=\"{\n     'border' : 'solid 1px ' + theme.highlightColor,\n     'background' : theme.secColor,\n     'color' : theme.secFontColor\n     }\">\n\n  <div id=\"close\" (click)=\"clickClose()\">X</div>\n\n  {{lunch?.restaurant.name}}\n\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/wall/details/details.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
+
+// module
+exports.push([module.i, ".frame {\n  width: 50vw;\n  height: 80vh;\n  position: absolute;\n  top: 10vh;\n  left: 0;\n  right: 0;\n  margin: auto;\n  border-radius: 5px;\n  font-size: 100px;\n  font-family: \"Lato\"; }\n\n#close {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 20px; }\n\n#close:hover {\n  cursor: pointer; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/wall/details/details.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetailsComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var DetailsComponent = (function () {
+    function DetailsComponent(theme) {
+        this.theme = theme;
+        this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+    }
+    DetailsComponent.prototype.ngOnInit = function () {
+    };
+    DetailsComponent.prototype.clickClose = function () {
+        this.close.emit(true);
+    };
+    return DetailsComponent;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+    __metadata("design:type", Object)
+], DetailsComponent.prototype, "lunch", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], DetailsComponent.prototype, "close", void 0);
+DetailsComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-details',
+        template: __webpack_require__("../../../../../src/app/wall/details/details.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/wall/details/details.component.scss")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _a || Object])
+], DetailsComponent);
+
+var _b, _c, _a;
+//# sourceMappingURL=details.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/wall/service/wall.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -360,7 +462,7 @@ var _a;
 /***/ "../../../../../src/app/wall/tile/tile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"tile\">\r\n  <div class=\"filler\"></div>\r\n  <img [src]=\"lunch.restaurant.logo\"/>\r\n  <div id=\"details\">\r\n    <div id=\"restaurant\">{{lunch.restaurant.name}}</div>\r\n    <div id=\"lunchmaster\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"tile\" #tile\r\n     (mouseover)=\"mouseOver()\"\r\n     (mouseout)=\"mouseLeave()\"\r\n     (mousedown)=\"mouseDown()\"\r\n     (mouseup)=\"mouseUp()\">\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <img [src]=\"lunch.restaurant.logo\"/>\r\n\r\n  <div id=\"details\">\r\n\r\n    <div id=\"restaurant\">{{lunch.restaurant.name}}</div>\r\n    <div id=\"lunchmaster\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\r\n\r\n    <div id=\"hours\">\r\n      <div class=\"hourLabel\" id=\"deadlineLabel\">DL</div>\r\n      <div class=\"hour\" id=\"deadlineHour\">{{lunch.deadline | date:'hh:mm' }}</div>\r\n      <div class=\"hourLabel\" id=\"expectedLable\">EX</div>\r\n      <div class=\"hour\" id=\"expectedHour\">{{lunch.deadline | date:'hh:mm' }}</div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -372,7 +474,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".tile {\n  width: 400px;\n  height: 120px;\n  border: solid 1px rgba(174, 174, 174, 0.45);\n  border-radius: 2px;\n  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 5px 30% 1fr;\n      grid-template-columns: 5px 30% 1fr;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  font-family: \"Lato\";\n  color: rgba(43, 43, 43, 0.81); }\n\nimg {\n  width: 100px;\n  height: 100px; }\n\n#details {\n  -ms-flex-item-align: stretch;\n      -ms-grid-row-align: stretch;\n      align-self: stretch;\n  justify-self: stretch;\n  padding: 5px; }\n\n#restaurant {\n  width: 90%;\n  margin: auto;\n  font-size: 20px;\n  font-weight: 600;\n  padding: 10px; }\n\n#lunchmaster {\n  width: 90%;\n  margin: auto;\n  font-size: 18px;\n  padding: 0 10px; }\n", ""]);
+exports.push([module.i, ".tile {\n  width: 400px;\n  height: 120px;\n  border: solid 1px rgba(174, 174, 174, 0.45);\n  border-radius: 2px;\n  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 5px 30% 1fr;\n      grid-template-columns: 5px 30% 1fr;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  font-family: \"Lato\";\n  color: rgba(43, 43, 43, 0.81); }\n\n.tile:hover {\n  cursor: pointer; }\n\n.tile:active {\n  box-shadow: inset 1px 1px 2px black; }\n\nimg {\n  width: 100px;\n  height: 100px; }\n\n#details {\n  -ms-flex-item-align: stretch;\n      -ms-grid-row-align: stretch;\n      align-self: stretch;\n  justify-self: stretch;\n  padding: 5px; }\n\n#restaurant {\n  width: 90%;\n  margin: auto;\n  font-size: 21px;\n  font-weight: 600;\n  padding: 10px; }\n\n#lunchmaster {\n  width: 90%;\n  margin: auto;\n  font-size: 19px;\n  padding: 0 10px; }\n\n#hours {\n  width: 90%;\n  margin: auto;\n  font-size: 16px;\n  padding: 10px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[4];\n      grid-template-columns: repeat(4, 1fr);\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: left;\n      justify-items: left; }\n\n.hour {\n  justify-self: left;\n  -webkit-transform: translateX(-30px);\n          transform: translateX(-30px);\n  font-size: 21px; }\n", ""]);
 
 // exports
 
@@ -388,6 +490,7 @@ module.exports = module.exports.toString();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TileComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -398,10 +501,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var TileComponent = (function () {
-    function TileComponent() {
+    function TileComponent(theme) {
+        this.theme = theme;
     }
     TileComponent.prototype.ngOnInit = function () {
+    };
+    TileComponent.prototype.mouseOver = function () {
+        this.tile.nativeElement.style.boxShadow = '1px 1px 6px ' + this.theme.highlightColor;
+    };
+    TileComponent.prototype.mouseLeave = function () {
+        this.tile.nativeElement.style.boxShadow = 'none';
+    };
+    TileComponent.prototype.mouseDown = function () {
+        this.tile.nativeElement.style.boxShadow = 'inset 1px 1px 6px ' + this.theme.highlightColor;
+    };
+    TileComponent.prototype.mouseUp = function () {
+        this.tile.nativeElement.style.boxShadow = '1px 1px 6px ' + this.theme.highlightColor;
     };
     return TileComponent;
 }());
@@ -409,16 +526,20 @@ __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
     __metadata("design:type", Object)
 ], TileComponent.prototype, "lunch", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('tile'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _a || Object)
+], TileComponent.prototype, "tile", void 0);
 TileComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-tile',
         template: __webpack_require__("../../../../../src/app/wall/tile/tile.component.html"),
         styles: [__webpack_require__("../../../../../src/app/wall/tile/tile.component.scss")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _b || Object])
 ], TileComponent);
 
-var _a, _b;
+var _c, _d, _a, _b;
 //# sourceMappingURL=tile.component.js.map
 
 /***/ }),
@@ -426,7 +547,7 @@ var _a, _b;
 /***/ "../../../../../src/app/wall/wall.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\" [ngStyle]=\"{background: theme.secColor}\">\r\n\r\n  <div id=\"grid\">\r\n    <app-tile *ngFor=\"let lunch of lunches\" [lunch]=\"lunch\"></app-tile>\r\n  </div>\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"wrapper\" [ngStyle]=\"{background: theme.secColor}\">\r\n\r\n  <div id=\"grid\">\r\n\r\n    <app-tile *ngFor=\"let lunch of lunches; let i = index;\"\r\n              [lunch]=\"lunch\" (click)=\"selected = i\"></app-tile>\r\n  </div>\r\n\r\n  <app-details *ngIf=\"selected != -1\" [lunch]=\"lunches[selected]\" (close)=\"selected = -1\"></app-details>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -476,6 +597,8 @@ var WallComponent = (function () {
     }
     WallComponent.prototype.ngOnInit = function () {
         this.fetchLunches();
+        this.selected = -1;
+        this.theme.pickBackground();
         window.onresize = this.adjustGrid.bind(this);
     };
     WallComponent.prototype.fetchLunches = function () {
@@ -520,12 +643,14 @@ var _a, _b, _c;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wall_component__ = __webpack_require__("../../../../../src/app/wall/wall.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tile_tile_component__ = __webpack_require__("../../../../../src/app/wall/tile/tile.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_wall_service__ = __webpack_require__("../../../../../src/app/wall/service/wall.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__details_details_component__ = __webpack_require__("../../../../../src/app/wall/details/details.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -541,7 +666,7 @@ WallModule = __decorate([
         imports: [
             __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */]
         ],
-        declarations: [__WEBPACK_IMPORTED_MODULE_2__wall_component__["a" /* WallComponent */], __WEBPACK_IMPORTED_MODULE_3__tile_tile_component__["a" /* TileComponent */]],
+        declarations: [__WEBPACK_IMPORTED_MODULE_2__wall_component__["a" /* WallComponent */], __WEBPACK_IMPORTED_MODULE_3__tile_tile_component__["a" /* TileComponent */], __WEBPACK_IMPORTED_MODULE_5__details_details_component__["a" /* DetailsComponent */]],
         providers: [__WEBPACK_IMPORTED_MODULE_4__service_wall_service__["a" /* WallService */]]
     })
 ], WallModule);

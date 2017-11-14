@@ -12,6 +12,7 @@ import { Lunch } from '../model';
 export class WallComponent implements OnInit {
 
   lunches: Lunch[];
+  selected: number;
 
   constructor(private service: WallService,
               private changeDet: ChangeDetectorRef,
@@ -20,6 +21,7 @@ export class WallComponent implements OnInit {
   ngOnInit() {
 
     this.fetchLunches();
+    this.selected = -1;
     this.theme.pickBackground();
 
     window.onresize = this.adjustGrid.bind(this);

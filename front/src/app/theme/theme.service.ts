@@ -34,8 +34,8 @@ export class ThemeService {
 
   get secFontColor(){
 
-    const value = this.themes[this.current].secFontColor == undefined ?
-      this.themes[this.current].mainColor : this.themes[this.current].secFontColor;
+    const value = this.themes[this.current].secFontColor === undefined ?
+      this.themes[this.current].fontColor : this.themes[this.current].secFontColor;
 
     return value;
   }
@@ -60,6 +60,7 @@ export class ThemeService {
   }
 
   pickBackground() {
+
     this.backgroundIdx = Math.floor(1 + Math.random() * this.themes[this.current].backgroundCount);
   }
 

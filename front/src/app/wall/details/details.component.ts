@@ -1,6 +1,6 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {ThemeService} from "../../theme/theme.service";
-import {Lunch} from "../../model";
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ThemeService } from '../../theme/theme.service';
+import { Lunch } from '../../model';
 
 @Component({
   selector: 'app-details',

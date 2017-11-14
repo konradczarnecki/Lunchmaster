@@ -6,11 +6,66 @@
      }">
 
   <div id="header">
+    <img [src]="lunch.restaurant.logo"/>
+  </div>
+
+  <div id="info" [ngStyle]="{color : theme.secFontColor}">
+
+    <div id="restaurant" class="section" [ngStyle]="{ 'border-right' : 'solid 1px ' + theme.highlightColor }">
+
+      <div id="restaurantName" class="infoHeader">{{lunch.restaurant.name}}</div>
+
+      <div id="restaurantDetails" class="infoDetails">
+        tel: {{lunch.restaurant.phone}}<br>
+        <a >{{lunch.restaurant.link}}</a><br>
+        avg: {{lunch.restaurant.avgDeliveryTime}} min
+      </div>
+
+    </div>
+
+    <div id="lunchmaster" class="section" [ngStyle]="{ 'border-right' : 'solid 1px ' + theme.highlightColor }">
+
+      <div id="lunchmasterName" class="infoHeader">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>
+
+      <div id="lunchmasterDetails" class="infoDetails">
+        {{lunch.lunchMaster.part}}, {{lunch.lunchMaster.group}}, {{lunch.lunchMaster.floor}} floor<br>
+        bank: {{lunch.lunchMaster.bankAccount}}<br>
+        tel: {{lunch.lunchMaster.mobile}}
+      </div>
+
+    </div>
+
+    <div id="delivery" class="section">
+      <div id="deadlineLabel" class="labels">Deadline</div>
+      <div id="deadlineHours" class="hours">{{lunch.deadline | date: 'HH:mm'}}</div>
+      <div id="expectedLabel" class="labels">Expected</div>
+      <div id="expectedHours" class="hours">{{lunch.expectedDelivery | date: 'HH:mm'}}</div>
+    </div>
 
   </div>
 
-  <div id="orders">
+  <div id="orders" [ngStyle]="{color : theme.secFontColor}">
 
+    <div id="participants">
+
+      <div class="header">Participants</div>
+
+      <div class="order" *ngFor="let order of lunch.orders" [ngStyle]="{border : 'solid 1px ' + theme.highlightColor}">
+        {{order.user.firstName}} {{order.user.lastName}}
+      </div>
+
+    </div>
+
+    <div id="join">
+
+      <div class="header">Order</div>
+
+      <div id="addDish">
+        <input type="text" [ngStyle]="{border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor}"/>
+        <div [ngStyle]="{border : 'solid 1px ' + theme.highlightColor}">+</div>
+      </div>
+
+    </div>
   </div>
 
   <div id="close" (click)="clickClose()">X</div>

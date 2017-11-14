@@ -1,7 +1,7 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 import { Lunch } from '../../model';
-import {ThemeService} from "../../theme/theme.service";
+import { ThemeService } from '../../theme/theme.service';
 
 @Component({
   selector: 'app-tile',
@@ -21,7 +21,7 @@ export class TileComponent implements OnInit {
 
   mouseOver(){
 
-    this.tile.nativeElement.style.boxShadow = '1px 1px 6px ' + this.theme.highlightColor;
+    this.tile.nativeElement.style.boxShadow = '0 0 6px 1px ' + this.theme.highlightColor;
   }
 
   mouseLeave(){
@@ -31,11 +31,11 @@ export class TileComponent implements OnInit {
 
   mouseDown(){
 
-    this.tile.nativeElement.style.boxShadow = 'inset 1px 1px 3px ' + this.theme.highlightColor;
+    this.tile.nativeElement.style.boxShadow = 'inset 0 0 3px 1px ' + this.theme.highlightColor;
   }
 
   mouseUp(){
 
-    this.tile.nativeElement.style.boxShadow = '1px 1px 6px ' + this.theme.highlightColor;
+    this.tile.nativeElement.style.boxShadow = '0 0 6px 1px ' + this.theme.highlightColor;
   }
 }

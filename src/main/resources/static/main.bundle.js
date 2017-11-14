@@ -262,7 +262,7 @@ var pinkrazeTheme = {
     name: 'pinkraze',
     mainColor: 'rgba(221, 174, 230, 0.97)',
     secColor: 'rgba(88, 113, 238, 0.95)',
-    highlightColor: 'rgba(221, 174, 230, 0.7)',
+    highlightColor: 'rgba(221, 174, 230, 0.5)',
     fontColor: 'rgba(43, 43, 43, 0.81)',
     secFontColor: 'rgba(43, 43, 43, 0.81)',
     backgroundCount: 5
@@ -343,7 +343,7 @@ var _a;
 /***/ "../../../../../src/app/wall/details/details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\"\n     [ngStyle]=\"{\n     'border' : 'solid 1px ' + theme.highlightColor,\n     'background' : theme.secColor,\n     'color' : theme.secFontColor\n     }\">\n\n  <div id=\"close\" (click)=\"clickClose()\">X</div>\n\n  {{lunch?.restaurant.name}}\n\n</div>\n"
+module.exports = "<div class=\"frame\"\r\n     [ngStyle]=\"{\r\n     'border' : 'solid 1px ' + theme.highlightColor,\r\n     'background' : theme.secColor,\r\n     'color' : theme.secFontColor\r\n     }\">\r\n\r\n  <div id=\"header\">\r\n\r\n  </div>\r\n\r\n  <div id=\"orders\">\r\n\r\n  </div>\r\n\r\n  <div id=\"close\" (click)=\"clickClose()\">X</div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -355,7 +355,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".frame {\n  width: 50vw;\n  height: 80vh;\n  position: absolute;\n  top: 10vh;\n  left: 0;\n  right: 0;\n  margin: auto;\n  border-radius: 5px;\n  font-size: 100px;\n  font-family: \"Lato\"; }\n\n#close {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 20px; }\n\n#close:hover {\n  cursor: pointer; }\n", ""]);
+exports.push([module.i, ".frame {\n  width: 50vw;\n  height: 80vh;\n  position: absolute;\n  top: 10vh;\n  left: 0;\n  right: 0;\n  margin: auto;\n  border-radius: 5px;\n  font-size: 100px;\n  font-family: \"Lato\";\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 20% 1fr;\n      grid-template-rows: 20% 1fr; }\n\n#close {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 20px; }\n\n#close:hover {\n  cursor: pointer; }\n", ""]);
 
 // exports
 
@@ -515,7 +515,7 @@ var TileComponent = (function () {
         this.tile.nativeElement.style.boxShadow = 'none';
     };
     TileComponent.prototype.mouseDown = function () {
-        this.tile.nativeElement.style.boxShadow = 'inset 1px 1px 6px ' + this.theme.highlightColor;
+        this.tile.nativeElement.style.boxShadow = 'inset 1px 1px 3px ' + this.theme.highlightColor;
     };
     TileComponent.prototype.mouseUp = function () {
         this.tile.nativeElement.style.boxShadow = '1px 1px 6px ' + this.theme.highlightColor;

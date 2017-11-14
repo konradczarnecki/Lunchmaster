@@ -1,27 +1,32 @@
 @import "../../common";
 
 .frame {
-  width: 50vw;
-  height: 80vh;
+  width: 700px;
+  height: 85vh;
   position: absolute;
-  top: 10vh;
+  top: 55px;
   left: 0;
   right: 0;
   margin: auto;
 
+  @media screen and (max-width: 850px) {
+    width: 95vw;
+  }
+
   border-radius: 5px;
-  font-size: 100px;
   font-family: $font;
+  font-size: 20px;
 
   display: grid;
-  grid-template-rows: 20% 1fr;
+  grid-template-rows: 20% 100px 1fr;
+  grid-row-gap: 20px;
 }
 
 #close {
   position: absolute;
   top: 10px;
-  right: 10px;
-  font-size: 20px;
+  right: 20px;
+  font-size: 22px;
 }
 
 #close:hover {
@@ -30,10 +35,150 @@
 
 #header {
 
+  font-size: 50px;
+
+  img {
+    width: 250px;
+    height: 90%;
+    margin: 10px;
+  }
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+$side-column: 25%;
+#info {
+
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  font-size: 15px;
+
+  display: grid;
+  grid-template-columns: $side-column 1fr $side-column;
+  align-items: stretch;
+  justify-items: stretch;
+
+  br {
+    line-height: 150%;
+  }
+}
+
+#delivery {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20px 1fr 20px 1fr;
+  align-items: center;
+  justify-items: center;
+  text-align: left;
+}
+
+#restaurant {
+  text-align: right;
+  padding-right: 30px;
+}
+
+.labels {
+  font-size: 15px;
+}
+
+.hours {
+  font-size: 22px;
+}
+
+.labels, .hours {
+  justify-self: center;
+  text-align: left;
+}
+
+.section {
+  text-align: center;
+}
+
+.infoDetails {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.infoHeader {
+  font-size: 20px;
 }
 
 #orders {
-  //border: solid 1px red;
+  width: 90%;
+  margin: 10px auto;
+
+  display: grid;
+  grid-template-columns: 35% 70%;
+  justify-items: center;
+}
+
+#participants, #join {
+  width: 100%;
+  display: grid;
+  grid-auto-rows: 40px;
+  grid-row-gap: 10px;
+  align-items: stretch;
+  justify-items: stretch;
+}
+
+.header {
+  align-self: center;
+  justify-self: center;
+}
+
+.order {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  border-radius: 3px;
+}
+
+.order:hover {
+  cursor: default;
+  background-color: rgba(168, 168, 168, 0.14);
+}
+
+#join {
+  width: 80%;
+}
+
+#addDish {
+
+  input {
+    width: 85%;
+    height: 100%;
+    float: left;
+    background: transparent;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding-left: 10px;
+    font-size: 17px;
+  }
+
+  div {
+    width: 12%;
+    height: 100%;
+    float: right;
+    border-radius: 3px;
+    box-sizing: border-box;
+
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  div:hover {
+    cursor: default;
+    background-color: rgba(168, 168, 168, 0.14);
+  }
 }
 
 

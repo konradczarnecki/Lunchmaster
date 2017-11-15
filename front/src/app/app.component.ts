@@ -13,6 +13,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
-    if(location.pathname === '/') this.router.navigate(['/wall']);
+    this.theme.pickBackground();
   }
 }

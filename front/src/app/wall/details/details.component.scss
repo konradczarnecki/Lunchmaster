@@ -4,10 +4,7 @@ $hover-clr: rgba(168, 168, 168, 0.14);
 
 .frame {
   width: 700px;
-  position: absolute;
-  top: -10px;
-  left: 0;
-  right: 0;
+  position: relative;
   margin: auto;
   padding-bottom: 15px;
 

@@ -4,10 +4,13 @@ import { WallService } from './service/wall.service';
 import { ThemeService} from '../theme/theme.service';
 import { Lunch } from '../model';
 
+import { fadeAnimation, slideAnimation } from './animations';
+
 @Component({
   selector: 'app-wall',
   templateUrl: './wall.component.html',
-  styleUrls: ['./wall.component.scss']
+  styleUrls: ['./wall.component.scss'],
+  animations : [ slideAnimation, fadeAnimation ],
 })
 export class WallComponent implements OnInit {
 
@@ -18,11 +21,15 @@ export class WallComponent implements OnInit {
               private changeDet: ChangeDetectorRef,
               public theme: ThemeService) { }
 
+  get state(): string {
+
+    return this.selected === -1 ? 'hidden' : 'shown';
+  }
+
   ngOnInit() {
 
     this.fetchLunches();
     this.selected = -1;
-    this.theme.pickBackground();
 
     window.onresize = this.adjustGrid.bind(this);
   }

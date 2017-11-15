@@ -11,7 +11,7 @@ export interface Theme {
 export const defaultTheme: Theme = {
   name : 'default',
   mainColor : 'rgba(161, 157, 163, 0.93)',
-  secColor : 'rgba(231, 227, 233, 0.9)',
+  secColor : 'rgba(241, 247, 243, 0.95)',
   highlightColor : 'rgba(161, 157, 163, 0.4)',
   fontColor : 'rgba(43, 43, 43, 0.81)',
   backgroundCount : 1

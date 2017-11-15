@@ -5,9 +5,7 @@
      'color' : theme.secFontColor
      }">
 
-  <div id="header">
-    <img [src]="lunch.restaurant.logo"/>
-  </div>
+  <div id="filler"></div>
 
   <div id="info" [ngStyle]="{color : theme.secFontColor}">
 
@@ -68,6 +66,7 @@
     </div>
   </div>
 
-  <div id="close" (click)="clickClose()">X</div>
+  <div style="height: 5px"></div>
+  <div id="close" (click)="clickClose()" [ngStyle]="{border: 'solid 1px ' + this.theme.highlightColor}">&#x25B2;</div>
 
 </div>

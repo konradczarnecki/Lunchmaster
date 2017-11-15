@@ -196,8 +196,8 @@ var ThemeService = (function () {
     });
     Object.defineProperty(ThemeService.prototype, "secFontColor", {
         get: function () {
-            var value = this.themes[this.current].secFontColor == undefined ?
-                this.themes[this.current].mainColor : this.themes[this.current].secFontColor;
+            var value = this.themes[this.current].secFontColor === undefined ?
+                this.themes[this.current].fontColor : this.themes[this.current].secFontColor;
             return value;
         },
         enumerable: true,
@@ -253,7 +253,7 @@ ThemeService = __decorate([
 var defaultTheme = {
     name: 'default',
     mainColor: 'rgba(161, 157, 163, 0.93)',
-    secColor: 'rgba(231, 227, 233, 0.88)',
+    secColor: 'rgba(231, 227, 233, 0.9)',
     highlightColor: 'rgba(161, 157, 163, 0.4)',
     fontColor: 'rgba(43, 43, 43, 0.81)',
     backgroundCount: 1
@@ -264,7 +264,7 @@ var pinkrazeTheme = {
     secColor: 'rgba(88, 113, 238, 0.95)',
     highlightColor: 'rgba(221, 174, 230, 0.5)',
     fontColor: 'rgba(43, 43, 43, 0.81)',
-    secFontColor: 'rgba(43, 43, 43, 0.81)',
+    secFontColor: 'rgba(210, 210, 210, 0.9)',
     backgroundCount: 5
 };
 var themes = [defaultTheme, pinkrazeTheme];
@@ -275,7 +275,7 @@ var themes = [defaultTheme, pinkrazeTheme];
 /***/ "../../../../../src/app/topbar/topbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\" [ngStyle]=\"{background : theme.mainColor}\">\r\n\r\n  <div id=\"themes\">\r\n\r\n    <div class=\"theme\"\r\n         *ngFor=\"let th of themes; let i = index;\"\r\n         [ngStyle]=\"{background : th.secColor}\"\r\n         (click)=\"theme.setTheme(i)\"\r\n         [ngClass]=\"{'selected' : theme.current == i}\"></div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"wrapper\" [ngStyle]=\"{background : theme.mainColor}\">\r\n\r\n  <div id=\"logo\" [ngStyle]=\"{color : theme.fontColor}\">\r\n    <span id=\"lunchWord\">LUNCH</span><span id=\"msterWord\">master</span>\r\n  </div>\r\n\r\n  <div id=\"themes\">\r\n\r\n    <div class=\"theme\"\r\n         *ngFor=\"let th of themes; let i = index;\"\r\n         [ngStyle]=\"{background : th.secColor}\"\r\n         (click)=\"theme.setTheme(i)\"\r\n         [ngClass]=\"{'selected' : theme.current == i}\"></div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -287,7 +287,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  background: rgba(221, 174, 230, 0.97);\n  box-shadow: 0 4px 8px rgba(60, 60, 60, 0.17);\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 150px 20px;\n      grid-template-columns: 1fr 150px 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n#themes {\n  -ms-grid-column: 2;\n      grid-column: 2;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  grid-auto-columns: 25px;\n  grid-auto-flow: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.theme {\n  width: 20px;\n  height: 20px;\n  border: solid 1px rgba(138, 138, 138, 0.36); }\n\n.theme:hover {\n  cursor: pointer; }\n\n.selected {\n  border: solid rgba(22, 21, 23, 0.61) 2px; }\n", ""]);
+exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  background: rgba(221, 174, 230, 0.97);\n  box-shadow: 0 4px 8px rgba(60, 60, 60, 0.17);\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 150px 1fr 150px 20px;\n      grid-template-columns: 150px 1fr 150px 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n#themes {\n  -ms-grid-column: 3;\n      grid-column: 3;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  grid-auto-columns: 25px;\n  grid-auto-flow: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.theme {\n  width: 20px;\n  height: 20px;\n  border: solid 1px rgba(138, 138, 138, 0.36); }\n\n.theme:hover {\n  cursor: pointer; }\n\n.selected {\n  border: solid rgba(22, 21, 23, 0.61) 2px; }\n\n#lunchWord {\n  font-weight: 800; }\n\n#logo {\n  -ms-grid-column-align: center;\n      justify-items: center;\n  font-family: \"Lato\";\n  display: inline-block;\n  padding-left: 20px; }\n", ""]);
 
 // exports
 
@@ -343,7 +343,7 @@ var _a;
 /***/ "../../../../../src/app/wall/details/details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\"\r\n     [ngStyle]=\"{\r\n     'border' : 'solid 1px ' + theme.highlightColor,\r\n     'background' : theme.secColor,\r\n     'color' : theme.secFontColor\r\n     }\">\r\n\r\n  <div id=\"header\">\r\n\r\n  </div>\r\n\r\n  <div id=\"orders\">\r\n\r\n  </div>\r\n\r\n  <div id=\"close\" (click)=\"clickClose()\">X</div>\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"frame\"\r\n     [ngStyle]=\"{\r\n     'border' : 'solid 1px ' + theme.highlightColor,\r\n     'background' : theme.secColor,\r\n     'color' : theme.secFontColor\r\n     }\">\r\n\r\n  <div id=\"header\">\r\n    <img [src]=\"lunch.restaurant.logo\"/>\r\n  </div>\r\n\r\n  <div id=\"info\" [ngStyle]=\"{color : theme.secFontColor}\">\r\n\r\n    <div id=\"restaurant\" class=\"section\" [ngStyle]=\"{ 'border-right' : 'solid 1px ' + theme.highlightColor }\">\r\n\r\n      <div id=\"restaurantName\" class=\"infoHeader\">{{lunch.restaurant.name}}</div>\r\n\r\n      <div id=\"restaurantDetails\" class=\"infoDetails\">\r\n        tel:&nbsp; {{lunch.restaurant.phone}}<br>\r\n        avg:&nbsp; {{lunch.restaurant.avgDeliveryTime}} min\r\n        <a target=\"_blank\" [href]=\"'http://' + lunch.restaurant.link\" [ngStyle]=\"{color : theme.secFontColor}\">website</a><br>\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"lunchmaster\" class=\"section\" [ngStyle]=\"{ 'border-right' : 'solid 1px ' + theme.highlightColor }\">\r\n\r\n      <div id=\"lunchmasterName\" class=\"infoHeader\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\r\n\r\n      <div id=\"lunchmasterDetails\" class=\"infoDetails\">\r\n        {{lunch.lunchMaster.part}}, {{lunch.lunchMaster.group}}, {{lunch.lunchMaster.floor}} floor<br>\r\n        bank:&nbsp; {{lunch.lunchMaster.bankAccount}}<br>\r\n        tel:&nbsp; {{lunch.lunchMaster.mobile}}\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"delivery\" class=\"section\">\r\n      <div id=\"deadlineLabel\" class=\"labels\">Deadline</div>\r\n      <div id=\"deadlineHours\" class=\"hours\">{{lunch.deadline | date: 'HH:mm'}}</div>\r\n      <div id=\"expectedLabel\" class=\"labels\">Expected</div>\r\n      <div id=\"expectedHours\" class=\"hours\">{{lunch.expectedDelivery | date: 'HH:mm'}}</div>\r\n    </div>\r\n\r\n  </div>\r\n\r\n  <div id=\"orders\" [ngStyle]=\"{color : theme.secFontColor}\">\r\n\r\n    <div id=\"participants\">\r\n\r\n      <div class=\"header\">Participants</div>\r\n\r\n      <div class=\"order\" *ngFor=\"let order of lunch.orders\" [ngStyle]=\"{border : 'solid 1px ' + theme.highlightColor}\">\r\n        {{order.user.firstName}} {{order.user.lastName}}\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"join\">\r\n\r\n      <div class=\"header\">Order</div>\r\n\r\n      <div id=\"addDish\">\r\n        <input type=\"text\" [ngStyle]=\"{border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor}\"/>\r\n        <div [ngStyle]=\"{border : 'solid 1px ' + theme.highlightColor}\">+</div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"close\" (click)=\"clickClose()\">X</div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -355,7 +355,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".frame {\n  width: 50vw;\n  height: 80vh;\n  position: absolute;\n  top: 10vh;\n  left: 0;\n  right: 0;\n  margin: auto;\n  border-radius: 5px;\n  font-size: 100px;\n  font-family: \"Lato\";\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 20% 1fr;\n      grid-template-rows: 20% 1fr; }\n\n#close {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  font-size: 20px; }\n\n#close:hover {\n  cursor: pointer; }\n", ""]);
+exports.push([module.i, ".frame {\n  width: 700px;\n  height: 85vh;\n  position: absolute;\n  top: 55px;\n  left: 0;\n  right: 0;\n  margin: auto;\n  border-radius: 5px;\n  font-family: \"Lato\";\n  font-size: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 20% 100px 1fr;\n      grid-template-rows: 20% 100px 1fr;\n  grid-row-gap: 20px; }\n  @media screen and (max-width: 850px) {\n    .frame {\n      width: 95vw; } }\n\n#close {\n  position: absolute;\n  top: 10px;\n  right: 20px;\n  font-size: 22px; }\n\n#close:hover {\n  cursor: pointer; }\n\n#header {\n  font-size: 50px;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  margin-top: 10px; }\n  #header img {\n    width: 220px;\n    height: 90%;\n    margin: 10px; }\n\n#info {\n  width: 90%;\n  height: 100%;\n  margin: auto;\n  font-size: 15px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 23% 1fr 23%;\n      grid-template-columns: 23% 1fr 23%;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n  #info br {\n    line-height: 150%; }\n\n#delivery {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr;\n      grid-template-columns: 1fr;\n  -ms-grid-rows: 20px 1fr 20px 1fr;\n      grid-template-rows: 20px 1fr 20px 1fr;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch;\n  text-align: left; }\n\n#restaurant {\n  text-align: right;\n  padding-right: 30px; }\n\n#lunchmaster {\n  text-align: left;\n  padding-left: 30px; }\n\n.labels {\n  font-size: 15px; }\n\n.hours {\n  font-size: 22px; }\n\n.labels, .hours {\n  padding-left: 30px;\n  text-align: left; }\n\n.infoDetails {\n  margin-top: 10px;\n  font-size: 15px; }\n\n.infoHeader {\n  font-size: 20px; }\n\n#orders {\n  width: 90%;\n  margin: 10px auto;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 35% 70%;\n      grid-template-columns: 35% 70%;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n#participants, #join {\n  width: 100%;\n  display: -ms-grid;\n  display: grid;\n  grid-auto-rows: 40px;\n  grid-row-gap: 10px;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n.header {\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center;\n  justify-self: center; }\n\n.order {\n  width: 100%;\n  height: 100%;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  border-radius: 3px; }\n\n.order:hover {\n  cursor: default;\n  background-color: rgba(168, 168, 168, 0.14); }\n\n#join {\n  width: 80%; }\n\n#addDish input {\n  width: 85%;\n  height: 100%;\n  float: left;\n  background: transparent;\n  box-sizing: border-box;\n  border-radius: 3px;\n  padding-left: 10px;\n  font-size: 17px; }\n\n#addDish div {\n  width: 12%;\n  height: 100%;\n  float: right;\n  border-radius: 3px;\n  box-sizing: border-box;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  font-size: 30px;\n  font-weight: 600; }\n\n#addDish div:hover {\n  cursor: pointer;\n  background-color: rgba(168, 168, 168, 0.14); }\n", ""]);
 
 // exports
 
@@ -509,16 +509,16 @@ var TileComponent = (function () {
     TileComponent.prototype.ngOnInit = function () {
     };
     TileComponent.prototype.mouseOver = function () {
-        this.tile.nativeElement.style.boxShadow = '1px 1px 6px ' + this.theme.highlightColor;
+        this.tile.nativeElement.style.boxShadow = '0 0 6px 1px ' + this.theme.highlightColor;
     };
     TileComponent.prototype.mouseLeave = function () {
         this.tile.nativeElement.style.boxShadow = 'none';
     };
     TileComponent.prototype.mouseDown = function () {
-        this.tile.nativeElement.style.boxShadow = 'inset 1px 1px 3px ' + this.theme.highlightColor;
+        this.tile.nativeElement.style.boxShadow = 'inset 0 0 3px 1px ' + this.theme.highlightColor;
     };
     TileComponent.prototype.mouseUp = function () {
-        this.tile.nativeElement.style.boxShadow = '1px 1px 6px ' + this.theme.highlightColor;
+        this.tile.nativeElement.style.boxShadow = '0 0 6px 1px ' + this.theme.highlightColor;
     };
     return TileComponent;
 }());

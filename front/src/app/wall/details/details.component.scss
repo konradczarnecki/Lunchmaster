@@ -1,6 +1,6 @@
 @import "../../common";
 
-$hover-clr: rgba(168, 168, 168, 0.14);
+$hover-clr: rgba(180, 180, 180, 0.10);
 
 .frame {
   width: 700px;
@@ -32,6 +32,7 @@ $hover-clr: rgba(168, 168, 168, 0.14);
   right: 0;
   margin: 10px auto;
   bottom: -13px;
+  border-top: none;
 
   border-radius: 3px;
   font-size: 14px;

@@ -24,6 +24,12 @@ export class ThemeService {
     return this.themes[this.current].secColor;
   }
 
+  get tetrColor(){
+
+    return this.themes[this.current].tetrColor === undefined ?
+      this.themes[this.current].secColor : this.themes[this.current].tetrColor;
+  }
+
   get highlightColor(){
     return this.themes[this.current].highlightColor;
   }
@@ -34,10 +40,8 @@ export class ThemeService {
 
   get secFontColor(){
 
-    const value = this.themes[this.current].secFontColor === undefined ?
+    return this.themes[this.current].secFontColor === undefined ?
       this.themes[this.current].fontColor : this.themes[this.current].secFontColor;
-
-    return value;
   }
 
   get backgroundCount(){

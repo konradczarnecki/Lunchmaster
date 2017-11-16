@@ -1,6 +1,6 @@
 <div class="wrapper" [ngStyle]="{background: theme.secColor}">
 
-  <div id="grid" [@fade]="state">
+  <div id="grid" [@fade]="detailsState">
 
     <app-tile *ngFor="let lunch of lunches; let i = index;"
               [lunch]="lunch" (click)="selected = i"></app-tile>

@@ -21,17 +21,17 @@ export class WallComponent implements OnInit {
               private changeDet: ChangeDetectorRef,
               public theme: ThemeService) { }
 
-  get state(): string {
-
-    return this.selected === -1 ? 'hidden' : 'shown';
-  }
-
   ngOnInit() {
 
     this.fetchLunches();
     this.selected = -1;
 
     window.onresize = this.adjustGrid.bind(this);
+  }
+
+  get detailsState(): string {
+
+    return this.selected === -1 ? 'hidden' : 'shown';
   }
 
   fetchLunches() {

@@ -2,6 +2,7 @@ export interface Theme {
   name: string;
   mainColor: string;
   secColor: string;
+  tetrColor?: string;
   highlightColor: string;
   fontColor: string;
   secFontColor?: string;
@@ -20,10 +21,11 @@ export const defaultTheme: Theme = {
 export const pinkrazeTheme: Theme = {
   name : 'pinkraze',
   mainColor : 'rgba(221, 174, 230, 0.97)',
-  secColor : 'rgba(88, 113, 238, 0.95)',
+  secColor : 'rgba(88, 113, 238, 0.9)',
+  tetrColor : 'rgb(45, 66, 192)',
   highlightColor : 'rgba(221, 174, 230, 0.5)',
   fontColor : 'rgba(43, 43, 43, 0.81)',
-  secFontColor : 'rgba(210, 210, 210, 0.9)',
+  secFontColor : 'rgba(220, 220, 220, 0.9)',
   backgroundCount : 5
 };
 

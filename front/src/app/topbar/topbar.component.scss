@@ -6,16 +6,26 @@
   background: $def-main-clr;
 
   box-shadow: 0 4px 8px rgba(60, 60, 60, 0.17);
+  font-family: $font;
 
   display: grid;
-  grid-template-columns: 150px 1fr 150px 20px;
+  grid-template-columns: 150px 30px 50px repeat(3, 100px) 1fr 150px 20px;
   align-items: center;
   justify-items: stretch;
   position: sticky
 }
 
+.menuLink {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.menuLink:hover {
+  cursor: pointer;
+}
+
 #themes {
-  grid-column: 3;
 
   display: grid;
   grid-template-rows: 1fr;

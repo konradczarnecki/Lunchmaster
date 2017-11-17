@@ -1,8 +1,17 @@
-<div class="wrapper" [ngStyle]="{ background : theme.mainColor }">
+<div class="wrapper" [ngStyle]="{ background : theme.mainColor, color : theme.fontColor }">
 
   <div id="logo" [ngStyle]="{ color : theme.fontColor }">
     <span id="lunchWord">LUNCH</span><span id="masterWord">master</span>
   </div>
+
+  <div class="filler"></div>
+
+  <div class="menuLink" routerLink="/wall">wall</div>
+  <div class="menuLink" routerLink="">billing</div>
+  <div class="menuLink" routerLink="/wall">restaurants</div>
+  <div class="menuLink" routerLink="/login">profile</div>
+
+  <div class="filler"></div>
 
   <div id="themes">
 

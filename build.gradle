@@ -77,6 +77,13 @@ task copyWebcontent(type: Copy){
 	outputs.upToDateWhen {false}
 }
 
+task runJar(type: Exec){
+	group 'application'
+	workingDir "${project.buildDir}/libs"
+	executable 'java'
+	args = ['-jar', "lunchmaster-${project.version}.jar"]
+}
+
 compileJava.dependsOn copyWebcontent
 clean.dependsOn cleanFrontend
 buildFrontend.dependsOn npmInstall

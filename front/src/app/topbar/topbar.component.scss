@@ -8,13 +8,14 @@
   box-shadow: 0 4px 8px rgba(60, 60, 60, 0.17);
 
   display: grid;
-  grid-template-columns: 1fr 150px 20px;
+  grid-template-columns: 150px 1fr 150px 20px;
   align-items: center;
   justify-items: stretch;
+  position: sticky
 }
 
 #themes {
-  grid-column: 2;
+  grid-column: 3;
 
   display: grid;
   grid-template-rows: 1fr;
@@ -36,4 +37,16 @@
 
 .selected {
   border: solid rgba(22, 21, 23, 0.61) 2px;
+}
+
+#lunchWord {
+  font-weight: 800;
+}
+
+#logo {
+  padding-left: 20px;
+  font-family: $font;
+
+  display: inline-block;
+  justify-items: center;
 }

@@ -7,9 +7,12 @@ import { WallModule } from './wall/wall.module';
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { WallComponent } from './wall/wall.component';
-import {ThemeService} from "./theme/theme.service";
+import { ThemeService } from './theme/theme.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
+  { path : '', redirectTo : '/wall', pathMatch : 'full'},
   { path : 'wall', component: WallComponent }
 ];
 
@@ -23,7 +26,9 @@ const routes: Routes = [
     RouterModule,
     WallModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    FormsModule,
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule
   ],
   providers: [ ThemeService ],
   bootstrap: [ AppComponent ]

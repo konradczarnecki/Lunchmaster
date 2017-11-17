@@ -7,11 +7,13 @@ export class ThemeService {
 
   themes: Theme[];
   current: number;
+  backgroundIdx: number;
 
   constructor() {
 
     this.themes = themes;
-    this.current = 0;
+    this.backgroundIdx = 1;
+    this.current = Number(localStorage.getItem('theme'));
   }
 
   get mainColor(){
@@ -22,8 +24,24 @@ export class ThemeService {
     return this.themes[this.current].secColor;
   }
 
+  get tetrColor(){
+
+    return this.themes[this.current].tetrColor === undefined ?
+      this.themes[this.current].secColor : this.themes[this.current].tetrColor;
+  }
+
+  get highlightColor(){
+    return this.themes[this.current].highlightColor;
+  }
+
   get fontColor(){
     return this.themes[this.current].fontColor;
+  }
+
+  get secFontColor(){
+
+    return this.themes[this.current].secFontColor === undefined ?
+      this.themes[this.current].fontColor : this.themes[this.current].secFontColor;
   }
 
   get backgroundCount(){
@@ -31,7 +49,11 @@ export class ThemeService {
   }
 
   get background(){
-    return Math.floor(1 + Math.random() * this.themes[this.current].backgroundCount);
+    return this.backgroundIdx;
+  }
+
+  get border1px(){
+    return 'solid 1px ' + this.themes[this.current].highlightColor;
   }
 
   get name() {
@@ -41,6 +63,13 @@ export class ThemeService {
   setTheme(index: number){
 
     this.current = index;
+    localStorage.setItem('theme', String(index));
+    this.pickBackground();
+  }
+
+  pickBackground() {
+
+    this.backgroundIdx = Math.floor(1 + Math.random() * this.themes[this.current].backgroundCount);
   }
 
 }

@@ -18,3 +18,13 @@
   align-items: center;
   justify-items: center;
 }
+
+app-details {
+  position: absolute;
+  top: 0;
+  right: -10px;
+}
+
+.inactive {
+  pointer-events: none;
+}

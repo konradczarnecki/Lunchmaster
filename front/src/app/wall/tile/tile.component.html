@@ -1,8 +1,24 @@
-<div class="tile">
+<div class="tile" #tile
+     (mouseover)="mouseOver()"
+     (mouseout)="mouseLeave()"
+     (mousedown)="mouseDown()"
+     (mouseup)="mouseUp()">
+
   <div class="filler"></div>
+
   <img [src]="lunch.restaurant.logo"/>
+
   <div id="details">
+
     <div id="restaurant">{{lunch.restaurant.name}}</div>
     <div id="lunchmaster">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>
+
+    <div id="hours">
+      <div class="hourLabel" id="deadlineLabel">DL</div>
+      <div class="hour" id="deadlineHour">{{lunch.deadline | date:'hh:mm' }}</div>
+      <div class="hourLabel" id="expectedLable">EX</div>
+      <div class="hour" id="expectedHour">{{lunch.deadline | date:'hh:mm' }}</div>
+    </div>
+
   </div>
 </div>

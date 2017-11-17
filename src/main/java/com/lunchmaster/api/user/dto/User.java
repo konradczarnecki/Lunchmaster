@@ -1,5 +1,6 @@
 package com.lunchmaster.api.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -28,6 +29,8 @@ public class User {
     @Column(name="email")
     private String email;
 
+    @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Column(name="mobile")

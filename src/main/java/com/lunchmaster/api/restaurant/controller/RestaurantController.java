@@ -2,6 +2,8 @@ package com.lunchmaster.api.restaurant.controller;
 
 import com.lunchmaster.api.restaurant.dto.Restaurant;
 import com.lunchmaster.api.restaurant.service.RestaurantService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +23,7 @@ public class RestaurantController {
 
 
     private RestaurantService restaurantServiceImpl;
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantController.class);
 
     @GetMapping("/list")
     @CrossOrigin("http://localhost:4200")

@@ -1,6 +1,11 @@
 package com.lunchmaster.api.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by m.slefarski on 2017-09-26.
@@ -24,6 +29,10 @@ public class User {
     @Column(name="email")
     private String email;
 
+    @Column(name = "password")
+    @JsonIgnore
+    private String password;
+
     @Column(name="mobile")
     private String mobile;
 
@@ -42,7 +51,21 @@ public class User {
     @Column(name="bank_account")
     private String bankAccount;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany
+    @JoinTable(
+            name="user_role",
+            joinColumns=@JoinColumn(name="user_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="id"))
+    private List<Role> roles;
 
+    public User(){}
+
+    public User(String email, String password, List<Role> roles){
+        this.email=email;
+        this.password=password;
+        this.roles=roles;
+    }
 
     public int getId() {
         return id;
@@ -122,6 +145,22 @@ public class User {
 
     public void setBankAccount(String bankAccount) {
         this.bankAccount = bankAccount;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }
 

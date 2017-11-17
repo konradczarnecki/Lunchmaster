@@ -34,7 +34,6 @@ public class Order {
             name="lunchorder_dish",
             joinColumns=@JoinColumn(name="lunchorder_id", referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(name="dish_id", referencedColumnName="id"))
-
     private List<Dish> dishes;
 
     public Order(){

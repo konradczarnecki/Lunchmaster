@@ -1,5 +1,8 @@
 package com.lunchmaster.api.restaurant.dto;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,7 +42,8 @@ public class Restaurant implements Serializable{
     @Column(name = "logo")
     private String logo;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany
     @JoinColumn(name = "restaurant_id")
     private List<Dish> dishes;
 

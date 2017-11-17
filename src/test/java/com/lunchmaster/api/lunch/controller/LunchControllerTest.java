@@ -3,7 +3,7 @@ package com.lunchmaster.api.lunch.controller;
 import com.lunchmaster.api.lunch.dto.Lunch;
 import com.lunchmaster.api.lunch.service.LunchService;
 import com.lunchmaster.api.restaurant.dto.Restaurant;
-import com.lunchmaster.api.user.dto.User;
+import com.lunchmaster.api.login.dto.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package com.lunchmaster.api.lunch.dto;
 
 
 import com.lunchmaster.api.restaurant.dto.Restaurant;
-import com.lunchmaster.api.user.dto.User;
+import com.lunchmaster.api.login.dto.User;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 

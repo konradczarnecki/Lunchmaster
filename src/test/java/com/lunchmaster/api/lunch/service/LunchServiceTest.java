@@ -9,7 +9,7 @@ import com.lunchmaster.api.lunch.dto.Lunch;
 import com.lunchmaster.api.lunch.dto.Order;
 import com.lunchmaster.api.lunch.service.impl.LunchServiceImpl;
 import com.lunchmaster.api.restaurant.dto.Restaurant;
-import com.lunchmaster.api.user.dto.User;
+import com.lunchmaster.api.login.dto.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

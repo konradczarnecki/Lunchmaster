@@ -1,6 +1,8 @@
-package com.lunchmaster.api.user.dto;
+package com.lunchmaster.api.login.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -32,6 +34,11 @@ public class User {
     @Column(name = "password")
     @JsonIgnore
     private String password;
+
+    @Transient
+    @JsonProperty("password")
+    @JsonInclude()
+    private String loginPwd;
 
     @Column(name="mobile")
     private String mobile;
@@ -161,6 +168,14 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getLoginPwd() {
+        return loginPwd;
+    }
+
+    public void setLoginPwd(String loginPwd) {
+        this.loginPwd = loginPwd;
     }
 }
 

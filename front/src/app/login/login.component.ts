@@ -10,9 +10,19 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent implements OnInit {
 
+  mail: string;
+  password: string;
+
   constructor(private theme: ThemeService, private service: LoginService) { }
 
   ngOnInit() {
+  }
+
+  login(): void {
+
+    this.service.login(this.mail, this.password).then(result => {
+
+    });
   }
 
 }

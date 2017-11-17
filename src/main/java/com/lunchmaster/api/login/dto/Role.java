@@ -1,4 +1,4 @@
-package com.lunchmaster.api.user.dto;
+package com.lunchmaster.api.login.dto;
 
 import javax.persistence.*;
 

@@ -47,8 +47,6 @@ public class Restaurant implements Serializable{
     @JoinColumn(name = "restaurant_id")
     private List<Dish> dishes;
 
-
-
     public int getId() {
         return id;
     }

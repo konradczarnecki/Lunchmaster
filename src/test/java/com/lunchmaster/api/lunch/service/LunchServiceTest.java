@@ -11,6 +11,7 @@ import com.lunchmaster.api.lunch.service.impl.LunchServiceImpl;
 import com.lunchmaster.api.restaurant.dto.Restaurant;
 import com.lunchmaster.api.login.dto.User;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -64,6 +65,7 @@ public class LunchServiceTest {
             Mockito.when(dao.findAll()).thenReturn(lunches);
         }
 
+        @Ignore
         @Test
         public void whenFingAll_thenLunchesShouldBeFound(){
 

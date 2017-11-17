@@ -5,34 +5,28 @@ import com.lunchmaster.api.restaurant.service.RestaurantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
  * Created by m.slefarski on 2017-09-28.
  */
-@Controller
-@ResponseBody
+@RestController
 @RequestMapping("/api/restaurant")
 public class RestaurantController {
 
-
-    private RestaurantService restaurantServiceImpl;
     private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantController.class);
 
-    @GetMapping("/list")
-    @CrossOrigin("http://localhost:4200")
-    public List<Restaurant> getAllRestaurants(){
-        return restaurantServiceImpl.getAllRestaurants();
-    }
+    private RestaurantService service;
 
     @Autowired
     public RestaurantController(RestaurantService restaurantServiceImpl){
-        this.restaurantServiceImpl=restaurantServiceImpl;
+        this.service=restaurantServiceImpl;
+    }
+
+    @GetMapping("/list")
+    public List<Restaurant> getAllRestaurants(){
+        return service.getAllRestaurants();
     }
 }

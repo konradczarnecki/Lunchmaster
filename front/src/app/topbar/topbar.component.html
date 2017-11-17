@@ -6,12 +6,24 @@
 
   <div class="filler"></div>
 
-  <div class="menuLink" routerLink="/wall">wall</div>
-  <div class="menuLink" routerLink="">billing</div>
-  <div class="menuLink" routerLink="/wall">restaurants</div>
-  <div class="menuLink" routerLink="/login">profile</div>
+  <div class="menuLink" routerLink="/wall"
+       [ngClass]="{'inactive' : !loginService.logged}">wall</div>
+
+  <div class="menuLink" routerLink="/wall"
+       [ngClass]="{'inactive' : !loginService.logged}">billing</div>
+
+  <div class="menuLink" routerLink="/wall"
+       [ngClass]="{'inactive' : !loginService.logged}">restaurants</div>
+
+  <div class="menuLink" routerLink="/profile"
+       [ngClass]="{'inactive' : !loginService.logged}">profile</div>
 
   <div class="filler"></div>
+
+  <div id="userInfo" *ngIf="loginService.logged">
+    Hello, {{loginService.user.firstName}}
+  </div>
+  <div id="substitute" *ngIf="!loginService.logged"></div>
 
   <div id="themes">
 

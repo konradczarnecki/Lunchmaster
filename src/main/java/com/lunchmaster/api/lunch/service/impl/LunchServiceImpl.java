@@ -18,11 +18,17 @@ public class LunchServiceImpl implements LunchService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LunchServiceImpl.class);
 
+    private LunchDao dao;
+
     @Autowired
-    private LunchDao lunchDao;
+    public LunchServiceImpl(LunchDao lunchDao){
+        this.dao = lunchDao;
+    }
+
+    public LunchServiceImpl(){}
 
     public List<Lunch> getLunches() {
-        return lunchDao.findAll();
+        return dao.findAll();
     }
 
 }

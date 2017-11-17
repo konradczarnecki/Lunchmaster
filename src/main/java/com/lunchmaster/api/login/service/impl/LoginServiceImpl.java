@@ -17,11 +17,10 @@ public class LoginServiceImpl implements LoginService {
         this.dao = dao;
     }
 
-    public boolean authorize(User loggedUser){
+    public boolean authorize(User loggedUser) {
 
         User fromDb = dao.findUserByEmail(loggedUser.getEmail());
-
-        return fromDb.getPassword().equals(loggedUser.getLoginPwd());
+        return fromDb != null && fromDb.getPassword().equals(loggedUser.getLoginPwd());
     }
 
     public User getUserByEmail(String email){

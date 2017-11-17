@@ -12,7 +12,6 @@ import java.io.Serializable;
 @Table(name="dish")
 public class Dish implements Serializable {
 
-
     @Id
     @GeneratedValue
     @Column(name="id")
@@ -26,7 +25,6 @@ public class Dish implements Serializable {
 
     @Column(name="img")
     private String img;
-
 
     public int getId() {
         return id;
@@ -59,7 +57,4 @@ public class Dish implements Serializable {
     public void setImg(String img) {
         this.img = img;
     }
-
-
-
 }

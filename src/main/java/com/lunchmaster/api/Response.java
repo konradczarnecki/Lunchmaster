@@ -2,6 +2,9 @@ package com.lunchmaster.api;
 
 public class Response <T> {
 
+    public static final String SUCCESS = "success";
+    public static final String FAILURE = "failure";
+
     private String status;
     private T content;
 

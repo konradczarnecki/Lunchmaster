@@ -9,5 +9,6 @@ import java.util.List;
  * Created by m.slefarski on 2017-09-28.
  */
 public interface RestaurantDao extends JpaRepository<Restaurant, Integer> {
+
     List<Restaurant> findAll();
 }

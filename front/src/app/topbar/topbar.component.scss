@@ -9,7 +9,7 @@
   font-family: $font;
 
   display: grid;
-  grid-template-columns: 150px 30px 50px repeat(3, 100px) 1fr 150px 20px;
+  grid-template-columns: 150px 30px 50px repeat(3, 100px) 1fr 150px 150px 20px;
   align-items: center;
   justify-items: stretch;
   position: sticky
@@ -53,10 +53,30 @@
   font-weight: 800;
 }
 
+#lunchWord:hover, #masterWord:hover {
+  cursor: default;
+}
+
 #logo {
   padding-left: 20px;
   font-family: $font;
 
   display: inline-block;
   justify-items: center;
+}
+
+#userInfo {
+  width: 150px;
+  font: $font;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.inactive {
+  opacity: 0.2;
+}
+
+.inactive:hover {
+  cursor: default;
 }

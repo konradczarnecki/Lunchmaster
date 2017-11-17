@@ -52,6 +52,10 @@ export class ThemeService {
     return this.backgroundIdx;
   }
 
+  get border1px(){
+    return 'solid 1px ' + this.themes[this.current].highlightColor;
+  }
+
   get name() {
     return this.themes[this.current].name;
   }

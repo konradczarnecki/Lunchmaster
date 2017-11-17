@@ -24,3 +24,7 @@ app-details {
   top: 0;
   right: -10px;
 }
+
+.inactive {
+  pointer-events: none;
+}

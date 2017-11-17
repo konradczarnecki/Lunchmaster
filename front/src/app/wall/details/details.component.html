@@ -1,27 +1,31 @@
-<div class="frame"
-     [ngStyle]="{
-     'border' : 'solid 1px ' + theme.highlightColor,
+<div class="frame" [ngStyle]="{
+     'border' : theme.border1px,
      'background' : theme.tetrColor,
      'color' : theme.secFontColor
-     }">
+}">
 
-  <div id="filler"></div>
+  <div class="filler"></div>
 
-  <div id="info" [ngStyle]="{color : theme.secFontColor}">
+  <div id="info" [ngStyle]="{ color : theme.secFontColor }">
 
-    <div id="restaurant" class="section" [ngStyle]="{ 'border-right' : 'solid 1px ' + theme.highlightColor }">
+    <div id="restaurant" class="verticalSection" [ngStyle]="{ 'border-right' : theme.border1px }">
 
       <div id="restaurantName" class="infoHeader">{{lunch.restaurant.name}}</div>
 
       <div id="restaurantDetails" class="infoDetails">
+
         tel:&nbsp; {{lunch.restaurant.phone}}<br>
-        avg:&nbsp; {{lunch.restaurant.avgDeliveryTime}} min
-        <a target="_blank" [href]="'http://' + lunch.restaurant.link" [ngStyle]="{color : theme.secFontColor}">website</a><br>
+        avg:&nbsp; {{lunch.restaurant.avgDeliveryTime}} min<br>
+
+        <a target="_blank" [href]="'http://' + lunch.restaurant.link" [ngStyle]="{color : theme.secFontColor}">
+          website
+        </a>
+
       </div>
 
     </div>
 
-    <div id="lunchmaster" class="section" [ngStyle]="{ 'border-right' : 'solid 1px ' + theme.highlightColor }">
+    <div id="lunchmaster" class="verticalSection" [ngStyle]="{ 'border-right' : theme.border1px }">
 
       <div id="lunchmasterName" class="infoHeader">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>
 
@@ -33,7 +37,7 @@
 
     </div>
 
-    <div id="delivery" class="section">
+    <div id="delivery" class="verticalSection">
       <div id="deadlineLabel" class="labels">Deadline</div>
       <div id="deadlineHours" class="hours">{{lunch.deadline | date: 'HH:mm'}}</div>
       <div id="expectedLabel" class="labels">Expected</div>
@@ -48,7 +52,7 @@
 
       <div class="header">Participants</div>
 
-      <div class="order" *ngFor="let order of lunch.orders" [ngStyle]="{border : 'solid 1px ' + theme.highlightColor}">
+      <div class="order" *ngFor="let order of lunch.orders" [ngStyle]="{ border : theme.border1px }">
         {{order.user.firstName}} {{order.user.lastName}}
       </div>
 
@@ -56,17 +60,46 @@
 
     <div id="join">
 
-      <div class="header">Order</div>
+      <div class="orderHeader">Order</div>
 
       <div id="addDish">
-        <input type="text" [ngStyle]="{border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor}"/>
-        <div [ngStyle]="{border : 'solid 1px ' + theme.highlightColor}">+</div>
+
+        <input type="text" list="dishes" [(ngModel)]="orderInput" (keyup.enter)="addDish()"
+               [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }"/>
+
+        <datalist id="dishes">
+          <option *ngFor="let dish of lunch.restaurant.dishes" [value]="dish.name">{{dish.name}}</option>
+        </datalist>
+
+        <div id="addButton" (click)="addDish()" [ngStyle]="{ border : theme.border1px }">+</div>
+
+      </div>
+
+    </div>
+
+    <div id="dishList">
+
+      <div class="orderPosition" *ngFor="let dish of dishList; let i = index;" (click)="removeDish(i)">
+        <span class="dishName">{{dish.name}}</span>
+        <span class="dishPrice">{{dish.price}}</span>
+      </div>
+
+      <div id="lastRow" *ngIf="dishList.length != 0">
+
+        <div id="total">
+          <span class="dishName">Total</span>
+          <span class="dishPrice">{{total}}</span>
+        </div>
+
+        <div id="placeOrder" [ngStyle]="{ border : theme.border1px }">ORDER</div>
+
       </div>
 
     </div>
   </div>
 
   <div style="height: 5px"></div>
-  <div id="close" (click)="clickClose()" [ngStyle]="{border: 'solid 1px ' + this.theme.highlightColor, borderTop : 'none'}">&#x25B2;</div>
+
+  <div id="close" (click)="clickClose()" [ngStyle]="{ border: theme.border1px, borderTop : 'none'}">&#x25B2;</div>
 
 </div>

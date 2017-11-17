@@ -9,6 +9,7 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { WallComponent } from './wall/wall.component';
 import { ThemeService } from './theme/theme.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   { path : '', redirectTo : '/wall', pathMatch : 'full'},
@@ -25,6 +26,7 @@ const routes: Routes = [
     RouterModule,
     WallModule,
     HttpModule,
+    FormsModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule
   ],

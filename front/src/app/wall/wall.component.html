@@ -1,9 +1,10 @@
-<div class="wrapper" [ngStyle]="{background: theme.secColor}">
+<div class="wrapper" [ngStyle]="{ background: theme.secColor }">
 
-  <div id="grid" [@fade]="detailsState">
+  <div id="grid" [ngClass]="{ 'inactive' : selected != -1 }" [@fade]="detailsState">
 
     <app-tile *ngFor="let lunch of lunches; let i = index;"
               [lunch]="lunch" (click)="selected = i"></app-tile>
+
   </div>
 
   <app-details *ngIf="selected != -1" [lunch]="lunches[selected]" (close)="selected = -1" [@slide]></app-details>

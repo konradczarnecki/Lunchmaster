@@ -11,6 +11,7 @@
   grid-template-columns: 150px 1fr 150px 20px;
   align-items: center;
   justify-items: stretch;
+  position: sticky
 }
 
 #themes {
@@ -43,9 +44,9 @@
 }
 
 #logo {
-  justify-items: center;
+  padding-left: 20px;
   font-family: $font;
 
   display: inline-block;
-  padding-left: 20px;
+  justify-items: center;
 }

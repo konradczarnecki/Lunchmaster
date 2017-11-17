@@ -8,10 +8,6 @@ $hover-clr: rgba(180, 180, 180, 0.10);
   margin: auto;
   padding-bottom: 15px;
 
-  @media screen and (max-width: 850px) {
-    width: 95vw;
-  }
-
   border-radius: 5px;
   font-family: $font;
   font-size: 20px;
@@ -20,6 +16,10 @@ $hover-clr: rgba(180, 180, 180, 0.10);
   grid-template-rows: 50px 100px 1fr;
   grid-row-gap: 20px;
   overflow: hidden;
+
+  @media screen and (max-width: 850px) {
+    width: 95vw;
+  }
 }
 
 
@@ -32,48 +32,28 @@ $hover-clr: rgba(180, 180, 180, 0.10);
   right: 0;
   margin: 10px auto;
   bottom: -13px;
-  border-top: none;
 
+  border-top: none;
   border-radius: 3px;
   font-size: 14px;
   text-align: center;
 }
-
 
 #close:hover {
   cursor: pointer;
   background-color: $hover-clr;
 }
 
-#header {
-
-  font-size: 50px;
-
-  img {
-    width: 220px;
-    height: 90%;
-    margin: 10px;
-  }
-
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  margin-top: 10px;
-}
-
-
-$side-column: 23%;
 #info {
-
   width: 90%;
   height: 100%;
   margin: auto;
-  font-size: 15px;
 
   transform: translate(3%, 0);
-
+  font-size: 15px;
 
   display: grid;
+  $side-column: 23%;
   grid-template-columns: $side-column 1fr $side-column;
   align-items: stretch;
   justify-items: stretch;
@@ -89,17 +69,18 @@ $side-column: 23%;
   grid-template-rows: 20px 1fr 20px 1fr;
   align-items: center;
   justify-items: stretch;
+
   text-align: left;
 }
 
 #restaurant {
-  text-align: right;
   padding-right: 30px;
+  text-align: right;
 }
 
 #lunchmaster {
-  text-align: left;
   padding-left: 30px;
+  text-align: left;
 }
 
 .labels {
@@ -135,6 +116,7 @@ $side-column: 23%;
 
 #participants, #join {
   width: 100%;
+
   display: grid;
   grid-auto-rows: 40px;
   grid-row-gap: 10px;
@@ -142,7 +124,7 @@ $side-column: 23%;
   justify-items: stretch;
 }
 
-.header {
+.orderHeader {
   align-self: center;
   justify-self: center;
 }
@@ -150,11 +132,12 @@ $side-column: 23%;
 .order {
   width: 100%;
   height: 100%;
+  border-radius: 3px;
+
   display: grid;
   align-items: center;
   justify-items: center;
 
-  border-radius: 3px;
 }
 
 .order:hover {
@@ -164,6 +147,9 @@ $side-column: 23%;
 
 #join {
   width: 80%;
+
+  grid-row: 1;
+  grid-column: 2;
 }
 
 #addDish {
@@ -172,10 +158,10 @@ $side-column: 23%;
     width: 85%;
     height: 100%;
     float: left;
-    background: transparent;
-    box-sizing: border-box;
-    border-radius: 3px;
     padding-left: 10px;
+    box-sizing: border-box;
+    background: transparent;
+    border-radius: 3px;
     font-size: 17px;
   }
 
@@ -183,20 +169,81 @@ $side-column: 23%;
     width: 12%;
     height: 100%;
     float: right;
-    border-radius: 3px;
     box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 30px;
+    font-weight: 600;
 
     display: grid;
     align-items: center;
     justify-items: center;
-    font-size: 30px;
-    font-weight: 600;
   }
 
   div:hover {
     cursor: pointer;
     background-color: rgba(168, 168, 168, 0.14);
   }
+}
+
+.orderPosition {
+  width: 100%;
+}
+
+.orderPosition:hover {
+  cursor: pointer;
+}
+
+#dishList {
+  width: 80%;
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 20px;
+
+  transform: translateY(90px);
+
+  display: grid;
+  grid-auto-rows: 20px;
+  grid-row-gap: 8px;
+}
+
+.dishName {
+  float: left;
+}
+
+.dishPrice {
+  float: right;
+}
+
+#lastRow {
+  width: 100%;
+  grid-row: span 6;
+  position: relative;
+  margin-top: 20px;
+}
+
+#total {
+  width: 100%;
+  height: 20px;
+  font-weight: 700;
+}
+
+#placeOrder {
+  width: 150px;
+  height: 30px;
+  margin-top: 15px;
+  position: absolute;
+  right: 0;
+  bottom: 65px;
+  border-radius: 3px;
+
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+#placeOrder:hover {
+  cursor: pointer;
+  background-color: $hover-clr;
 }
 
 

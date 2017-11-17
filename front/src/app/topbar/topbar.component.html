@@ -1,15 +1,17 @@
-<div class="wrapper" [ngStyle]="{background : theme.mainColor}">
+<div class="wrapper" [ngStyle]="{ background : theme.mainColor }">
 
-  <div id="logo" [ngStyle]="{color : theme.fontColor}">
-    <span id="lunchWord">LUNCH</span><span id="msterWord">master</span>
+  <div id="logo" [ngStyle]="{ color : theme.fontColor }">
+    <span id="lunchWord">LUNCH</span><span id="masterWord">master</span>
   </div>
 
   <div id="themes">
 
     <div class="theme"
          *ngFor="let th of themes; let i = index;"
+         [ngClass]="{'selected' : theme.current == i}"
          [ngStyle]="{background : th.secColor}"
-         (click)="theme.setTheme(i)"
-         [ngClass]="{'selected' : theme.current == i}"></div>
+         (click)="theme.setTheme(i)">
+    </div>
+
   </div>
 </div>

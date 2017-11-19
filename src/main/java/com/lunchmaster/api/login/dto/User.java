@@ -18,7 +18,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
@@ -46,7 +46,7 @@ public class User {
     @Column(name="part")
     private String part;
 
-    @Column(name="group")
+    @Column(name="grp")
     private String group;
 
     @Column(name="team")

@@ -1,7 +1,7 @@
-package com.lunchmaster.api.lunch.dto;
+package com.lunchmaster.api.Order.dto;
 
-import com.lunchmaster.api.restaurant.dto.Dish;
 import com.lunchmaster.api.login.dto.User;
+import com.lunchmaster.api.restaurant.dto.Dish;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -14,29 +14,33 @@ import java.util.List;
  */
 
 @Entity
-@Table(name= "lunchorder")
+@Table(name = "lunchorder")
 public class Order {
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="note")
+    @Column(name = "lunch_id")
+    private int lunchId;
+
+    @Column(name = "note")
     private String note;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany
+    @ManyToMany//(cascade = CascadeType.PERSIST)
     @JoinTable(
-            name="lunchorder_dish",
-            joinColumns=@JoinColumn(name="lunchorder_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="dish_id", referencedColumnName="id"))
+            name = "lunchorder_dish",
+            joinColumns = @JoinColumn(name = "lunchorder_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id", referencedColumnName = "id"))
     private List<Dish> dishes;
 
-    public Order(){
+    public Order() {
         this.dishes = new LinkedList<>();
     }
 
@@ -60,6 +64,14 @@ public class Order {
         this.dishes = dishes;
     }
 
+    public int getLunchId() {
+        return lunchId;
+    }
+
+    public void setLunchId(int lunchId) {
+        this.lunchId = lunchId;
+    }
+
     public void setUser(User user) {
         this.user = user;
 
@@ -72,4 +84,16 @@ public class Order {
     public void setNote(String note) {
         this.note = note;
     }
+
+    @Override
+    public String toString() {
+        return "Order:\n" +
+                "{\n" +
+                "id: " + this.id + "\n" +
+                "lunchId: " + this.lunchId + "\n" +
+                "note: " + this.note + "\n" +
+                "....\n" +
+                "}";
+    }
+
 }

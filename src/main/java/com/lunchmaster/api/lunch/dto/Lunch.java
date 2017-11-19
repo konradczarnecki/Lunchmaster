@@ -1,6 +1,7 @@
 package com.lunchmaster.api.lunch.dto;
 
 
+import com.lunchmaster.api.Order.dto.Order;
 import com.lunchmaster.api.restaurant.dto.Restaurant;
 import com.lunchmaster.api.login.dto.User;
 import org.hibernate.annotations.LazyCollection;
@@ -22,6 +23,7 @@ public class Lunch implements Serializable{
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Column(name="status")

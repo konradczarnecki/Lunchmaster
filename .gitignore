@@ -1,5 +1,6 @@
 .gradle
 /build/
+/lunchmaster_log/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -19,6 +20,7 @@
 ### NetBeans ###
 nbproject/private/
 build/
+lunchmaster_log/
 nbbuild/
 dist/
 out/

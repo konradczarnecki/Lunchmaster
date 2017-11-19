@@ -24,13 +24,13 @@ public class OrderController {
     }
 
     /* Save new Order or update existing if Id is present */
-    @PostMapping(value = "/save", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/save", consumes = "application/json", produces = "application/json")
     public Response<Order> saveOrder(@RequestBody Order order) {
         return this.orderService.saveOrder(order);
     }
 
     /* Delete Order by Id */
-    @GetMapping(value = "/delete")
+    @DeleteMapping(value = "/delete")
     public Response<String> deleteOrder(@RequestParam("id") int orderId) {
         return this.orderService.deleteOrder(orderId);
     }

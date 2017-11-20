@@ -5,5 +5,8 @@
 
 export const environment = {
   production: false,
-  apiHost : 'http://localhost:1337'
+  apiHost : 'http://localhost:1337',
+  clientId : 'lunchmaster',
+  clientSecret : 'lunchmasterSecret',
+  authUrl : 'http://auth.url.stub'
 };

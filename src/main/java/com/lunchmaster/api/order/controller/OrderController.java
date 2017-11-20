@@ -1,7 +1,7 @@
-package com.lunchmaster.api.Order.controller;
+package com.lunchmaster.api.order.controller;
 
-import com.lunchmaster.api.Order.dto.Order;
-import com.lunchmaster.api.Order.service.OrderService;
+import com.lunchmaster.api.order.dto.Order;
+import com.lunchmaster.api.order.service.OrderService;
 import com.lunchmaster.api.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class OrderController {
     }
 
     /* Delete Order by Id */
-    @GetMapping(value = "/delete")
+    @DeleteMapping(value = "/delete")
     public Response<String> deleteOrder(@RequestParam("id") int orderId) {
         return this.orderService.deleteOrder(orderId);
     }

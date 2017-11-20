@@ -1,6 +1,6 @@
-package com.lunchmaster.api.Order.dao;
+package com.lunchmaster.api.order.dao;
 
-import com.lunchmaster.api.Order.dto.Order;
+import com.lunchmaster.api.order.dto.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

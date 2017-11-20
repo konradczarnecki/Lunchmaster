@@ -1,4 +1,4 @@
-package com.lunchmaster.api.Order.dto;
+package com.lunchmaster.api.order.dto;
 
 import com.lunchmaster.api.login.dto.User;
 import com.lunchmaster.api.restaurant.dto.Dish;

@@ -1,6 +1,6 @@
-package com.lunchmaster.api.Order.service;
+package com.lunchmaster.api.order.service;
 
-import com.lunchmaster.api.Order.dto.Order;
+import com.lunchmaster.api.order.dto.Order;
 import com.lunchmaster.api.Response;
 
 public interface OrderService {

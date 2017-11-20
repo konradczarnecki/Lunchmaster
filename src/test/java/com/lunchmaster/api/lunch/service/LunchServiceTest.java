@@ -6,7 +6,7 @@ package com.lunchmaster.api.lunch.service;
 
 import com.lunchmaster.api.lunch.dao.LunchDao;
 import com.lunchmaster.api.lunch.dto.Lunch;
-import com.lunchmaster.api.Order.dto.Order;
+import com.lunchmaster.api.order.dto.Order;
 import com.lunchmaster.api.lunch.service.impl.LunchServiceImpl;
 import com.lunchmaster.api.restaurant.dto.Restaurant;
 import com.lunchmaster.api.login.dto.User;

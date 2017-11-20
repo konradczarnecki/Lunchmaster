@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { Lunch } from '../../model';
+import { Lunch, Order} from '../../model';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -13,10 +13,19 @@ export class WallService {
 
     return new Promise<Lunch[]>( resolve => {
 
-      this.http.get(`${environment.apiHost}/api/lunch/list`)
-        .toPromise().then(response => resolve(response.json()));
+      this.http.get(`${environment.apiHost}/api/lunch/list`).subscribe(response => resolve(response.json()));
     });
+  }
 
+  placeOrder(order: Order): Promise<boolean> {
+
+    return new Promise<boolean>(resolve => {
+
+      this.http.post(`${environment.apiHost}/api/order/save`, order).subscribe(response => {
+
+        resolve(response.json().status === 'success');
+      });
+    });
   }
 
 }

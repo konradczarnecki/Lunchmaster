@@ -1,4 +1,4 @@
-<div class="frame" [ngStyle]="{
+<div class="frame" id="frame" [ngStyle]="{
      'border' : theme.border1px,
      'background' : theme.tetrColor,
      'color' : theme.secFontColor
@@ -52,7 +52,9 @@
 
       <div class="header">Participants</div>
 
-      <div class="order" *ngFor="let order of lunch.orders" [ngStyle]="{ border : theme.border1px }">
+      <div class="order" *ngFor="let order of lunch.orders; let i = index;" [id]="'order' + i" [ngStyle]="{ border : theme.border1px }"
+           (mouseover)="showOrderDetails(i)" (mouseleave)="hideOrderDetails()">
+
         {{order.user.firstName}} {{order.user.lastName}}
       </div>
 
@@ -91,7 +93,7 @@
           <span class="dishPrice">{{total}}</span>
         </div>
 
-        <div id="placeOrder" [ngStyle]="{ border : theme.border1px }">ORDER</div>
+        <div id="placeOrder" (click)="placeOrder()" [ngStyle]="{ border : theme.border1px }">ORDER</div>
 
       </div>
 
@@ -101,5 +103,20 @@
   <div style="height: 5px"></div>
 
   <div id="close" (click)="clickClose()" [ngStyle]="{ border: theme.border1px, borderTop : 'none'}">&#x25B2;</div>
+
+</div>
+
+<div id="orderDetails" *ngIf="orderDetailsIndex != -1" #orderDetails
+     [ngStyle]="{ background : theme.tetrColor, border : theme.border1px, color : theme.secFontColor }">
+
+  <div *ngFor="let dish of activeOrder.dishes">
+    <span class="dishName">{{dish.name}}</span>
+    <span class="dishPrice">{{dish.price}}</span>
+  </div>
+
+  <div id="orderDetailTotal">
+    <span class="dishName">Total</span>
+    <span class="dishPrice">{{orderDetailsTotal()}}</span>
+  </div>
 
 </div>

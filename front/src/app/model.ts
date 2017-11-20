@@ -34,22 +34,23 @@ export interface Dish {
 export interface User {
 
   id: number;
-  firstName: string;
-  lastName: string;
-  bankAccount: string;
-  email: string;
-  mobile: string;
-  part: string;
-  group: string;
-  team: string;
-  floor: number;
+  firstName?: string;
+  lastName?: string;
+  bankAccount?: string;
+  email?: string;
+  mobile?: string;
+  part?: string;
+  group?: string;
+  team?: string;
+  floor?: number;
 }
 
 export interface Order {
 
   id: number;
+  lunchId: number;
   user: User;
-  dish: Dish[];
+  dishes: Dish[];
 }
 
 export interface Response {

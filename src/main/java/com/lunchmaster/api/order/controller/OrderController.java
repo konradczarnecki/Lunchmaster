@@ -24,7 +24,7 @@ public class OrderController {
     }
 
     /* Save new Order or update existing if Id is present */
-    @PutMapping(value = "/save", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/save", consumes = "application/json", produces = "application/json")
     public Response<Order> saveOrder(@RequestBody Order order) {
         return this.orderService.saveOrder(order);
     }

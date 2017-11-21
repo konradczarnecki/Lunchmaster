@@ -28,3 +28,24 @@ app-details {
 .inactive {
   pointer-events: none;
 }
+
+#newLunchButton {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  bottom: 100px;
+  right: 100px;
+
+  font-size: 75px;
+  font-weight: 700;
+  border-radius: 100%;
+  box-shadow: 2px 2px 5px 0 rgba(23, 23, 23, 0.47);
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+#newLunchButton:hover {
+  cursor: pointer;
+}

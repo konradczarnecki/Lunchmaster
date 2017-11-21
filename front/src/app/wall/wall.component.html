@@ -9,4 +9,6 @@
 
   <app-details *ngIf="selected != -1" [lunch]="lunches[selected]" (close)="selected = -1" (refresh)="fetchLunches()" [@slide]></app-details>
 
+  <div id="newLunchButton" [ngStyle]="{ border : theme.border2px, color : theme.secFontColor, background: theme.secColor }">+</div>
+
 </div>

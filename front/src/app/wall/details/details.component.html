@@ -53,7 +53,7 @@
       <div class="header">Participants</div>
 
       <div class="order" *ngFor="let order of lunch.orders; let i = index;" [id]="'order' + i" [ngStyle]="{ border : theme.border1px }"
-           (mouseover)="showOrderDetails(i)" (mouseleave)="hideOrderDetails()">
+           (mouseover)="showOrderDetails(i)" (mouseleave)="hideOrderDetails()" (click)="deleteOrder(i)" [ngClass]="{'pointer' : orderBelongsToUser(i)}">
 
         {{order.user.firstName}} {{order.user.lastName}}
       </div>

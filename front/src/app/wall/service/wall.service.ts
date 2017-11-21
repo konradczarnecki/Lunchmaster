@@ -28,4 +28,15 @@ export class WallService {
     });
   }
 
+  deleteOrder(id: number): Promise<boolean> {
+
+    return new Promise<boolean>(resolve => {
+
+      this.http.delete(`${environment.apiHost}/api/order/delete?id=` + id).subscribe(response => {
+
+        resolve(response.json().status === 'success');
+      });
+    });
+  }
+
 }

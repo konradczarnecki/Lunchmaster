@@ -24,7 +24,7 @@ export class DetailsComponent implements OnInit {
   constructor(public theme: ThemeService,
               public service: WallService,
               public loginService: LoginService,
-              public chageDetector: ChangeDetectorRef) { }
+              public changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
 
@@ -91,7 +91,7 @@ export class DetailsComponent implements OnInit {
   showOrderDetails(index: number) {
 
     this.orderDetailsIndex = index;
-    this.chageDetector.detectChanges();
+    this.changeDetector.detectChanges();
 
     const buttonRect = document.getElementById('order' + index).getBoundingClientRect();
     const buttonRightEdge = buttonRect.right;
@@ -112,5 +112,25 @@ export class DetailsComponent implements OnInit {
     let sum = 0;
     for(const dish of this.lunch.orders[this.orderDetailsIndex].dishes) sum += dish.price;
     return sum;
+  }
+
+  deleteOrder(index: number){
+
+    if(this.orderBelongsToUser(index))
+      this.service.deleteOrder(this.lunch.orders[index].id).then(result => {
+
+        if(result){
+
+          this.hideOrderDetails();
+          this.changeDetector.detectChanges();
+
+          this.refresh.emit(true);
+        }
+      });
+  }
+
+  orderBelongsToUser(index: number): boolean {
+
+    return this.lunch.orders[index].user.id === this.loginService.user.id;
   }
 }

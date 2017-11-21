@@ -1,9 +1,10 @@
-package com.lunchmaster.api.order.dto;
+package com.lunchmaster.api.lunch.dto;
 
 import com.lunchmaster.api.login.dto.User;
 import com.lunchmaster.api.restaurant.dto.Dish;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -33,7 +34,7 @@ public class Order {
     private User user;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany//(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(
             name = "lunchorder_dish",
             joinColumns = @JoinColumn(name = "lunchorder_id", referencedColumnName = "id"),
@@ -87,7 +88,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order:\n" +
+        return "order:\n" +
                 "{\n" +
                 "id: " + this.id + "\n" +
                 "lunchId: " + this.lunchId + "\n" +

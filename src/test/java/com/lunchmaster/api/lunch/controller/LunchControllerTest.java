@@ -64,7 +64,7 @@ public class LunchControllerTest {
         lunch.setLunchMaster(new User());
         lunch.setOrders(Collections.emptyList());
 
-        when(lunchService.getLunches()).thenReturn(Arrays.asList(lunch));
+        when(lunchService.fetchLunches()).thenReturn(Arrays.asList(lunch));
 
         mvc.perform(get(LIST_ALL_LUNCHES_URL))
                 .andExpect(
@@ -92,7 +92,7 @@ public class LunchControllerTest {
 
     @Test
     public void getLunches_NoLunchesFound_ShouldReturnEmptyArray() throws Exception {
-        when(lunchService.getLunches()).thenReturn(Collections.emptyList());
+        when(lunchService.fetchLunches()).thenReturn(Collections.emptyList());
 
         mvc.perform(get(LIST_ALL_LUNCHES_URL))
                 .andExpect(

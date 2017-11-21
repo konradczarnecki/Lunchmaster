@@ -4,12 +4,12 @@ package com.lunchmaster.api.lunch.service;
  * Created by m.slefarski on 2017-10-18.
  */
 
+import com.lunchmaster.api.login.dto.User;
 import com.lunchmaster.api.lunch.dao.LunchDao;
 import com.lunchmaster.api.lunch.dto.Lunch;
-import com.lunchmaster.api.order.dto.Order;
+import com.lunchmaster.api.lunch.dto.Order;
 import com.lunchmaster.api.lunch.service.impl.LunchServiceImpl;
 import com.lunchmaster.api.restaurant.dto.Restaurant;
-import com.lunchmaster.api.login.dto.User;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -40,41 +40,41 @@ public class LunchServiceTest {
         }
     }
 
-        @Autowired
-        private LunchService lunchService;
+    @Autowired
+    private LunchService lunchService;
 
-        @MockBean
-        private LunchDao dao;
+    @MockBean
+    private LunchDao dao;
 
-        private Lunch lunch;
+    private Lunch lunch;
 
 
-        @Before
-        public void setup(){
+    @Before
+    public void setup() {
 
-            //init Lunch object
-            lunch = new Lunch();
-            lunch.setRestaurant(new Restaurant());
-            lunch.setOrders(new ArrayList<Order>());
-            lunch.setLunchMaster(new User());
-            lunch.setStatus("TEST");
-            lunch.setDeadline(new Date());
-            lunch. setExpectedDelivery(1000);
+        //init Lunch object
+        lunch = new Lunch();
+        lunch.setRestaurant(new Restaurant());
+        lunch.setOrders(new ArrayList<Order>());
+        lunch.setLunchMaster(new User());
+        lunch.setStatus("TEST");
+        lunch.setDeadline(new Date());
+        lunch.setExpectedDelivery(1000);
 
-            List<Lunch> lunches = Collections.singletonList(lunch);
-            Mockito.when(dao.findAll()).thenReturn(lunches);
-        }
+        List<Lunch> lunches = Collections.singletonList(lunch);
+        Mockito.when(dao.findAll()).thenReturn(lunches);
+    }
 
-        @Ignore
-        @Test
-        public void whenFingAll_thenLunchesShouldBeFound(){
+    @Ignore
+    @Test
+    public void whenFingAll_thenLunchesShouldBeFound() {
 
-            List<Lunch> lunches = lunchService.getLunches();
+        List<Lunch> lunches = lunchService.fetchLunches();
 
-            //returned array shoud be the same and not changed
-            assertThat(lunches.size()).isEqualTo(1);
-            assertThat(lunches.get(0)).isEqualTo(lunch);
+        //returned array shoud be the same and not changed
+        assertThat(lunches.size()).isEqualTo(1);
+        assertThat(lunches.get(0)).isEqualTo(lunch);
 
-        }
+    }
 
 }

@@ -51,22 +51,20 @@ public class LunchServiceImpl implements LunchService {
     @Override
     public Response<Lunch> saveLunch(Lunch lunch) {
         Response<Lunch> resp = new Response<>();
+        resp.setContent(lunch);
 
         //ensure integrity of orders
-        if(lunch.getId()!=0) {
+        if (lunch.getId() != 0 && !lunch.getOrders().isEmpty()) {
             lunch.setOrders(orderDao.getByLunchId(lunch.getId()));
         }
         //save
         try {
             lunch = this.lunchDao.save(lunch);
-            resp.setContent(lunch);
+            resp.saveSuccess(Lunch.class, lunch.getId());
         } catch (Exception exc) {
             //error during save
             resp.saveError(Lunch.class, lunch.getId(), exc);
-            return resp;
         }
-        //success
-        resp.saveSuccess(Lunch.class, lunch.getId());
         return resp;
     }
 
@@ -84,15 +82,12 @@ public class LunchServiceImpl implements LunchService {
             try {
                 this.orderDao.deleteByLunchId(lunchId);
                 this.lunchDao.deleteById(lunchId);
+                resp.deleteSuccess(Lunch.class, lunchId);
             } catch (Exception exc) {
                 //error during delete
                 resp.deleteFoundButError(Lunch.class, lunchId, exc);
-                return resp;
             }
-            //success
-            resp.deleteSuccess(Lunch.class, lunchId);
         }
-
         return resp;
     }
 
@@ -100,17 +95,14 @@ public class LunchServiceImpl implements LunchService {
     @Override
     public Response<Order> saveOrder(Order order) {
         Response<Order> resp = new Response<>();
+        resp.setContent(order);
         try {
             order = this.orderDao.save(order);
-            resp.setContent(order);
-
+            resp.saveSuccess(Order.class, order.getId());
         } catch (Exception exc) {
             //error during save
             resp.saveError(Order.class, order.getId(), exc);
-            return resp;
         }
-        //success
-        resp.saveSuccess(Order.class, order.getId());
         return resp;
     }
 
@@ -127,15 +119,11 @@ public class LunchServiceImpl implements LunchService {
         else {
             try {
                 this.orderDao.deleteById(orderId);
+                resp.deleteSuccess(Order.class, orderId);
             } catch (Exception exc) {
-                //error during delete
                 resp.deleteFoundButError(Order.class, orderId, exc);
-                return resp;
             }
-            //success
-            resp.deleteSuccess(Order.class, orderId);
         }
-
         return resp;
     }
 
@@ -146,7 +134,7 @@ public class LunchServiceImpl implements LunchService {
 
     @Override
     public List<Order> fetchOrderByLunchId(int lunchId) {
-        return  this.orderDao.getByLunchId(lunchId);
+        return this.orderDao.getByLunchId(lunchId);
     }
 }
 

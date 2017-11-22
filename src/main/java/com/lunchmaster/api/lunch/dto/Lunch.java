@@ -20,6 +20,38 @@ import java.util.List;
 @Table(name = "lunch")
 public class Lunch implements Serializable{
 
+    /**
+     * LUNCH STATUS
+     * NOTE: BELOW DESCRIPTION IS NOT FINAL BY ANY MEANS! IT SHOULD BE DISCUSSED IN DETAIL)
+     *
+     * State machine is quite simple: OPEN -> CLOSED -> DELIVERED -> ARCHIVED
+     * All other changes are forbidden and must be restricted by a proper state machine
+     *
+     * Lunch status description:
+     *
+     * @OPEN
+     * newly created lunch that is open for orders!
+     *
+     * @CLOSED
+     * lunch that is after deadline and orders cannot be placed or edited.
+     * This state if from deadline to the moment of food arival.
+     *
+     * @DELIVERED
+     * Food is here! Lunchmaster closes lunch, lunch participants are recieving email/sms.
+     * Now (or rather after lunch :) is the time for all billing operations.
+     *
+     * At this moment under the hood lunch becomes a 'snapshot' in MongoDB
+     * to prevent all price changes on orders. After successful transfer lunch is being
+     * removed from MySQL.
+     *
+     * Everything except billing options are disabled.
+     *
+     * @ARCHIEVED
+     * All payments are settled. Lunch becomes uneditable and
+     * as a snapshot lands in the Mongo archive collection... FOREVER :)
+     */
+    private enum LunchStatus {OPEN, CLOSED, ORDERED, ARCHIVED}
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -120,4 +152,5 @@ public class Lunch implements Serializable{
                 ", orders=" + orders.toString() +
                 '}';
     }
+
 }

@@ -7,8 +7,8 @@
 
   </div>
 
-  <app-details *ngIf="selected != -1" [lunch]="lunches[selected]" (close)="selected = -1" (refresh)="fetchLunches()" [@slide]></app-details>
-  <app-new-lunch *ngIf="newLunchOpened" (close)="newLunchOpened = false" [@slide]></app-new-lunch>
+  <app-details *ngIf="selected != -1" [lunch]="lunches[selected]" (close)="selected = -1" (refresh)="onLunchesModified()" [@slide]></app-details>
+  <app-new-lunch *ngIf="newLunchOpened" (refresh)="onLunchesModified()" (close)="newLunchOpened = false" [@slide]></app-new-lunch>
 
   <div id="newLunchButton" (click)="openNewLunch()" [ngStyle]="{ border : theme.border2px, color : theme.secFontColor, background: theme.secColor }">+</div>
 

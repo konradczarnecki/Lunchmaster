@@ -69,4 +69,11 @@ export class WallComponent implements OnInit {
     this.newLunchOpened = true;
   }
 
+  onLunchesModified(){
+
+    this.newLunchOpened = false;
+    this.selected = -1;
+    this.fetchLunches();
+  }
+
 }

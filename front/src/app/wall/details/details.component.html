@@ -4,7 +4,13 @@
      'color' : theme.secFontColor
 }">
 
-  <div class="filler"></div>
+  <div class="filler" *ngIf="!userIsLunchmaster()"></div>
+
+  <div id="icons" *ngIf="userIsLunchmaster()">
+
+    <div id="delete" title="Delete lunch" (click)="deleteLunch()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">X</div>
+    <div id="edit" title="Edit lunch" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">E</div>
+  </div>
 
   <div id="info" [ngStyle]="{ color : theme.secFontColor }">
 
@@ -90,7 +96,7 @@
 
         <div id="total">
           <span class="dishName">Total</span>
-          <span class="dishPrice">{{total}}</span>
+          <span class="dishPrice">{{total()}}</span>
         </div>
 
         <div id="placeOrder" (click)="placeOrder()" [ngStyle]="{ border : theme.border1px }">ORDER</div>
@@ -109,7 +115,7 @@
 <div id="orderDetails" *ngIf="orderDetailsIndex != -1" #orderDetails
      [ngStyle]="{ background : theme.tetrColor, border : theme.border1px, color : theme.secFontColor }">
 
-  <div *ngFor="let dish of activeOrder.dishes">
+  <div *ngFor="let dish of activeOrder().dishes">
     <span class="dishName">{{dish.name}}</span>
     <span class="dishPrice">{{dish.price}}</span>
   </div>

@@ -4,6 +4,38 @@
      'color' : theme.secFontColor
 }">
 
+  <div class="filler"></div>
+  <div id="title">NEW LUNCH</div>
+  <div class="filler"></div>
+
+  <div class="row">
+    <span class="left">Restaurant</span>
+
+    <input class="right" type="text" list="restaurants" [(ngModel)]="chosenRestaurant" [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }"/>
+
+    <datalist id="restaurants">
+      <option *ngFor="let restaurant of restaurants">{{restaurant.name}}</option>
+    </datalist>
+
+  </div>
+
+
+  <div class="row">
+
+    <span class="left">Deadline</span>
+    <input class="right" type="text" placeholder="hh:mm" [(ngModel)]="deadline" [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }"/>
+
+  </div>
+
+  <div class="row">
+
+    <span class="left">Expected</span>
+    <input class="right" type="text" placeholder="min" [(ngModel)]="expected" [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }"/>
+
+  </div>
+
+  <div id="createLunch" (click)="createLunch()" [ngStyle]="{ border : theme.border1px }">CREATE LUNCH</div>
+
   <div style="height: 5px"></div>
 
   <div id="close" (click)="clickClose()" [ngStyle]="{ border: theme.border1px, borderTop : 'none'}">&#x25B2;</div>

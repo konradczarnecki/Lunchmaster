@@ -11,8 +11,8 @@
   font-size: 20px;
 
   display: grid;
-  grid-template-rows: 50px 100px 1fr;
-  grid-row-gap: 20px;
+  grid-template-rows: 60px 100px 1fr;
+  grid-row-gap: 10px;
   overflow: hidden;
 
   @media screen and (max-width: 850px) {
@@ -20,6 +20,39 @@
   }
 }
 
+#icons {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 1fr 15px;
+  grid-template-columns: 10px 30px 30px 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+#delete, #edit {
+  width: 25px;
+  height: 100%;
+  font: $font;
+  font-size: 12px;
+  text-align: center;
+}
+
+#delete:hover, #edit:hover {
+  cursor: pointer;
+  background: $hover-clr;
+}
+
+#delete {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#edit {
+  grid-column: 3;
+  grid-row: 2;
+}
 
 #close {
   width: 105%;
@@ -105,11 +138,15 @@
 
 #orders {
   width: 90%;
-  margin: 10px auto;
+  margin: 20px auto;
 
   display: grid;
   grid-template-columns: 35% 70%;
   justify-items: center;
+}
+
+.header {
+  text-align: center;
 }
 
 #participants, #join {

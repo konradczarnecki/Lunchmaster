@@ -32,17 +32,31 @@ export class DetailsComponent implements OnInit {
     this.orderDetailsIndex = -1;
   }
 
-  get total(): number {
+  total(): number {
 
     let total = 0;
     for(const dish of this.dishList) total += dish.price;
     return total;
   }
 
-  get activeOrder(): Order {
+  activeOrder(): Order {
 
     if(this.orderDetailsIndex < 0) return null;
     else return this.lunch.orders[this.orderDetailsIndex];
+  }
+
+  userIsLunchmaster(): boolean {
+
+    if(this.lunch === undefined) return false;
+    return this.loginService.user.id === this.lunch.lunchMaster.id;
+  }
+
+  deleteLunch(){
+
+    this.service.deleteLunch(this.lunch.id).then(result => {
+
+      if(result) this.refresh.emit(true);
+    });
   }
 
   clickClose(): void {

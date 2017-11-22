@@ -1,8 +1,8 @@
 @import '../../common';
 
 .frame {
-  width: 700px;
-  height: 500px;
+  width: 400px;
+  height: 350px;
   position: relative;
   margin: auto;
   padding-bottom: 15px;
@@ -12,8 +12,8 @@
   font-size: 20px;
 
   display: grid;
-  grid-template-rows: 50px 50px 1fr;
-  grid-row-gap: 20px;
+  grid-template-rows: 40px 40px 15px repeat(3, 35px) 65px 1fr;
+  grid-row-gap: 10px;
   overflow: hidden;
 
   @media screen and (max-width: 850px) {
@@ -38,6 +38,57 @@
 }
 
 #close:hover {
+  cursor: pointer;
+  background-color: $hover-clr;
+}
+
+#title{
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  font-size: 25px;
+}
+
+.row {
+  width: 100%;
+  height: 100%;
+  line-height: 35px;
+}
+
+
+.left {
+  float: left;
+  margin-left: 25px;
+}
+
+.right {
+  float: right;
+  margin-right: 30px;
+}
+
+input {
+  width: 45%;
+  height: 100%;
+  float: left;
+  padding-left: 10px;
+  box-sizing: border-box;
+  background: transparent;
+  border-radius: 3px;
+  font-size: 17px;
+}
+
+#createLunch {
+  width: 60%;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 3px;
+  text-align: center;
+
+  justify-self: center;
+  align-self: center;
+}
+
+#createLunch:hover {
   cursor: pointer;
   background-color: $hover-clr;
 }

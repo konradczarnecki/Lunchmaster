@@ -21,7 +21,7 @@ export class WallService {
 
     return new Promise<boolean>(resolve => {
 
-      this.http.post(`${environment.apiHost}/api/order/save`, order).subscribe(response => {
+      this.http.post(`${environment.apiHost}/api/lunch/order/save`, order).subscribe(response => {
 
         resolve(response.json().status === 'success');
       });
@@ -32,7 +32,7 @@ export class WallService {
 
     return new Promise<boolean>(resolve => {
 
-      this.http.delete(`${environment.apiHost}/api/order/delete?id=` + id).subscribe(response => {
+      this.http.delete(`${environment.apiHost}/api/lunch/order/delete?id=` + id).subscribe(response => {
 
         resolve(response.json().status === 'success');
       });

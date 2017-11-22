@@ -1,0 +1,10 @@
+<div class="frame" id="frame" [ngStyle]="{
+     'border' : theme.border1px,
+     'background' : theme.tetrColor,
+     'color' : theme.secFontColor
+}">
+
+  <div style="height: 5px"></div>
+
+  <div id="close" (click)="clickClose()" [ngStyle]="{ border: theme.border1px, borderTop : 'none'}">&#x25B2;</div>
+</div>

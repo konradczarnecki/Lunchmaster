@@ -17,6 +17,8 @@ export class WallComponent implements OnInit {
   lunches: Lunch[];
   selected: number;
 
+  newLunchOpened: boolean;
+
   constructor(private service: WallService,
               private changeDet: ChangeDetectorRef,
               public theme: ThemeService) { }
@@ -29,9 +31,9 @@ export class WallComponent implements OnInit {
     window.onresize = this.adjustGrid.bind(this);
   }
 
-  get detailsState(): string {
+  get tilesInactive(): boolean {
 
-    return this.selected === -1 ? 'hidden' : 'shown';
+    return this.selected !== -1 || this.newLunchOpened === true;
   }
 
   fetchLunches() {
@@ -53,6 +55,18 @@ export class WallComponent implements OnInit {
 
     document.getElementById('grid').style.width = gridWidth + 'px';
     this.changeDet.detectChanges();
+  }
+
+  openDetails(index: number){
+
+    this.newLunchOpened = false;
+    this.selected = index;
+  }
+
+  openNewLunch(){
+
+    this.selected = -1;
+    this.newLunchOpened = true;
   }
 
 }

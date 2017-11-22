@@ -14,7 +14,7 @@ export const slideAnimation = trigger('slide', [
 
 export const fadeAnimation = trigger('fade', [
 
-  state('hidden', style({opacity : 1})),
-  state('shown', style({opacity : 0.25})),
+  state('shown', style({opacity : 1})),
+  state('hidden', style({opacity : 0.25})),
   transition('shown <=> hidden',animate('300ms ease-out'))
 ]);

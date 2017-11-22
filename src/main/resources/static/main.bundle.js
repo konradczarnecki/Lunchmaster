@@ -474,6 +474,13 @@ var ThemeService = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ThemeService.prototype, "border2px", {
+        get: function () {
+            return 'solid 2px ' + this.themes[this.current].highlightColor;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ThemeService.prototype, "name", {
         get: function () {
             return this.themes[this.current].name;
@@ -675,11 +682,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var DetailsComponent = (function () {
-    function DetailsComponent(theme, service, loginService, chageDetector) {
+    function DetailsComponent(theme, service, loginService, changeDetector) {
         this.theme = theme;
         this.service = service;
         this.loginService = loginService;
-        this.chageDetector = chageDetector;
+        this.changeDetector = changeDetector;
         this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
         this.refresh = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
     }
@@ -746,7 +753,7 @@ var DetailsComponent = (function () {
     };
     DetailsComponent.prototype.showOrderDetails = function (index) {
         this.orderDetailsIndex = index;
-        this.chageDetector.detectChanges();
+        this.changeDetector.detectChanges();
         var buttonRect = document.getElementById('order' + index).getBoundingClientRect();
         var buttonRightEdge = buttonRect.right;
         var detailsLeftEdge = document.getElementById('frame').getBoundingClientRect().left;
@@ -771,7 +778,7 @@ var DetailsComponent = (function () {
             this.service.deleteOrder(this.lunch.orders[index].id).then(function (result) {
                 if (result) {
                     _this.hideOrderDetails();
-                    _this.chageDetector.detectChanges();
+                    _this.changeDetector.detectChanges();
                     _this.refresh.emit(true);
                 }
             });
@@ -844,7 +851,7 @@ var WallService = (function () {
     WallService.prototype.placeOrder = function (order) {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.post(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/order/save", order).subscribe(function (response) {
+            _this.http.post(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/order/save", order).subscribe(function (response) {
                 resolve(response.json().status === 'success');
             });
         });
@@ -852,7 +859,7 @@ var WallService = (function () {
     WallService.prototype.deleteOrder = function (id) {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.delete(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/order/delete?id=" + id).subscribe(function (response) {
+            _this.http.delete(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/order/delete?id=" + id).subscribe(function (response) {
                 resolve(response.json().status === 'success');
             });
         });
@@ -957,7 +964,7 @@ var _c, _d, _a, _b;
 /***/ "../../../../../src/app/wall/wall.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background: theme.secColor }\">\r\n\r\n  <div id=\"grid\" [ngClass]=\"{ 'inactive' : selected != -1 }\" [@fade]=\"detailsState\">\r\n\r\n    <app-tile *ngFor=\"let lunch of lunches; let i = index;\"\r\n              [lunch]=\"lunch\" (click)=\"selected = i\"></app-tile>\r\n\r\n  </div>\r\n\r\n  <app-details *ngIf=\"selected != -1\" [lunch]=\"lunches[selected]\" (close)=\"selected = -1\" (refresh)=\"fetchLunches()\" [@slide]></app-details>\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background: theme.secColor }\">\r\n\r\n  <div id=\"grid\" [ngClass]=\"{ 'inactive' : selected != -1 }\" [@fade]=\"detailsState\">\r\n\r\n    <app-tile *ngFor=\"let lunch of lunches; let i = index;\"\r\n              [lunch]=\"lunch\" (click)=\"selected = i\"></app-tile>\r\n\r\n  </div>\r\n\r\n  <app-details *ngIf=\"selected != -1\" [lunch]=\"lunches[selected]\" (close)=\"selected = -1\" (refresh)=\"fetchLunches()\" [@slide]></app-details>\r\n\r\n  <div id=\"newLunchButton\" [ngStyle]=\"{ border : theme.border2px, color : theme.secFontColor, background: theme.secColor }\">+</div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -969,7 +976,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  background: rgba(88, 113, 238, 0.95);\n  padding-top: 50px; }\n\n#grid {\n  margin: auto;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (minmax(400px, 1fr))[auto-fill];\n      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));\n  grid-auto-rows: 130px;\n  grid-gap: 10px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\napp-details {\n  position: absolute;\n  top: 0;\n  right: -10px; }\n\n.inactive {\n  pointer-events: none; }\n", ""]);
+exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  background: rgba(88, 113, 238, 0.95);\n  padding-top: 50px; }\n\n#grid {\n  margin: auto;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (minmax(400px, 1fr))[auto-fill];\n      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));\n  grid-auto-rows: 130px;\n  grid-gap: 10px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\napp-details {\n  position: absolute;\n  top: 0;\n  right: -10px; }\n\n.inactive {\n  pointer-events: none; }\n\n#newLunchButton {\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  bottom: 100px;\n  right: 100px;\n  font-size: 75px;\n  font-weight: 700;\n  border-radius: 100%;\n  box-shadow: 2px 2px 5px 0 rgba(23, 23, 23, 0.47);\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n#newLunchButton:hover {\n  cursor: pointer; }\n", ""]);
 
 // exports
 

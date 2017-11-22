@@ -1,14 +1,15 @@
 <div class="wrapper" [ngStyle]="{ background: theme.secColor }">
 
-  <div id="grid" [ngClass]="{ 'inactive' : selected != -1 }" [@fade]="detailsState">
+  <div id="grid" [ngClass]="{ 'inactive' : tilesInactive }" [@fade]="tilesInactive ? 'hidden' : 'shown'">
 
     <app-tile *ngFor="let lunch of lunches; let i = index;"
-              [lunch]="lunch" (click)="selected = i"></app-tile>
+              [lunch]="lunch" (click)="openDetails(i)"></app-tile>
 
   </div>
 
   <app-details *ngIf="selected != -1" [lunch]="lunches[selected]" (close)="selected = -1" (refresh)="fetchLunches()" [@slide]></app-details>
+  <app-new-lunch *ngIf="newLunchOpened" (close)="newLunchOpened = false" [@slide]></app-new-lunch>
 
-  <div id="newLunchButton" [ngStyle]="{ border : theme.border2px, color : theme.secFontColor, background: theme.secColor }">+</div>
+  <div id="newLunchButton" (click)="openNewLunch()" [ngStyle]="{ border : theme.border2px, color : theme.secFontColor, background: theme.secColor }">+</div>
 
 </div>

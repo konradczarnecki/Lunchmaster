@@ -19,7 +19,7 @@
   justify-items: center;
 }
 
-app-details {
+app-details, app-new-lunch {
   position: absolute;
   top: 0;
   right: -10px;
@@ -39,7 +39,8 @@ app-details {
   font-size: 75px;
   font-weight: 700;
   border-radius: 100%;
-  box-shadow: 2px 2px 5px 0 rgba(23, 23, 23, 0.47);
+  box-shadow: 2px 2px 3px 0 rgba(81, 81, 81, 0.23);
+  user-select: none;
 
   display: grid;
   align-items: center;
@@ -48,4 +49,8 @@ app-details {
 
 #newLunchButton:hover {
   cursor: pointer;
+}
+
+#newLunchButton:active {
+  box-shadow: inset 0.5px 0.5px 5px 2px rgba(77, 77, 77, 0.27);
 }

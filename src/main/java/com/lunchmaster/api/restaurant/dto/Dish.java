@@ -26,7 +26,7 @@ public class Dish implements Serializable {
     @Column(name="img")
     private String img;
 
-    @Column(name="restaurantId")
+    @Column(name="restaurant_id")
     private int restaurantId;
 
     public int getRestaurantId() {

@@ -36,6 +36,47 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurantDao.findAll();
     }
 
+    @Override
+    public Restaurant getRestaurantById(int id) {
+        return this.restaurantDao.getById(id);
+    }
+
+    @Override
+    public Response<Restaurant> saveRestaurant(Restaurant restaurant) {
+        Response<Restaurant> resp = new Response<>();
+
+        if(restaurant.getId()!=0)
+            //can't change dishes!
+            restaurant.setDishes(this.dishDao.getByRestaurantId(restaurant.getId()));
+        try{
+            restaurant=this.restaurantDao.save(restaurant);
+            resp.saveSuccess(Restaurant.class, restaurant.getId());
+            resp.setContent(restaurant);
+        }catch(Exception exc){
+            resp.saveError(Restaurant.class, restaurant.getId(), exc);
+        }
+        return resp;
+    }
+
+    @Override
+    public Response<String> deleteRestaurantById(int id) {
+        Response<String> resp = new Response<>();
+        Restaurant restaurant = this.restaurantDao.getById(id);
+        if(restaurant==null){
+                resp.deleteNotFound(Restaurant.class, id);
+        }
+        else{
+            try {
+                this.dishDao.deleteByRestaurantId(id);
+                this.restaurantDao.deleteById(id);
+                resp.deleteSuccess(Restaurant.class, id);
+            }catch(Exception exc){
+                resp.deleteFoundButError(Restaurant.class, id, exc);
+            }
+        }
+        return resp;
+    }
+
     /* DISH */
     @Override
     public Dish getDishById(int id) {

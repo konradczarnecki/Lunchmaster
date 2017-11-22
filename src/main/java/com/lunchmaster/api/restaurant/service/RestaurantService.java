@@ -14,6 +14,12 @@ public interface RestaurantService {
     /* RESTAURANT */
    List<Restaurant> getAllRestaurants();
 
+   Restaurant getRestaurantById(int id);
+
+   Response<Restaurant> saveRestaurant(Restaurant restaurant);
+
+   Response<String> deleteRestaurantById(int id);
+
    /* DISH */
    Dish getDishById(int id);
 

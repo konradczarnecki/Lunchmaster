@@ -35,13 +35,14 @@ public class LunchServiceImpl implements LunchService {
     }
 
 
+    /* LUNCH */
     /* Get all lunches */
     @Override
     public List<Lunch> fetchLunches() {
         return lunchDao.findAll();
     }
 
-    /* Get lunch by id */
+    /* Fetch lunch by id */
     @Override
     public Lunch fetchLunch(int id) {
         return this.lunchDao.getById(id);
@@ -54,9 +55,9 @@ public class LunchServiceImpl implements LunchService {
         resp.setContent(lunch);
 
         //ensure integrity of orders
-        if (lunch.getId() != 0 && !lunch.getOrders().isEmpty()) {
-            lunch.setOrders(orderDao.getByLunchId(lunch.getId()));
-        }
+        if (lunch.getId() != 0)
+            lunch.setOrders(this.orderDao.getByLunchId(lunch.getId()));
+
         //save
         try {
             lunch = this.lunchDao.save(lunch);
@@ -91,7 +92,8 @@ public class LunchServiceImpl implements LunchService {
         return resp;
     }
 
-
+    /* ORDER */
+    /* Save new order or update existing */
     @Override
     public Response<Order> saveOrder(Order order) {
         Response<Order> resp = new Response<>();

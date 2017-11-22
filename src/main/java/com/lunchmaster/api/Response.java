@@ -2,8 +2,8 @@ package com.lunchmaster.api;
 
 public class Response<T>{
 
-    public static final String SUCCESS = "success";
-    public static final String FAILURE = "failure";
+    private static final String SUCCESS = "success";
+    private static final String FAILURE = "failure";
 
     private String status;
     private String details;
@@ -42,6 +42,13 @@ public class Response<T>{
     }
 
 
+    public void success(){
+        this.setStatus(SUCCESS);
+    }
+
+    public void failure(){
+        this.setStatus(FAILURE);
+    }
 
     public void deleteSuccess(Class cls, int id) {
         this.status = SUCCESS;

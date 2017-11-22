@@ -1,6 +1,6 @@
 package com.lunchmaster.api;
 
-public class Response <T> {
+public class Response<T> {
 
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";
@@ -10,7 +10,8 @@ public class Response <T> {
 
     private T content;
 
-    public Response(){}
+    public Response() {
+    }
 
     public Response(String status) {
         this.status = status;
@@ -40,5 +41,32 @@ public class Response <T> {
         this.details = details;
     }
 
+
+
+    public void deleteSuccess(Class cls, int id) {
+        this.status = SUCCESS;
+        this.details = cls.getSimpleName() + " with id=" + id + " was successfully deleted.";
+    }
+
+
+    public void deleteNotFound(Class cls, int id) {
+        this.status = FAILURE;
+        this.details = "Error during delete operation on " + cls.getSimpleName() + " with id=" + id + ". Object not found!";
+    }
+
+    public void deleteFoundButError(Class cls, int id, Exception exc) {
+        this.status = FAILURE;
+        this.details = cls.getSimpleName() + " with id=" + id + " was found, but there was an error during deletion.\n"+exc.toString();
+    }
+
+    public void saveSuccess(Class cls, int id) {
+        this.status = SUCCESS;
+        this.details = cls.getSimpleName() + " with id=" + id + " was successfully saved.";
+    }
+
+    public void saveError(Class cls, int id, Exception exc) {
+        this.status = FAILURE;
+        this.details =  "Error during save operation on " + cls.getSimpleName() + " with id=" + id+".\n" + exc.toString();
+    }
 
 }

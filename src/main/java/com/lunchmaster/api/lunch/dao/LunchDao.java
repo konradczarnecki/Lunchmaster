@@ -2,6 +2,7 @@ package com.lunchmaster.api.lunch.dao;
 
 import com.lunchmaster.api.lunch.dto.Lunch;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +12,16 @@ import java.util.List;
 
 public interface LunchDao extends JpaRepository<Lunch, Integer> {
 
+    @Transactional(readOnly = true)
     List<Lunch> findAll();
+
+    @Transactional(readOnly = true)
+    Lunch getById(int id);
+
+    @Transactional
+    Lunch save(Lunch lunch);
+
+    @Transactional
+    void deleteById(int id);
     
 }

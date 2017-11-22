@@ -1,9 +1,9 @@
 package com.lunchmaster.api;
 
-public class Response<T> {
+public class Response<T>{
 
-    public static final String SUCCESS = "success";
-    public static final String FAILURE = "failure";
+    private static final String SUCCESS = "success";
+    private static final String FAILURE = "failure";
 
     private String status;
     private String details;
@@ -42,21 +42,37 @@ public class Response<T> {
     }
 
 
+    public void success(){
+        this.setStatus(SUCCESS);
+    }
+
+    public void failure(){
+        this.setStatus(FAILURE);
+    }
 
     public void deleteSuccess(Class cls, int id) {
         this.status = SUCCESS;
         this.details = cls.getSimpleName() + " with id=" + id + " was successfully deleted.";
     }
 
+    public void deleteBulkSuccess(Class cls) {
+        this.status = SUCCESS;
+        this.details = "Objects of type "+cls.getSimpleName() + " were successfully deleted.";
+    }
 
     public void deleteNotFound(Class cls, int id) {
         this.status = FAILURE;
         this.details = "Error during delete operation on " + cls.getSimpleName() + " with id=" + id + ". Object not found!";
     }
 
+    public void deleteBulkError(Class cls, Exception exc){
+        this.status = FAILURE;
+        this.details = "Error during bulk delete operation on objects of type " + cls.getSimpleName() + ": "+exc.toString();
+    }
+
     public void deleteFoundButError(Class cls, int id, Exception exc) {
         this.status = FAILURE;
-        this.details = cls.getSimpleName() + " with id=" + id + " was found, but there was an error during deletion.\n"+exc.toString();
+        this.details = cls.getSimpleName() + " with id=" + id + " was found, but there was an error during deletion: "+exc.toString();
     }
 
     public void saveSuccess(Class cls, int id) {
@@ -66,7 +82,7 @@ public class Response<T> {
 
     public void saveError(Class cls, int id, Exception exc) {
         this.status = FAILURE;
-        this.details =  "Error during save operation on " + cls.getSimpleName() + " with id=" + id+".\n" + exc.toString();
+        this.details =  "Error during save operation on " + cls.getSimpleName() + " with id=" + id+": " + exc.toString();
     }
 
 }

@@ -29,29 +29,34 @@ public class LunchController {
         this.lunchService = lunchServiceImpl;
     }
 
+    /* LUNCH */
+
+    /* Fetch all lunches */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Lunch> getLunches() {
         return lunchService.fetchLunches();
     }
 
     /* Get Lunch by Id */
-    @GetMapping(value = "/fetch")
+    @GetMapping(value = "/fetch", produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Lunch fetchLunch(@RequestParam("id") int lunchId) {
         return this.lunchService.fetchLunch(lunchId);
     }
 
     /* Save new Lunch or update existing if Id is present */
-    @PostMapping(value = "/save", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Response<Lunch> saveLunch(@RequestBody Lunch lunch) {
         return this.lunchService.saveLunch(lunch);
     }
 
     /* Delete Lunch by Id */
-    @DeleteMapping(value = "/delete")
+    @DeleteMapping(value = "/delete", produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Response<String> deleteLunch(@RequestParam("id") int lunchId) {
         return this.lunchService.deleteLunch(lunchId);
     }
 
+
+    /* ORDER */
     /* Get order by Id */
     @GetMapping(value = "/order/fetch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Order fetchOrder(@RequestParam("id") int orderId){
@@ -59,13 +64,13 @@ public class LunchController {
     }
 
     /* Save new order or update existing if Id is present */
-    @PostMapping(value = "/order/save", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/order/save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Response<Order> saveOrder(@RequestBody Order order) {
         return this.lunchService.saveOrder(order);
     }
 
     /* Delete order by Id */
-    @DeleteMapping(value = "/order/delete")
+    @DeleteMapping(value = "/order/delete", produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Response<String> deleteOrder(@RequestParam("id") int orderId) {
         return this.lunchService.deleteOrder(orderId);
     }

@@ -1,5 +1,7 @@
 package com.lunchmaster.api.restaurant.service;
 
+import com.lunchmaster.api.Response;
+import com.lunchmaster.api.restaurant.dto.Dish;
 import com.lunchmaster.api.restaurant.dto.Restaurant;
 
 import java.util.List;
@@ -9,5 +11,22 @@ import java.util.List;
  */
 public interface RestaurantService {
 
-    public List<Restaurant> getAllRestaurants();
+    /* RESTAURANT */
+   List<Restaurant> getAllRestaurants();
+
+   Restaurant getRestaurantById(int id);
+
+   Response<Restaurant> saveRestaurant(Restaurant restaurant);
+
+   Response<String> deleteRestaurantById(int id);
+
+   /* DISH */
+   Dish getDishById(int id);
+
+   List<Dish> getDishesByRestaurantId(int restaurantId);
+
+   Response<Dish> saveDish(Dish dish);
+
+   Response<String> deleteDishById(int id);
+
 }

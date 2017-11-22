@@ -26,6 +26,17 @@ public class Dish implements Serializable {
     @Column(name="img")
     private String img;
 
+    @Column(name="restaurant_id")
+    private int restaurantId;
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
     public int getId() {
         return id;
     }
@@ -57,4 +68,6 @@ public class Dish implements Serializable {
     public void setImg(String img) {
         this.img = img;
     }
+
+
 }

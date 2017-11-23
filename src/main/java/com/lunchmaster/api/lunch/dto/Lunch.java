@@ -5,10 +5,11 @@ import com.lunchmaster.api.restaurant.dto.Restaurant;
 import com.lunchmaster.api.login.dto.User;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import java.util.Date;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,38 +20,6 @@ import java.util.List;
 @Entity
 @Table(name = "lunch")
 public class Lunch implements Serializable{
-
-    /**
-     * LUNCH STATUS
-     * NOTE: BELOW DESCRIPTION IS NOT FINAL BY ANY MEANS! IT SHOULD BE DISCUSSED IN DETAIL)
-     *
-     * State machine is quite simple: OPEN -> CLOSED -> DELIVERED -> ARCHIVED
-     * All other changes are forbidden and must be restricted by a proper state machine
-     *
-     * Lunch status description:
-     *
-     * @OPEN
-     * newly created lunch that is open for orders!
-     *
-     * @CLOSED
-     * lunch that is after deadline and orders cannot be placed or edited.
-     * This state if from deadline to the moment of food arival.
-     *
-     * @DELIVERED
-     * Food is here! Lunchmaster closes lunch, lunch participants are recieving email/sms.
-     * Now (or rather after lunch :) is the time for all billing operations.
-     *
-     * At this moment under the hood lunch becomes a 'snapshot' in MongoDB
-     * to prevent all price changes on orders. After successful transfer lunch is being
-     * removed from MySQL.
-     *
-     * Everything except billing options are disabled.
-     *
-     * @ARCHIEVED
-     * All payments are settled. Lunch becomes uneditable and
-     * as a snapshot lands in the Mongo archive collection... FOREVER :)
-     */
-    private enum LunchStatus {OPEN, CLOSED, ORDERED, ARCHIVED}
 
     @Id
     @Column(name = "id")
@@ -67,6 +36,7 @@ public class Lunch implements Serializable{
     private int expectedDelivery;
 
     @OneToOne(fetch = FetchType.EAGER)
+
     @JoinColumn(name = "rst_id")
     private Restaurant restaurant;
 
@@ -80,6 +50,7 @@ public class Lunch implements Serializable{
     private List<Order> orders;
 
     public Lunch(){
+        this.status=LunchStatus.OPEN.toString();
         this.orders = new LinkedList<>();
     }
 
@@ -107,14 +78,6 @@ public class Lunch implements Serializable{
         this.lunchMaster = lunchMaster;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Date getDeadline() {
         return deadline;
     }
@@ -138,6 +101,15 @@ public class Lunch implements Serializable{
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
     //TODO
     @Override

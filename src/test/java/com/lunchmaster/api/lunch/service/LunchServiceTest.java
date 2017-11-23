@@ -21,6 +21,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -57,8 +58,8 @@ public class LunchServiceTest {
         lunch.setRestaurant(new Restaurant());
         lunch.setOrders(new ArrayList<Order>());
         lunch.setLunchMaster(new User());
-        lunch.setStatus("TEST");
-        lunch.setDeadline(new Date());
+        lunch.setStatus(Lunch.LunchStatus.OPEN);
+        lunch.setDeadline(LocalDateTime.now());
         lunch.setExpectedDelivery(1000);
 
         List<Lunch> lunches = Collections.singletonList(lunch);

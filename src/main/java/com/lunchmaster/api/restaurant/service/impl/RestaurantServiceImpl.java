@@ -20,14 +20,12 @@ import java.util.List;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
+    @Autowired
     private RestaurantDao restaurantDao;
-    private DishDao dishDao;
 
     @Autowired
-    public RestaurantServiceImpl(RestaurantDao restaurantDao, DishDao dishDao){
-        this.restaurantDao=restaurantDao;
-        this.dishDao=dishDao;
-    }
+    private DishDao dishDao;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantService.class);
 
     /* RESTAURANT */

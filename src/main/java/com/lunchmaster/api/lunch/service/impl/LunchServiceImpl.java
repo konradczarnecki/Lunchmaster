@@ -1,6 +1,7 @@
 package com.lunchmaster.api.lunch.service.impl;
 
 import com.lunchmaster.api.Response;
+import com.lunchmaster.api.lunch.dto.LunchStatus;
 import com.lunchmaster.api.lunch.dao.LunchDao;
 import com.lunchmaster.api.lunch.dao.OrderDao;
 import com.lunchmaster.api.lunch.dto.Lunch;
@@ -9,8 +10,12 @@ import com.lunchmaster.api.lunch.service.LunchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -137,6 +142,35 @@ public class LunchServiceImpl implements LunchService {
     @Override
     public List<Order> fetchOrderByLunchId(int lunchId) {
         return this.orderDao.getByLunchId(lunchId);
+    }
+
+    /* Close lunches with exceeded deadline */
+    @Scheduled(fixedDelay = 23000) //23 sek after last completion
+    private void closeLunchesAfterDeadline() {
+        //fetch all open lunches:
+        List<Lunch> openLunches = this.lunchDao.getByStatus(LunchStatus.OPEN.toString());
+        List<Lunch> closedLunches = new ArrayList<>();
+        long now = new Date().getTime();
+
+        //for all open lunches:
+        for (Lunch lunch : openLunches) {
+            if (lunch.getStatus().equals(LunchStatus.OPEN.toString())) {
+                //close if deadline has passed or deadline is now
+                if (lunch.getDeadline().getTime() <= now) {
+                    lunch.setStatus(LunchStatus.CLOSED.toString());
+                    closedLunches.add(lunch);
+                }
+            }
+        }
+        //update only changed lunches
+        this.lunchDao.save(closedLunches);
+
+        if (closedLunches.size() > 0)
+            LOGGER.info("SCHEDULER: CLOSED " + closedLunches.size() + " lunches.");
+        else
+            LOGGER.info("SCHEDULER: Found no OPEN lunches with exceeded deadline.");
+
+
     }
 }
 

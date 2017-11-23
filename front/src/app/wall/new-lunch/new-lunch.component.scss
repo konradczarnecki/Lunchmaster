@@ -42,7 +42,7 @@
   background-color: $hover-clr;
 }
 
-#title{
+.title {
   display: grid;
   align-items: center;
   justify-items: center;
@@ -77,7 +77,7 @@ input {
   font-size: 17px;
 }
 
-#createLunch {
+.createLunch {
   width: 60%;
   height: 35px;
   line-height: 35px;
@@ -88,7 +88,7 @@ input {
   align-self: center;
 }
 
-#createLunch:hover {
+.createLunch:hover {
   cursor: pointer;
   background-color: $hover-clr;
 }

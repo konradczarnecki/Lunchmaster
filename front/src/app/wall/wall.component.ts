@@ -18,6 +18,7 @@ export class WallComponent implements OnInit {
   selected: number;
 
   newLunchOpened: boolean;
+  lunchToEdit: Lunch;
 
   constructor(private service: WallService,
               private changeDet: ChangeDetectorRef,
@@ -69,9 +70,30 @@ export class WallComponent implements OnInit {
     this.newLunchOpened = true;
   }
 
+  openEditLunch(lunch: Lunch){
+
+    this.selected = -1;
+    this.lunchToEdit = lunch;
+    this.newLunchOpened = true;
+  }
+
+
+  onDetailsClosed(){
+
+    this.selected = -1;
+    this.lunchToEdit = undefined;
+  }
+
+  onNewLunchClosed(){
+
+    this.newLunchOpened = false;
+    this.lunchToEdit = undefined;
+  }
+
   onLunchesModified(){
 
     this.newLunchOpened = false;
+    this.lunchToEdit = undefined;
     this.selected = -1;
     this.fetchLunches();
   }

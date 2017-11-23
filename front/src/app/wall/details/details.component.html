@@ -8,8 +8,9 @@
 
   <div id="icons" *ngIf="userIsLunchmaster()">
 
-    <div id="delete" title="Delete lunch" (click)="deleteLunch()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">X</div>
-    <div id="edit" title="Edit lunch" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">E</div>
+    <div id="list" title="Shows list of all orders from this lunch" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">LIST</div>
+    <div id="delete" title="Delete lunch" (click)="deleteLunch()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">DEL</div>
+    <div id="edit" title="Edit lunch" (click)="editLunch()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">EDIT</div>
   </div>
 
   <div id="info" [ngStyle]="{ color : theme.secFontColor }">

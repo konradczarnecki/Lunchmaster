@@ -1,8 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ThemeService} from "../../theme/theme.service";
-import {Restaurant} from "../../model";
-import {WallService} from "../service/wall.service";
-import {LoginService} from "../../login/login.service";
+import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { ThemeService} from '../../theme/theme.service';
+import { Lunch, Restaurant } from '../../model';
+import { WallService} from '../service/wall.service';
+import { LoginService} from '../../login/login.service';
 
 @Component({
   selector: 'app-new-lunch',
@@ -11,9 +11,10 @@ import {LoginService} from "../../login/login.service";
 })
 export class NewLunchComponent implements OnInit {
 
+  @Input() lunch: Lunch | Lunch;
+
   @Output() close = new EventEmitter<boolean>();
   @Output() refresh = new EventEmitter<boolean>();
-
 
   private _chosenRestaurant: string;
   deadline: string;
@@ -33,7 +34,8 @@ export class NewLunchComponent implements OnInit {
   set chosenRestaurant(value: string){
 
     this._chosenRestaurant = value;
-    this.expected = this.restaurants.find(restaurant => restaurant.name === value).avgDeliveryTime + '';
+    const res = this.restaurants.find(restaurant => restaurant.name === value);
+    if(res) this.expected = res.avgDeliveryTime + '';
   }
 
   ngOnInit() {
@@ -42,6 +44,20 @@ export class NewLunchComponent implements OnInit {
 
       this.restaurants = restaurants;
     });
+
+    if(this.lunch){
+
+      this._chosenRestaurant = this.lunch.restaurant.name;
+
+      let hours: any = new Date(this.lunch.deadline).getHours();
+      if(hours < 10) hours = '' + 0 + hours;
+
+      let minutes: any = new Date(this.lunch.deadline).getMinutes();
+      if(minutes < 10) minutes = '' + 0 + minutes;
+
+      this.deadline = hours + ':' + minutes;
+      this.expected = this.lunch.expectedDelivery + '';
+    }
   }
 
   clickClose(){
@@ -69,8 +85,11 @@ export class NewLunchComponent implements OnInit {
     const minutes = Number(this.deadline.substring(3, 5));
     deadlineDate.setHours(hours, minutes);
 
+    const id = this.lunch ? this.lunch.id : null;
+
     const lunch = {
 
+      id : id,
       status : 'OPEN',
       restaurant : {
         id : restaurant.id

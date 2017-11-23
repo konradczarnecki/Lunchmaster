@@ -5,7 +5,8 @@
 }">
 
   <div class="filler"></div>
-  <div id="title">NEW LUNCH</div>
+  <div class="title" *ngIf="!lunch">NEW LUNCH</div>
+  <div class="title" *ngIf="lunch">EDIT LUNCH</div>
   <div class="filler"></div>
 
   <div class="row">
@@ -34,7 +35,8 @@
 
   </div>
 
-  <div id="createLunch" (click)="createLunch()" [ngStyle]="{ border : theme.border1px }">CREATE LUNCH</div>
+  <div class="createLunch" *ngIf="!lunch" (click)="createLunch()" [ngStyle]="{ border : theme.border1px }">CREATE LUNCH</div>
+  <div class="createLunch" *ngIf="lunch" (click)="createLunch()" [ngStyle]="{ border : theme.border1px }">SAVE CHANGES</div>
 
   <div style="height: 5px"></div>
 

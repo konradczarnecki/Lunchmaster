@@ -14,11 +14,24 @@
     <div id="sortByDish" class="sorting" (click)="setSorting('dish')" [ngStyle]="{border : dishBorder}">Dish</div>
   </div>
 
-  <div class="section" *ngFor="let order of lunch.orders">
-    <div class="header">{{order.user.firstName + order.user.lastName}}</div>
-    <div class="row">
-      <div class="positionRight" *ngFor=""></div>
+  <div id="list">
+
+    <div class="section" *ngFor="let section of sections">
+
+      <div class="header">
+        <div class="positionLeft">{{section.header.textLeft}}</div>
+        <div class="positionRight">{{section.header.textRight}}</div>
+      </div>
+
+      <div class="row" *ngFor="let item of section.items">
+        <div class="positionLeft">{{item.textLeft}}</div>
+        <div class="positionRight">{{item.textRight}}</div>
+      </div>
+
     </div>
+
   </div>
+
+
 
 </div>

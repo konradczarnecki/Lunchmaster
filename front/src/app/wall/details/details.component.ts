@@ -15,6 +15,7 @@ export class DetailsComponent implements OnInit {
   @Output() close = new EventEmitter<boolean>();
   @Output() refresh = new EventEmitter<boolean>();
   @Output() edit = new EventEmitter<Lunch>();
+  @Output() list = new EventEmitter<Lunch>();
 
   @ViewChild('orderDetails') orderDetails: ElementRef;
 
@@ -67,6 +68,11 @@ export class DetailsComponent implements OnInit {
   editLunch(){
 
     this.edit.emit(this.lunch);
+  }
+
+  showList(){
+
+    this.list.emit(this.lunch);
   }
 
   clickClose(): void {

@@ -7,6 +7,7 @@ import { TileComponent } from './tile/tile.component';
 import { WallService } from './service/wall.service';
 import { DetailsComponent } from './details/details.component';
 import { NewLunchComponent } from './new-lunch/new-lunch.component';
+import { ListComponent } from './list/list.component';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import { NewLunchComponent } from './new-lunch/new-lunch.component';
     CommonModule,
     FormsModule
   ],
-  declarations: [ WallComponent, TileComponent, DetailsComponent, NewLunchComponent ],
+  declarations: [ WallComponent, TileComponent, DetailsComponent, NewLunchComponent, ListComponent ],
   providers: [ WallService ]
 })
 export class WallModule { }

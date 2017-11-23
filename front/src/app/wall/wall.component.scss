@@ -25,6 +25,12 @@ app-details, app-new-lunch {
   right: -10px;
 }
 
+app-list {
+  position: absolute;
+  bottom: -10px;
+  left: -10px;
+}
+
 .inactive {
   pointer-events: none;
 }

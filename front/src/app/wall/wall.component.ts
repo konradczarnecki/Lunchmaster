@@ -4,13 +4,13 @@ import { WallService } from './service/wall.service';
 import { ThemeService} from '../theme/theme.service';
 import { Lunch } from '../model';
 
-import { fadeAnimation, slideAnimation } from './animations';
+import {fadeAnimation, slideAnimation, slideUpAnimation} from './animations';
 
 @Component({
   selector: 'app-wall',
   templateUrl: './wall.component.html',
   styleUrls: ['./wall.component.scss'],
-  animations : [ slideAnimation, fadeAnimation ],
+  animations : [ slideAnimation, slideUpAnimation, fadeAnimation ],
 })
 export class WallComponent implements OnInit {
 
@@ -19,6 +19,7 @@ export class WallComponent implements OnInit {
 
   newLunchOpened: boolean;
   lunchToEdit: Lunch;
+  lunchForList: Lunch;
 
   constructor(private service: WallService,
               private changeDet: ChangeDetectorRef,
@@ -77,6 +78,15 @@ export class WallComponent implements OnInit {
     this.newLunchOpened = true;
   }
 
+  openList(lunch: Lunch){
+
+    this.lunchForList = lunch;
+  }
+
+  closeList(){
+
+    this.lunchForList = undefined;
+  }
 
   onDetailsClosed(){
 

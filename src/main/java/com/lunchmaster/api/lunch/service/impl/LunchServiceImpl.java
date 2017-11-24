@@ -7,6 +7,8 @@ import com.lunchmaster.api.lunch.dao.OrderDao;
 import com.lunchmaster.api.lunch.dto.Lunch;
 import com.lunchmaster.api.lunch.dto.Order;
 import com.lunchmaster.api.lunch.service.LunchService;
+import com.lunchmaster.api.restaurant.dao.RestaurantDao;
+import com.lunchmaster.api.restaurant.dto.Restaurant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.util.Date;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 /**
  * Created by m.slefarski on 2017-09-25.
@@ -29,6 +32,7 @@ public class LunchServiceImpl implements LunchService {
     private LunchDao lunchDao;
 
     private OrderDao orderDao;
+
 
     @Autowired
     public LunchServiceImpl(LunchDao lunchDao, OrderDao orderDao) {
@@ -53,24 +57,32 @@ public class LunchServiceImpl implements LunchService {
         return this.lunchDao.getById(id);
     }
 
-    /* save lunch */
+    /**
+     * save lunch - allow saving only new lunches.
+     * Editing properties can be achieved only through specified api calls.
+     * This approach secures unwanted changes
+     */
     @Override
-    public Response<Lunch> saveLunch(Lunch lunch) {
+    public Response<Lunch> saveNewLunch(Lunch lunch) {
         Response<Lunch> resp = new Response<>();
         resp.setContent(lunch);
-
-        //ensure integrity of orders
-        if (lunch.getId() != 0)
-            lunch.setOrders(this.orderDao.getByLunchId(lunch.getId()));
-
-        //save
-        try {
-            lunch = this.lunchDao.save(lunch);
-            resp.saveSuccess(Lunch.class, lunch.getId());
-        } catch (Exception exc) {
-            //error during save
-            resp.saveError(Lunch.class, lunch.getId(), exc);
+        //new lunch
+        if (lunch.getId() == 0) {
+            //save
+            try {
+                //ensure correct values to avoid api exploitation
+                lunch.setStatus(LunchStatus.OPEN.name());
+                lunch.getOrders().clear();
+                lunch = this.lunchDao.save(lunch);
+                resp.saveSuccess(Lunch.class, lunch.getId());
+            } catch (Exception exc) {
+                //error during save
+                resp.saveError(Lunch.class, lunch.getId(), exc);
+            }
+            return resp;
         }
+        //existing lunch - return error
+        resp.saveLunchErrorLunchExists(lunch.getId());
         return resp;
     }
 
@@ -97,19 +109,78 @@ public class LunchServiceImpl implements LunchService {
         return resp;
     }
 
+    /* LUNCH PROPERTIES UPDATE */
+    @Override
+    public Response<String> changeLunchStatus(int lunchId, String status) {
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+        //if lunch exist in DB
+        if (lunch != null) {
+            //if status change is allowed
+            if (lunch.changeState(LunchStatus.valueOf(status))) {
+                //if user CLOSED lunch prematurely - change deadline!
+                if (lunch.isClosed()) {
+                    lunch.setDeadline(new Date());
+                }
+                this.lunchDao.save(lunch);
+                resp.updateLunchStatusSuccess(lunchId, status);
+                return resp;
+            }
+            //forbidden status change
+            else {
+                resp.updateLunchStatusError(lunchId, status, true);
+                return resp;
+            }
+        }
+        //lunch not int DB
+        resp.updateLunchStatusError(lunchId, status, false);
+        return resp;
+    }
+
+    @Override
+    public Response<String> changeLunchDeadline(int lunchId, Date deadline) {
+        Response<String> resp = new Response<>();
+        Lunch lunch = this.fetchLunch(lunchId);
+        long now = new Date().getTime();
+
+        //if lunch exist in DB
+        if (lunch != null) {
+            //deadline is older than now
+            if (deadline.getTime() <= now) {
+                resp.updateLunchDeadlineError(lunchId, deadline, true);
+            }
+            //deadline is correct
+            else {
+                lunch.setDeadline(deadline);
+                this.lunchDao.save(lunch);
+                resp.updateLunchDeadlineSuccess(lunchId, deadline);
+            }
+            return resp;
+        }
+        //lunch not in DB
+        resp.updateLunchDeadlineError(lunchId, deadline, false);
+        return resp;
+    }
+
+
     /* ORDER */
     /* Save new order or update existing */
     @Override
     public Response<Order> saveOrder(Order order) {
         Response<Order> resp = new Response<>();
         resp.setContent(order);
-        try {
-            order = this.orderDao.save(order);
-            resp.saveSuccess(Order.class, order.getId());
-        } catch (Exception exc) {
-            //error during save
-            resp.saveError(Order.class, order.getId(), exc);
+        //check if we are before deadline. Status change can be late, soe we can only be
+        //sure by comparing time.
+        if (this.lunchDao.getById(order.getLunchId()).getDeadline().getTime() < new Date().getTime()) {
+            try {
+                order = this.orderDao.save(order);
+                resp.saveSuccess(Order.class, order.getId());
+            } catch (Exception exc) {
+                resp.saveError(Order.class, order.getId(), exc);
+            }
+            return resp;
         }
+        resp.saveOrderErrorLunchIsNotOpen(order.getId(), order.getLunchId());
         return resp;
     }
 
@@ -144,33 +215,6 @@ public class LunchServiceImpl implements LunchService {
         return this.orderDao.getByLunchId(lunchId);
     }
 
-    /* Close lunches with exceeded deadline */
-    @Scheduled(fixedDelay = 23000) //23 sek after last completion
-    private void closeLunchesAfterDeadline() {
-        //fetch all open lunches:
-        List<Lunch> openLunches = this.lunchDao.getByStatus(LunchStatus.OPEN.toString());
-        List<Lunch> closedLunches = new ArrayList<>();
-        long now = new Date().getTime();
 
-        //for all open lunches:
-        for (Lunch lunch : openLunches) {
-            if (lunch.getStatus().equals(LunchStatus.OPEN.toString())) {
-                //close if deadline has passed or deadline is now
-                if (lunch.getDeadline().getTime() <= now) {
-                    lunch.setStatus(LunchStatus.CLOSED.toString());
-                    closedLunches.add(lunch);
-                }
-            }
-        }
-        //update only changed lunches
-        this.lunchDao.save(closedLunches);
-
-        if (closedLunches.size() > 0)
-            LOGGER.info("SCHEDULER: CLOSED " + closedLunches.size() + " lunches.");
-        else
-            LOGGER.info("SCHEDULER: Found no OPEN lunches with exceeded deadline.");
-
-
-    }
 }
 

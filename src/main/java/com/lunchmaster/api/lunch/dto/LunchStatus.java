@@ -36,4 +36,6 @@ package com.lunchmaster.api.lunch.dto;
  * All payments are settled. Lunch becomes uneditable and
  * as a snapshot lands in the Mongo archive collection... FOREVER :)
  */
-public enum LunchStatus {OPEN, CLOSED, ORDERED, DELIVERED, ARCHIVED}
+public enum LunchStatus { OPEN, CLOSED, ORDERED, DELIVERED, ARCHIVED;
+
+}

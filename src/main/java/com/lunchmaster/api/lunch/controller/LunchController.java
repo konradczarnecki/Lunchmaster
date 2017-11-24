@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Date;
 
 /**
  * Created by m.slefarski on 2017-09-25.
@@ -43,10 +44,10 @@ public class LunchController {
         return this.lunchService.fetchLunch(lunchId);
     }
 
-    /* Save new Lunch or update existing if Id is present */
+    /* Save new Lunch */
     @PutMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Response<Lunch> saveLunch(@RequestBody Lunch lunch) {
-        return this.lunchService.saveLunch(lunch);
+        return this.lunchService.saveNewLunch(lunch);
     }
 
     /* Delete Lunch by Id */
@@ -54,7 +55,17 @@ public class LunchController {
     public Response<String> deleteLunch(@RequestParam("id") int lunchId) {
         return this.lunchService.deleteLunch(lunchId);
     }
+    /* Change lunch status */
+    @PostMapping(value = "/change-status", produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Response<String> changeLunchStatus(@RequestParam("id") int lunchId, @RequestParam("status") String status) {
+        return this.lunchService.changeLunchStatus(lunchId, status);
+    }
 
+    /* Change lunch deadline */
+    @PostMapping(value = "/change-deadline", produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Response<String> changeLunchStatus(@RequestParam("id") int lunchId, @RequestParam("deadline") Date deadline) {
+        return this.lunchService.changeLunchDeadline(lunchId, deadline);
+    }
 
     /* ORDER */
     /* Get order by Id */

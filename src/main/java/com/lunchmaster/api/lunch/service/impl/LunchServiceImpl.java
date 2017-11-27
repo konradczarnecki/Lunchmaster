@@ -54,14 +54,10 @@ public class LunchServiceImpl implements LunchService {
         return this.lunchDao.getById(id);
     }
 
-    /**
-     * save lunch - allow saving only new lunches.
-     * Editing properties can be achieved only through specified api calls.
-     * This approach secures unwanted changes
-     */
+
     @Override
     public Response<Lunch> saveLunch(Lunch lunch) {
-        if (lunch.getId() == 0) {
+        if (lunch.getId() == 0){
             return createNewLunch(lunch);
         } else {
             return updateLunch(lunch);
@@ -75,9 +71,12 @@ public class LunchServiceImpl implements LunchService {
         Lunch lunch = lunchDao.getById(lunchId);
         //lunch not found
         if (lunch == null) {
+            return resp.error();
+        }
+        //lunch found but ordered
+        if(lunch.isOrdered()){
             return resp.forbidden();
         }
-        //lunch found
         else {
             try {
                 this.orderDao.deleteByLunchId(lunchId);
@@ -109,15 +108,28 @@ public class LunchServiceImpl implements LunchService {
         Response<Lunch> resp = new Response<>(lunch);
         //fetch lunch from db to ensure proper values
         Lunch l = this.fetchLunch(lunch.getId());
+        //lunch not found
         if (l == null) {
             return resp.error();
         }
-        l.setStatus(lunch.getStatus());
-        l.setDeadline(lunch.getDeadline());
-        //you can modify restaurant when there are no orders yet
-        if (l.getOrders().size() == 0) {
-            l.setRestaurant(lunch.getRestaurant());
+        //lunch found and not yet ordered
+        if(l.isOpen() || l.isClosed()) {
+            //you can modify restaurant when there are no orders yet
+            if (l.getOrders().size() == 0) {
+                l.setRestaurant(lunch.getRestaurant());
+            }
+            if(isNewDeadlineOK(lunch.getDeadline())){
+                l.setDeadline(lunch.getDeadline());
+                l.changeStatus(LunchStatus.OPEN);
+            }
         }
+        //you can update status till lunch is archieved
+        if(!l.isArchived()) {
+            if(!l.changeStatus(LunchStatus.valueOf(lunch.getStatus()))){
+                return resp.forbidden();
+            }
+        }
+
         try {
             lunch = this.lunchDao.save(l);
             return resp.success();
@@ -132,7 +144,7 @@ public class LunchServiceImpl implements LunchService {
     @Override
     public Response<Order> saveOrder(Order order) {
         Response<Order> resp = new Response<>(order);
-        if (!isLunchClosed(order)) {
+        if (lunchIsBeforeDeadline(order.getLunchId())) {
             try {
                 order = this.orderDao.save(order);
                 return resp.success();
@@ -147,15 +159,15 @@ public class LunchServiceImpl implements LunchService {
     public Response<String> deleteOrder(int orderId) {
         Response<String> resp = new Response<>();
         Order order = orderDao.getById(orderId);
-        //id not in database
+        //order not found
         if (order == null) {
             return resp.error();
         }
-        //order found but lunch is closed
-        else if (isLunchClosed(order)) {
+        //order found but after deadline
+        else if(!lunchIsBeforeDeadline(order.getLunchId())) {
             return resp.forbidden();
-          //order found and lunch is not closed
         } else {
+            //order found and lunch is before deadline
             try {
                 this.orderDao.deleteById(orderId);
                 return resp.success();
@@ -176,9 +188,12 @@ public class LunchServiceImpl implements LunchService {
         return this.orderDao.getByLunchId(lunchId);
     }
 
-    private boolean isLunchClosed(Order order) {
-        return (this.lunchDao.getById(order.getLunchId()).getDeadline().getTime() > new Date().getTime());
+    private boolean lunchIsBeforeDeadline(int lunchId) {
+        return (this.lunchDao.getById(lunchId).getDeadline().getTime() > new Date().getTime());
+    }
 
+    private boolean isNewDeadlineOK(Date newDeadline){
+        return newDeadline.getTime()>new Date().getTime();
     }
 
 }

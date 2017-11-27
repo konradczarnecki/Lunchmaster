@@ -4,14 +4,7 @@
      'color' : theme.secFontColor
 }">
 
-  <div class="filler" *ngIf="!userIsLunchmaster()"></div>
-
-  <div id="icons" *ngIf="userIsLunchmaster()">
-
-    <div id="list" title="Shows list of all orders from this lunch" (click)="showList()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">LIST</div>
-    <div id="delete" title="Delete lunch" (click)="deleteLunch()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">DEL</div>
-    <div id="edit" title="Edit lunch" (click)="editLunch()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">EDIT</div>
-  </div>
+  <div class="filler"></div>
 
   <div id="info" [ngStyle]="{ color : theme.secFontColor }">
 
@@ -55,18 +48,6 @@
 
   <div id="orders" [ngStyle]="{color : theme.secFontColor}">
 
-    <div id="participants">
-
-      <div class="header">Participants</div>
-
-      <div class="order" *ngFor="let order of lunch.orders; let i = index;" [id]="'order' + i" [ngStyle]="{ border : theme.border1px }"
-           (mouseover)="showOrderDetails(i)" (mouseleave)="hideOrderDetails()" (click)="deleteOrder(i)" [ngClass]="{'pointer' : orderBelongsToUser(i)}">
-
-        {{order.user.firstName}} {{order.user.lastName}}
-      </div>
-
-    </div>
-
     <div id="join">
 
       <div class="orderHeader">Order</div>
@@ -82,6 +63,18 @@
 
         <div id="addButton" (click)="addDish()" [ngStyle]="{ border : theme.border1px }">+</div>
 
+      </div>
+
+    </div>
+
+    <div id="participants">
+
+      <div class="header">Participants</div>
+
+      <div class="order" *ngFor="let order of lunch.orders; let i = index;" [id]="'order' + i" [ngStyle]="{ border : theme.border1px }"
+           (mouseover)="showOrderDetails(i)" (mouseleave)="hideOrderDetails()" (click)="deleteOrder(i)" [ngClass]="{'pointer' : orderBelongsToUser(i)}">
+
+        {{order.user.firstName}} {{order.user.lastName}}
       </div>
 
     </div>
@@ -105,6 +98,14 @@
       </div>
 
     </div>
+  </div>
+
+  <div id="lunchmasterButtons" *ngIf="userIsLunchmaster()">
+
+    <div id="list" title="Shows list of all orders from this lunch" (click)="showList()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">LIST</div>
+    <div id="delete" title="Delete lunch" (click)="deleteLunch()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">DELETE</div>
+    <div id="edit" title="Edit lunch" (click)="editLunch()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">EDIT</div>
+    <div id="closeLunch" title="Edit lunch" (click)="editLunch()" [ngStyle]="{border : theme.border1px, color : theme.secFontColor}">CLOSE</div>
   </div>
 
   <div style="height: 5px"></div>

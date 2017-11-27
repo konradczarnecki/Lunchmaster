@@ -101,6 +101,23 @@ export class ListComponent implements OnInit {
 
       this.sections = sections;
     }
+
+    let lunchTotal = 0;
+
+    for(const order of this.lunch.orders)
+      for(const dish of order.dishes) lunchTotal += dish.price;
+
+    const lastLine: Item = {
+      textLeft : 'Total',
+      textRight : lunchTotal + ' PLN'
+    };
+
+    const total: Section = {
+      header : lastLine,
+      items: []
+    };
+
+    this.sections.push(total);
   }
 }
 

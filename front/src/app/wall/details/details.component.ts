@@ -124,9 +124,9 @@ export class DetailsComponent implements OnInit {
     this.changeDetector.detectChanges();
 
     const buttonRect = document.getElementById('order' + index).getBoundingClientRect();
-    const buttonRightEdge = buttonRect.right;
+    const absoluteX = buttonRect.left - 230;
     const detailsLeftEdge = document.getElementById('frame').getBoundingClientRect().left;
-    const xOffset = buttonRightEdge - detailsLeftEdge + 10;
+    const xOffset = absoluteX - detailsLeftEdge;
 
     this.orderDetails.nativeElement.style.top = buttonRect.top + 'px';
     this.orderDetails.nativeElement.style.left = xOffset  + 'px';

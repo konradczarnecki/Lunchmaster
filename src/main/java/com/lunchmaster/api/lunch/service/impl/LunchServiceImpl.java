@@ -61,38 +61,12 @@ public class LunchServiceImpl implements LunchService {
      */
     @Override
     public Response<Lunch> saveLunch(Lunch lunch) {
-        Response<Lunch> resp = new Response<>(lunch);
-        //it's create
         if (lunch.getId() == 0) {
-            try {
-                //ensure correct values for new lunch
-                //TODO ensure correct deadline
-                lunch.getOrders().clear();
-                lunch.setStatus(LunchStatus.OPEN.name());
-                lunch =lunchDao.save(lunch);
-                return resp.success();
-            } catch (Exception exc) {
-                return resp.error();
-            }
+            return createNewLunch(lunch);
         }
-        //it's update - treat 'lunch' as proxy object
         else {
-            //fetch lunch from db to ensure uncorrupted data
-            Lunch l = this.fetchLunch(lunch.getId());
-            l.setStatus(lunch.getStatus());
-            l.setDeadline(lunch.getDeadline());
-            //you can modify restaurant when there are no orders yet
-            if (l.getOrders().size() == 0) {
-                l.setRestaurant(lunch.getRestaurant());
-            }
-            try {
-                lunch = this.lunchDao.save(l);
-                return resp.success();
-            } catch (Exception exc) {
-                return resp.error();
-            }
+            return updateLunch(lunch);
         }
-
     }
 
     /* Delete lunch by id */
@@ -117,37 +91,54 @@ public class LunchServiceImpl implements LunchService {
         }
     }
 
+    /* LUNCH PRIVATE METHODS */
+    private Response<Lunch> createNewLunch(Lunch lunch){
+        Response<Lunch> resp = new Response<>(lunch);
+        try {
+            //ensure correct values for new lunch
+            //TODO ensure correct deadline
+            lunch.getOrders().clear();
+            lunch.setStatus(LunchStatus.OPEN.name());
+            lunch =lunchDao.save(lunch);
+            return resp.success();
+        } catch (Exception exc) {
+            return resp.error();
+        }
+    }
+
+    private Response<Lunch> updateLunch(Lunch lunch){
+        Response<Lunch> resp = new Response<>(lunch);
+        //fetch lunch from db to ensure proper values
+        Lunch l = this.fetchLunch(lunch.getId());
+        if(l==null){
+            return resp.error();
+        }
+        l.setStatus(lunch.getStatus());
+        l.setDeadline(lunch.getDeadline());
+        //you can modify restaurant when there are no orders yet
+        if (l.getOrders().size() == 0) {
+            l.setRestaurant(lunch.getRestaurant());
+        }
+        try {
+            lunch = this.lunchDao.save(l);
+            return resp.success();
+        } catch (Exception exc) {
+            return resp.error();
+        }
+    }
+
 
     /* ORDER */
     /* Save new order or update existing */
     @Override
     public Response<Order> saveOrder(Order order) {
         Response<Order> resp = new Response<>(order);
-        //check if we are before deadline. Status change can be late,
-        // soe we can only be sure by comparing time.
-        //TODO check if lunch is in scope
-        if (this.lunchDao.getById(order.getLunchId()).getDeadline().getTime() < new Date().getTime()) {
-            //it's create - save new order
+        if (!isLunchClosed(order)) {
             if (order.getId() == 0) {
-                order.getDishes().clear();
-                try {
-                    order = this.orderDao.save(order);
-                    return resp.success();
-                } catch (Exception exc) {
-                    return resp.error();
-                }
+                return saveNewOrder(order);
             }
-            //it's update - treat 'order' as proxy object
             else {
-                Order o = this.fetchOrder(order.getId());
-                o.setDishes(order.getDishes());
-                o.setNote(order.getNote());
-                try {
-                    order = this.orderDao.save(o);
-                    return resp.success();
-                } catch (Exception exc) {
-                    return resp.error();
-                }
+                return updateOrder(order);
             }
         }
         return resp.forbidden();
@@ -180,6 +171,34 @@ public class LunchServiceImpl implements LunchService {
     @Override
     public List<Order> fetchOrderByLunchId(int lunchId) {
         return this.orderDao.getByLunchId(lunchId);
+    }
+
+    private Response<Order> saveNewOrder(Order order){
+        Response<Order> resp = new Response<>(order);
+        try {
+            order = this.orderDao.save(order);
+            return resp.success();
+        } catch (Exception exc) {
+            return resp.error();
+        }
+    }
+
+    private Response<Order> updateOrder(Order order){
+        Response<Order> resp = new Response<>(order);
+        Order o = this.fetchOrder(order.getId());
+        o.setDishes(order.getDishes());
+        o.setNote(order.getNote());
+        try {
+            order = this.orderDao.save(o);
+            return resp.success();
+        } catch (Exception exc) {
+            return resp.error();
+        }
+    }
+
+    private boolean isLunchClosed(Order order){
+        return (this.lunchDao.getById(order.getLunchId()).isClosed());
+
     }
 
 }

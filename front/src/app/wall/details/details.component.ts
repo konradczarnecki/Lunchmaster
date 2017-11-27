@@ -1,8 +1,9 @@
-import {Component, Input, OnInit, Output, EventEmitter, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+
 import { ThemeService } from '../../theme/theme.service';
-import { Dish, Lunch, Order} from '../../model';
 import { WallService } from '../service/wall.service';
 import { LoginService } from '../../login/login.service';
+import { Dish, Lunch, Order} from '../../model';
 
 @Component({
   selector: 'app-details',
@@ -32,6 +33,59 @@ export class DetailsComponent implements OnInit {
 
     this.dishList = [];
     this.orderDetailsIndex = -1;
+  }
+
+  placeOrder(): void {
+
+    let order: Order = this.lunch.orders.find(ord => this.loginService.user.id === ord.user.id);
+
+    if(order) order.dishes.push(...this.dishList);
+    else {
+
+      order = {
+        id : null,
+        user : {
+          id : this.loginService.user.id
+        },
+        dishes : this.dishList,
+        lunchId : this.lunch.id
+      };
+    }
+
+    this.service.placeOrder(order).then(result => {
+
+      if(result){
+
+        this.refresh.emit(true);
+        this.dishList = [];
+      }
+    });
+  }
+
+  deleteOrder(index: number){
+
+    if(this.orderBelongsToUser(index)) this.service.deleteOrder(this.lunch.orders[index].id).then(result => {
+
+        if(result){
+
+          this.hideOrderDetails();
+          this.changeDetector.detectChanges();
+
+          this.refresh.emit(true);
+        }
+      });
+  }
+
+  addDish(): void {
+
+    const chosenDish = this.lunch.restaurant.dishes.find(dish => dish.name === this.orderInput);
+    if(chosenDish != null) this.dishList.push(chosenDish);
+    this.orderInput = '';
+  }
+
+  removeDish(index: number): void {
+
+    this.dishList.splice(index, 1);
   }
 
   total(): number {
@@ -80,44 +134,6 @@ export class DetailsComponent implements OnInit {
     this.close.emit(true);
   }
 
-  addDish(): void {
-
-    const chosenDish = this.lunch.restaurant.dishes.find(dish => dish.name === this.orderInput);
-    if(chosenDish != null) this.dishList.push(chosenDish);
-    this.orderInput = '';
-  }
-
-  removeDish(index: number): void {
-
-    this.dishList.splice(index, 1);
-  }
-
-  placeOrder(): void {
-
-    let order: Order = this.lunch.orders.find(ord => this.loginService.user.id === ord.user.id);
-
-    if(order) order.dishes.push(...this.dishList);
-
-    else order = {
-
-      id : null,
-      user : {
-        id : this.loginService.user.id
-      },
-      dishes : this.dishList,
-      lunchId : this.lunch.id
-    };
-
-    this.service.placeOrder(order).then(result => {
-
-      if(result){
-
-        this.refresh.emit(true);
-        this.dishList = [];
-      }
-    });
-  }
-
   showOrderDetails(index: number) {
 
     this.orderDetailsIndex = index;
@@ -142,21 +158,6 @@ export class DetailsComponent implements OnInit {
     let sum = 0;
     for(const dish of this.lunch.orders[this.orderDetailsIndex].dishes) sum += dish.price;
     return sum;
-  }
-
-  deleteOrder(index: number){
-
-    if(this.orderBelongsToUser(index))
-      this.service.deleteOrder(this.lunch.orders[index].id).then(result => {
-
-        if(result){
-
-          this.hideOrderDetails();
-          this.changeDetector.detectChanges();
-
-          this.refresh.emit(true);
-        }
-      });
   }
 
   orderBelongsToUser(index: number): boolean {

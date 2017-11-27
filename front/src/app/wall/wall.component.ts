@@ -4,7 +4,7 @@ import { WallService } from './service/wall.service';
 import { ThemeService} from '../theme/theme.service';
 import { Lunch } from '../model';
 
-import {fadeAnimation, slideAnimation, slideUpAnimation} from './animations';
+import { fadeAnimation, slideAnimation, slideUpAnimation } from './animations';
 
 @Component({
   selector: 'app-wall',
@@ -21,9 +21,14 @@ export class WallComponent implements OnInit {
   lunchToEdit: Lunch;
   lunchForList: Lunch;
 
-  constructor(private service: WallService,
-              private changeDet: ChangeDetectorRef,
-              public theme: ThemeService) { }
+  constructor(public theme: ThemeService,
+              private service: WallService,
+              private changeDet: ChangeDetectorRef) { }
+
+  get tilesInactive(): boolean {
+
+    return this.selected !== -1 || this.newLunchOpened === true;
+  }
 
   ngOnInit() {
 
@@ -31,20 +36,6 @@ export class WallComponent implements OnInit {
     this.selected = -1;
 
     window.onresize = this.adjustGrid.bind(this);
-  }
-
-  get tilesInactive(): boolean {
-
-    return this.selected !== -1 || this.newLunchOpened === true;
-  }
-
-  fetchLunches() {
-
-    this.service.getLunches().then(lunches => {
-
-      this.lunches = lunches;
-      this.adjustGrid();
-    });
   }
 
   adjustGrid() {
@@ -59,16 +50,37 @@ export class WallComponent implements OnInit {
     this.changeDet.detectChanges();
   }
 
+  fetchLunches() {
+
+    this.service.getLunches().then(lunches => {
+
+      this.lunches = lunches;
+      this.adjustGrid();
+    });
+  }
+
   openDetails(index: number){
 
     this.newLunchOpened = false;
     this.selected = index;
   }
 
+  onDetailsClosed(){
+
+    this.selected = -1;
+    this.lunchToEdit = undefined;
+  }
+
   openNewLunch(){
 
     this.selected = -1;
     this.newLunchOpened = true;
+  }
+
+  onNewLunchClosed(){
+
+    this.newLunchOpened = false;
+    this.lunchToEdit = undefined;
   }
 
   openEditLunch(lunch: Lunch){
@@ -83,21 +95,9 @@ export class WallComponent implements OnInit {
     this.lunchForList = lunch;
   }
 
-  closeList(){
+  onListClosed(){
 
     this.lunchForList = undefined;
-  }
-
-  onDetailsClosed(){
-
-    this.selected = -1;
-    this.lunchToEdit = undefined;
-  }
-
-  onNewLunchClosed(){
-
-    this.newLunchOpened = false;
-    this.lunchToEdit = undefined;
   }
 
   onLunchesModified(){
@@ -107,5 +107,4 @@ export class WallComponent implements OnInit {
     this.selected = -1;
     this.fetchLunches();
   }
-
 }

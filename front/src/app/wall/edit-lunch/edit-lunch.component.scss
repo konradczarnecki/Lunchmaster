@@ -92,3 +92,7 @@ input {
   cursor: pointer;
   background-color: $hover-clr;
 }
+
+.disabled {
+  background: rgba(118, 118, 118, 0.27);
+}

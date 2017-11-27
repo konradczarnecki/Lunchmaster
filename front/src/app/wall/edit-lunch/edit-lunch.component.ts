@@ -1,15 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
 import { ThemeService} from '../../theme/theme.service';
-import { Lunch, Restaurant } from '../../model';
 import { WallService} from '../service/wall.service';
 import { LoginService} from '../../login/login.service';
+import { Lunch, Restaurant } from '../../model';
 
 @Component({
-  selector: 'app-new-lunch',
-  templateUrl: './new-lunch.component.html',
-  styleUrls: ['./new-lunch.component.scss']
+  selector: 'app-edit-lunch',
+  templateUrl: './edit-lunch.component.html',
+  styleUrls: ['./edit-lunch.component.scss']
 })
-export class NewLunchComponent implements OnInit {
+export class EditLunchComponent implements OnInit {
 
   @Input() lunch: Lunch | Lunch;
 
@@ -60,23 +61,13 @@ export class NewLunchComponent implements OnInit {
     }
   }
 
-  clickClose(){
-
-    this.close.emit(true);
-  }
-
-  createLunch(){
+  submit(){
 
     const hourRegex = /[0-2][0-9]:[0-5][0-9]/;
     const expectedRegex = /[0-9]*/;
     const restaurant = this.restaurants.find(res => res.name === this._chosenRestaurant);
 
-    if(restaurant == null || !hourRegex.test(this.deadline) || !expectedRegex.test(this.expected)){
-      console.log(restaurant == null );
-      console.log(!hourRegex.test(this.deadline));
-      console.log(!expectedRegex.test(this.expected));
-      return;
-    }
+    if(restaurant == null || !hourRegex.test(this.deadline) || !expectedRegex.test(this.expected)) return;
 
     const deadlineDate = new Date();
     deadlineDate.setHours(0, 0, 0, 0);
@@ -105,5 +96,10 @@ export class NewLunchComponent implements OnInit {
 
       if(result) this.refresh.emit(true);
     });
+  }
+
+  clickClose(){
+
+    this.close.emit(true);
   }
 }

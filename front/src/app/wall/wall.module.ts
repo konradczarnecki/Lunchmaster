@@ -6,7 +6,7 @@ import { WallComponent } from './wall.component';
 import { TileComponent } from './tile/tile.component';
 import { WallService } from './service/wall.service';
 import { DetailsComponent } from './details/details.component';
-import { NewLunchComponent } from './new-lunch/new-lunch.component';
+import { EditLunchComponent } from './edit-lunch/edit-lunch.component';
 import { ListComponent } from './list/list.component';
 
 
@@ -15,7 +15,7 @@ import { ListComponent } from './list/list.component';
     CommonModule,
     FormsModule
   ],
-  declarations: [ WallComponent, TileComponent, DetailsComponent, NewLunchComponent, ListComponent ],
+  declarations: [ WallComponent, TileComponent, DetailsComponent, EditLunchComponent, ListComponent ],
   providers: [ WallService ]
 })
 export class WallModule { }

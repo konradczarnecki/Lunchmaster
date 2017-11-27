@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewLunchComponent } from './new-lunch.component';
+import { NewLunchComponent } from './edit-lunch.component';
 
 describe('NewLunchComponent', () => {
   let component: NewLunchComponent;

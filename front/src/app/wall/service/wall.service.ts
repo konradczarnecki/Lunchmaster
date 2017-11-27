@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import {Lunch, Order, Restaurant} from '../../model';
 import { environment } from '../../../environments/environment';
+import { Lunch, Order, Restaurant } from '../../model';
 
 @Injectable()
 export class WallService {

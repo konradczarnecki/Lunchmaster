@@ -24,7 +24,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     public User getUserByEmail(String email){
-
         return dao.findUserByEmail(email);
     }
 }

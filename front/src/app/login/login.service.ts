@@ -12,12 +12,10 @@ export class LoginService implements CanActivate {
   user: User;
 
   constructor(private http: Http, private router: Router) {
-
     this.checkCredentials();
   }
 
   login(email: string, password: string): Promise<boolean>{
-
     const params = new URLSearchParams();
     params.append('username', email);
     params.append('password', password);
@@ -26,25 +24,22 @@ export class LoginService implements CanActivate {
 
     const headers = new Headers({
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'Authorization': 'Basic '+btoa(environment.clientSecret)
+      'Authorization': 'Basic '+ btoa(`${environment.clientId}:${environment.clientSecret}`)
     });
 
     const options = new RequestOptions({ headers: headers });
 
     return new Promise<boolean>(resolve => {
-
-      this.http.post(environment.authUrl + '/oauth/token', params.toString(), options).subscribe(data =>{
-
-        this.saveToken(data.json());
-        this.logged = true;
-        this.getUser(email).then(result => resolve(result));
-
+      this.http.post(environment.authUrl, params.toString(), options)
+        .subscribe(data =>{
+          this.saveToken(data.json());
+          this.logged = true;
+          this.getUser(email).then(result => resolve(result));
       }, err => resolve(false));
     });
   }
 
   logout(): void {
-
     this.logged = false;
     this.user = null;
     localStorage.removeItem('user');
@@ -55,19 +50,17 @@ export class LoginService implements CanActivate {
   }
 
   saveToken(token): void {
-
     const expireDate = new Date().getTime() + (1000 * token.expires_in);
+
     localStorage.setItem('token', token.access_token);
     localStorage.setItem('token_expires', String(expireDate));
   }
 
   token(): string {
-
     const expiry = Number(localStorage.getItem('token_expires'));
 
     if(this.logged && expiry < new Date().getTime()) return localStorage.getItem('token');
     else {
-
       this.logout();
       this.router.navigate(['/login']);
       return null;
@@ -84,8 +77,8 @@ export class LoginService implements CanActivate {
 
     return new Promise<boolean>(resolve => {
 
-      this.http.get(environment.apiHost + '/getuserapi?user=' + email, options).subscribe(response => {
-
+      this.http.get(environment.apiHost + '/api/user/me' , options).subscribe(response => {
+        console.log(response);
         this.user = response.json();
         localStorage.setItem('user', JSON.stringify(this.user));
 

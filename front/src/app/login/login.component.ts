@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
 
   mail: string;
   password: string;
-
   invalidCredentials: boolean;
 
   constructor(public theme: ThemeService,
@@ -21,16 +20,17 @@ export class LoginComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-
     this.invalidCredentials = false;
   }
 
   login(): void {
-
-    this.service.login(this.mail, this.password).then(result => {
-
-      if(result) this.router.navigate(['/wall']);
-      else this.invalidCredentials = true;
+    this.service.login(this.mail, this.password)
+      .then(result => {
+        if(result) {
+          this.router.navigate(['/wall']);
+        }else{
+          this.invalidCredentials = true;
+        }
     });
   }
 

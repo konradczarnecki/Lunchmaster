@@ -29,7 +29,7 @@ export class WallService {
 
     return new Promise<boolean>(resolve => {
 
-      this.http.post(`${environment.apiHost}/api/lunch/save`, lunch).subscribe(response => {
+      this.http.put(`${environment.apiHost}/api/lunch/save`, lunch).subscribe(response => {
 
         resolve(response.json().status === 'success');
       });
@@ -51,7 +51,7 @@ export class WallService {
 
     return new Promise<boolean>(resolve => {
 
-      this.http.post(`${environment.apiHost}/api/lunch/order/save`, order).subscribe(response => {
+      this.http.put(`${environment.apiHost}/api/lunch/order/save`, order).subscribe(response => {
 
         resolve(response.json().status === 'success');
       });

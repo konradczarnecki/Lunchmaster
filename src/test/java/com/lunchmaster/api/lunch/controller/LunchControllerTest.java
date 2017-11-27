@@ -60,7 +60,7 @@ public class LunchControllerTest {
     public void getLunches_LunchesFound_ShouldReturnFoundLunches() throws Exception {
         Lunch lunch = new Lunch();
         lunch.setId(1);
-        lunch.setStatus(Lunch.LunchStatus.OPEN);
+        lunch.setStatus("OPEN");
         lunch.setDeadline(Instant.ofEpochMilli(MIDNIGHT_01_10_2017_EPOCH).atZone(ZoneId.systemDefault()).toLocalDateTime());
         lunch.setExpectedDelivery(40);
         lunch.setRestaurant(new Restaurant());

@@ -51,7 +51,8 @@ export class LoginService implements CanActivate {
 
   saveToken(token): void {
     const expireDate = new Date().getTime() + (1000 * token.expires_in);
-
+    console.log(token);
+    console.log(token.access_token);
     localStorage.setItem('token', token.access_token);
     localStorage.setItem('token_expires', String(expireDate));
   }
@@ -59,8 +60,16 @@ export class LoginService implements CanActivate {
   token(): string {
     const expiry = Number(localStorage.getItem('token_expires'));
 
-    if(this.logged && expiry < new Date().getTime()) return localStorage.getItem('token');
+    if(this.logged){
+      console.log(expiry);
+    }
+
+    if(this.logged && new Date().getTime() < expiry) {
+      console.log('token = ' + localStorage.getItem('token'));
+      return localStorage.getItem('token');
+    }
     else {
+      console.log('logout');
       this.logout();
       this.router.navigate(['/login']);
       return null;
@@ -80,6 +89,7 @@ export class LoginService implements CanActivate {
       this.http.get(environment.apiHost + '/api/user/me' , options).subscribe(response => {
         console.log(response);
         this.user = response.json();
+        console.log(this.user);
         localStorage.setItem('user', JSON.stringify(this.user));
 
         resolve(true);

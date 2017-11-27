@@ -4,70 +4,95 @@ import com.lunchmaster.api.Response;
 import com.lunchmaster.api.lunch.dao.LunchDao;
 import com.lunchmaster.api.lunch.dao.OrderDao;
 import com.lunchmaster.api.lunch.dto.Lunch;
+import com.lunchmaster.api.lunch.dto.LunchStatus;
 import com.lunchmaster.api.lunch.dto.Order;
 import com.lunchmaster.api.lunch.service.LunchService;
+import com.lunchmaster.api.restaurant.dao.RestaurantDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by m.slefarski on 2017-09-25.
  */
+
 @Service
+@SuppressWarnings("unchecked")
 public class LunchServiceImpl implements LunchService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LunchServiceImpl.class);
 
     private LunchDao lunchDao;
-
     private OrderDao orderDao;
+    private RestaurantDao restaurantDao;
+    private static final Logger LOGGER = LoggerFactory.getLogger(LunchServiceImpl.class);
 
     @Autowired
-    public LunchServiceImpl(LunchDao lunchDao, OrderDao orderDao) {
+    public LunchServiceImpl(LunchDao lunchDao, OrderDao orderDao, RestaurantDao restaurantDao) {
         this.lunchDao = lunchDao;
         this.orderDao = orderDao;
+        this.restaurantDao = restaurantDao;
     }
 
     public LunchServiceImpl() {
     }
 
 
+    /* LUNCH */
     /* Get all lunches */
     @Override
     public List<Lunch> fetchLunches() {
         return lunchDao.findAll();
     }
 
-    /* Get lunch by id */
+    /* Fetch lunch by id */
     @Override
     public Lunch fetchLunch(int id) {
         return this.lunchDao.getById(id);
     }
 
-    /* save lunch */
+    /**
+     * save lunch - allow saving only new lunches.
+     * Editing properties can be achieved only through specified api calls.
+     * This approach secures unwanted changes
+     */
     @Override
     public Response<Lunch> saveLunch(Lunch lunch) {
-        Response<Lunch> resp = new Response<>();
+        Response<Lunch> resp = new Response<>(lunch);
+        //it's create
+        if (lunch.getId() == 0) {
+            try {
+                //ensure correct values for new lunch
+                //TODO ensure correct deadline
+                lunch.getOrders().clear();
+                lunch.setStatus(LunchStatus.OPEN.name());
+                lunch =lunchDao.save(lunch);
+                return resp.success();
+            } catch (Exception exc) {
+                return resp.error();
+            }
+        }
+        //it's update - treat 'lunch' as proxy object
+        else {
+            //fetch lunch from db to ensure uncorrupted data
+            Lunch l = this.fetchLunch(lunch.getId());
+            l.setStatus(lunch.getStatus());
+            l.setDeadline(lunch.getDeadline());
+            //you can modify restaurant when there are no orders yet
+            if (l.getOrders().size() == 0) {
+                l.setRestaurant(lunch.getRestaurant());
+            }
+            try {
+                lunch = this.lunchDao.save(l);
+                return resp.success();
+            } catch (Exception exc) {
+                return resp.error();
+            }
+        }
 
-        //ensure integrity of orders
-        if(lunch.getId()!=0) {
-            lunch.setOrders(orderDao.getByLunchId(lunch.getId()));
-        }
-        //save
-        try {
-            lunch = this.lunchDao.save(lunch);
-            resp.setContent(lunch);
-        } catch (Exception exc) {
-            //error during save
-            resp.saveError(Lunch.class, lunch.getId(), exc);
-            return resp;
-        }
-        //success
-        resp.saveSuccess(Lunch.class, lunch.getId());
-        return resp;
     }
 
     /* Delete lunch by id */
@@ -75,68 +100,76 @@ public class LunchServiceImpl implements LunchService {
     public Response<String> deleteLunch(int lunchId) {
         Response<String> resp = new Response<>();
         Lunch lunch = lunchDao.getById(lunchId);
-
+        //lunch not found
         if (lunch == null) {
-            resp.deleteNotFound(Lunch.class, lunchId);
+            return resp.forbidden();
         }
         //lunch found
         else {
             try {
                 this.orderDao.deleteByLunchId(lunchId);
                 this.lunchDao.deleteById(lunchId);
+                return resp.success();
             } catch (Exception exc) {
                 //error during delete
-                resp.deleteFoundButError(Lunch.class, lunchId, exc);
-                return resp;
+                return resp.error();
             }
-            //success
-            resp.deleteSuccess(Lunch.class, lunchId);
         }
-
-        return resp;
     }
 
 
+    /* ORDER */
+    /* Save new order or update existing */
     @Override
     public Response<Order> saveOrder(Order order) {
-        Response<Order> resp = new Response<>();
-        try {
-            order = this.orderDao.save(order);
-            resp.setContent(order);
-
-        } catch (Exception exc) {
-            //error during save
-            resp.saveError(Order.class, order.getId(), exc);
-            return resp;
+        Response<Order> resp = new Response<>(order);
+        //check if we are before deadline. Status change can be late,
+        // soe we can only be sure by comparing time.
+        //TODO check if lunch is in scope
+        if (this.lunchDao.getById(order.getLunchId()).getDeadline().getTime() < new Date().getTime()) {
+            //it's create - save new order
+            if (order.getId() == 0) {
+                order.getDishes().clear();
+                try {
+                    order = this.orderDao.save(order);
+                    return resp.success();
+                } catch (Exception exc) {
+                    return resp.error();
+                }
+            }
+            //it's update - treat 'order' as proxy object
+            else {
+                Order o = this.fetchOrder(order.getId());
+                o.setDishes(order.getDishes());
+                o.setNote(order.getNote());
+                try {
+                    order = this.orderDao.save(o);
+                    return resp.success();
+                } catch (Exception exc) {
+                    return resp.error();
+                }
+            }
         }
-        //success
-        resp.saveSuccess(Order.class, order.getId());
-        return resp;
+        return resp.forbidden();
     }
 
     @Override
     public Response<String> deleteOrder(int orderId) {
         Response<String> resp = new Response<>();
         Order order = orderDao.getById(orderId);
-
         //id not in database
         if (order == null) {
-            resp.deleteNotFound(Order.class, orderId);
+            return resp.error();
         }
         //order found
         else {
             try {
                 this.orderDao.deleteById(orderId);
+                return resp.success();
             } catch (Exception exc) {
-                //error during delete
-                resp.deleteFoundButError(Order.class, orderId, exc);
-                return resp;
+                return resp.error();
             }
-            //success
-            resp.deleteSuccess(Order.class, orderId);
         }
-
-        return resp;
     }
 
     @Override
@@ -146,7 +179,8 @@ public class LunchServiceImpl implements LunchService {
 
     @Override
     public List<Order> fetchOrderByLunchId(int lunchId) {
-        return  this.orderDao.getByLunchId(lunchId);
+        return this.orderDao.getByLunchId(lunchId);
     }
+
 }
 

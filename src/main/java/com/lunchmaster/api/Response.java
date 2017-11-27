@@ -1,9 +1,16 @@
 package com.lunchmaster.api;
 
+import com.lunchmaster.api.lunch.dto.Lunch;
+import com.lunchmaster.api.lunch.dto.Order;
+import com.sun.org.apache.regexp.internal.RE;
+
+import java.util.Date;
+
+
 public class Response<T> {
 
-    public static final String SUCCESS = "success";
-    public static final String FAILURE = "failure";
+    private static final String SUCCESS = "success";
+    private static final String FAILURE = "failure";
 
     private String status;
     private String details;
@@ -15,6 +22,10 @@ public class Response<T> {
 
     public Response(String status) {
         this.status = status;
+    }
+
+    public Response(T type) {
+        this.content=type;
     }
 
     public String getStatus() {
@@ -42,31 +53,24 @@ public class Response<T> {
     }
 
 
-
-    public void deleteSuccess(Class cls, int id) {
-        this.status = SUCCESS;
-        this.details = cls.getSimpleName() + " with id=" + id + " was successfully deleted.";
+    public Response success() {
+        this.setStatus(SUCCESS);
+        this.setDetails("Operation successful.");
+        return this;
     }
 
-
-    public void deleteNotFound(Class cls, int id) {
-        this.status = FAILURE;
-        this.details = "Error during delete operation on " + cls.getSimpleName() + " with id=" + id + ". Object not found!";
+    public Response error() {
+        this.setStatus(FAILURE);
+        this.setDetails("There was an unexpected error.");
+        this.setContent(null);
+        return this;
     }
 
-    public void deleteFoundButError(Class cls, int id, Exception exc) {
-        this.status = FAILURE;
-        this.details = cls.getSimpleName() + " with id=" + id + " was found, but there was an error during deletion.\n"+exc.toString();
-    }
-
-    public void saveSuccess(Class cls, int id) {
-        this.status = SUCCESS;
-        this.details = cls.getSimpleName() + " with id=" + id + " was successfully saved.";
-    }
-
-    public void saveError(Class cls, int id, Exception exc) {
-        this.status = FAILURE;
-        this.details =  "Error during save operation on " + cls.getSimpleName() + " with id=" + id+".\n" + exc.toString();
+    public Response forbidden(){
+        this.setStatus(FAILURE);
+        this.setDetails("Forbidden operation.");
+        this.setContent(null);
+        return this;
     }
 
 }

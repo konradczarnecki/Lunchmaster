@@ -5,10 +5,11 @@ import com.lunchmaster.api.restaurant.dto.Restaurant;
 import com.lunchmaster.api.login.dto.User;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import java.util.Date;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class Lunch implements Serializable{
     private List<Order> orders;
 
     public Lunch(){
+        this.status=LunchStatus.OPEN.toString();
         this.orders = new LinkedList<>();
     }
 
@@ -75,14 +77,6 @@ public class Lunch implements Serializable{
         this.lunchMaster = lunchMaster;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Date getDeadline() {
         return deadline;
     }
@@ -107,6 +101,70 @@ public class Lunch implements Serializable{
         this.orders = orders;
     }
 
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        changeState(LunchStatus.valueOf(status));
+    }
+
+
+    /* Status checkers */
+
+
+    public boolean isOpen(){
+        return LunchStatus.valueOf(this.status).equals(LunchStatus.OPEN);
+    }
+
+    public boolean isClosed(){
+        return LunchStatus.valueOf(this.status).equals(LunchStatus.CLOSED);
+    }
+
+    public boolean isOrdered(){
+        return LunchStatus.valueOf(this.status).equals(LunchStatus.ORDERED);
+    }
+
+    public boolean isDelivered(){
+        return LunchStatus.valueOf(this.status).equals(LunchStatus.DELIVERED);
+    }
+
+    public boolean isArchived(){
+        return LunchStatus.valueOf(this.status).equals(LunchStatus.ARCHIVED);
+    }
+
+
+    /* State machine */
+    public boolean changeState(LunchStatus ls){
+        switch (LunchStatus.valueOf(this.status)){
+
+            case OPEN:
+                if(ls.equals(LunchStatus.CLOSED)){
+                    this.status = ls.name();
+                    return true;
+                }
+
+            case CLOSED:
+                if(ls.equals(LunchStatus.ORDERED) || ls.equals(LunchStatus.CLOSED)){
+                    this.status = ls.name();
+                    return true;
+                }
+
+            case ORDERED:
+                if(ls.equals(LunchStatus.DELIVERED)){
+                    this.status=ls.name();
+                    return true;
+                }
+
+            case DELIVERED:
+                if(ls.equals(LunchStatus.ARCHIVED)){
+                    this.status=ls.name();
+                    return  true;
+                }
+        }
+        return false;
+    }
+
     //TODO
     @Override
     public String toString() {
@@ -120,4 +178,5 @@ public class Lunch implements Serializable{
                 ", orders=" + orders.toString() +
                 '}';
     }
+
 }

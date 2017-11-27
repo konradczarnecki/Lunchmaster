@@ -6,6 +6,7 @@ import com.lunchmaster.api.login.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -23,7 +24,7 @@ public class LoginController {
         this.service = service;
     }
 
-    @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/login", consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE, produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Response<User> login(@RequestBody User loggedUser, HttpSession session) {
 
         boolean authorized = service.authorize(loggedUser);

@@ -13,6 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -57,8 +60,8 @@ public class LunchControllerTest {
     public void getLunches_LunchesFound_ShouldReturnFoundLunches() throws Exception {
         Lunch lunch = new Lunch();
         lunch.setId(1);
-        lunch.setStatus("OPEN");
-        lunch.setDeadline(new Date(MIDNIGHT_01_10_2017_EPOCH));
+        lunch.setStatus(Lunch.LunchStatus.OPEN);
+        lunch.setDeadline(Instant.ofEpochMilli(MIDNIGHT_01_10_2017_EPOCH).atZone(ZoneId.systemDefault()).toLocalDateTime());
         lunch.setExpectedDelivery(40);
         lunch.setRestaurant(new Restaurant());
         lunch.setLunchMaster(new User());

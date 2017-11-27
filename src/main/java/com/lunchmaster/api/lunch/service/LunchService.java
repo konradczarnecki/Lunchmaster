@@ -15,16 +15,12 @@ public interface LunchService {
     /* LUNCH */
     List<Lunch> fetchLunches();
 
-    Response<Lunch> saveNewLunch(Lunch lunch);
+    Response<Lunch> saveLunch(Lunch lunch);
 
     Response<String> deleteLunch(int lunchId);
 
     Lunch fetchLunch(int id);
 
-    /* UPDATE LUNCH PROPERTIES */
-    Response<String> changeLunchStatus(int lunchId, String status);
-
-    Response<String> changeLunchDeadline(int lunchId, Date deadline);
 
     /* ORDER */
     Response<Order> saveOrder(Order order);

@@ -1,6 +1,7 @@
 package com.lunchmaster.api.restaurant.service.impl;
 
 import com.lunchmaster.api.Response;
+import com.lunchmaster.api.lunch.dto.Lunch;
 import com.lunchmaster.api.lunch.dto.Order;
 import com.lunchmaster.api.restaurant.dao.DishDao;
 import com.lunchmaster.api.restaurant.dao.RestaurantDao;
@@ -18,6 +19,7 @@ import java.util.List;
  * Created by m.slefarski on 2017-09-28.
  */
 @Service
+@SuppressWarnings("unchecked")
 public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
@@ -41,38 +43,37 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Response<Restaurant> saveRestaurant(Restaurant restaurant) {
-        Response<Restaurant> resp = new Response<>();
-
-        if(restaurant.getId()!=0)
-            //can't change dishes!
-            restaurant.setDishes(this.dishDao.getByRestaurantId(restaurant.getId()));
-        try{
-            restaurant=this.restaurantDao.save(restaurant);
-            resp.saveSuccess(Restaurant.class, restaurant.getId());
-            resp.setContent(restaurant);
-        }catch(Exception exc){
-            resp.saveError(Restaurant.class, restaurant.getId(), exc);
+        Response<Restaurant> resp = new Response<>(restaurant);
+        //TODO forbid changing dishes
+        if (restaurant.getId() == 0) {
+            restaurant.getDishes().clear();
         }
-        return resp;
+        try {
+            restaurant = this.restaurantDao.save(restaurant);
+            return resp.success();
+        } catch (Exception exc) {
+            return resp.error();
+        }
+
     }
 
     @Override
     public Response<String> deleteRestaurantById(int id) {
         Response<String> resp = new Response<>();
         Restaurant restaurant = this.restaurantDao.getById(id);
-        if(restaurant==null){
-                resp.deleteNotFound(Restaurant.class, id);
-        }
-        else{
+        //not found
+        if (restaurant == null) {
+            return resp.error();
+            //found
+        } else {
             try {
                 this.dishDao.deleteByRestaurantId(id);
                 this.restaurantDao.deleteById(id);
-                resp.deleteSuccess(Restaurant.class, id);
-            }catch(Exception exc){
-                resp.deleteFoundButError(Restaurant.class, id, exc);
+                return resp.success();
+            } catch (Exception exc) {
+                return resp.error();
             }
         }
-        return resp;
     }
 
     /* DISH */
@@ -88,41 +89,34 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Response<Dish> saveDish(Dish dish) {
-        Response<Dish> resp = new Response<>();
-        resp.setContent(dish);
-        try{
-            dish=this.dishDao.save(dish);
-            resp.saveSuccess(Dish.class,dish.getId());
+        Response<Dish> resp = new Response<>(dish);
+        try {
+            dish = this.dishDao.save(dish);
+            return resp.success();
+        } catch (Exception exc) {
+            return resp.error();
         }
-        catch (Exception exc){
-            resp.saveError(Dish.class, dish.getId(), exc);
-        }
-        return resp;
     }
 
     @Override
     public Response<String> deleteDishById(int id) {
         Response<String> resp = new Response<>();
         Dish dish = dishDao.getById(id);
-
         //id not in database
         if (dish == null) {
-            resp.deleteNotFound(Dish.class, id);
+            return resp.error();
         }
-        //order found
+        //dish found
         else {
             try {
                 this.dishDao.deleteById(id);
+                return resp.success();
             } catch (Exception exc) {
                 //error during delete
-                resp.deleteFoundButError(Dish.class, id, exc);
-                return resp;
+                return resp.error();
             }
-            //success
-            resp.deleteSuccess(Dish.class, id);
-        }
 
-        return resp;
+        }
     }
 
 

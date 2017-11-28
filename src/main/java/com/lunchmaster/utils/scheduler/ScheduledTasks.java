@@ -48,7 +48,7 @@ public class ScheduledTasks {
             if (lunch.getStatus().equals(LunchStatus.OPEN.toString())) {
                 //close if deadline has passed or deadline is now
                 if (lunch.getDeadline().getTime() <= now) {
-                    lunch.changeState(LunchStatus.CLOSED);
+                    lunch.changeStatus(LunchStatus.CLOSED);
                     closedLunches.add(lunch);
                 }
             }

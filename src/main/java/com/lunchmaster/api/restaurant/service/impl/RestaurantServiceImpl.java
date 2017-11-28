@@ -44,9 +44,15 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Response<Restaurant> saveRestaurant(Restaurant restaurant) {
         Response<Restaurant> resp = new Response<>(restaurant);
-        //TODO forbid changing dishes
+        //create
         if (restaurant.getId() == 0) {
             restaurant.getDishes().clear();
+        }
+        //update
+        else{
+            //ensure dishes are not changed
+            Restaurant r = this.getRestaurantById(restaurant.getId());
+            restaurant.setDishes(r.getDishes());
         }
         try {
             restaurant = this.restaurantDao.save(restaurant);
@@ -90,6 +96,15 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Response<Dish> saveDish(Dish dish) {
         Response<Dish> resp = new Response<>(dish);
+        //update
+        if (dish.getId() != 0) {
+            //if update - ensure restaurant is not changed
+            Dish d = this.dishDao.getById(dish.getId());
+            if (d == null) {
+                return resp.error();
+            }
+            dish.setRestaurantId(d.getRestaurantId());
+        }
         try {
             dish = this.dishDao.save(dish);
             return resp.success();

@@ -144,7 +144,11 @@ public class Lunch implements Serializable{
                 }
 
             case CLOSED:
-                if(ls.equals(LunchStatus.ORDERED) || ls.equals(LunchStatus.OPEN)){
+                if(ls.equals(LunchStatus.OPEN)){
+                    this.status = ls.name();
+                    return true;
+                }
+                else if(ls.equals(LunchStatus.ORDERED) && this.orders.size()>0){
                     this.status = ls.name();
                     return true;
                 }

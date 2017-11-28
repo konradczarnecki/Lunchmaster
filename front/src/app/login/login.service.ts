@@ -33,7 +33,7 @@ export class LoginService implements CanActivate {
       this.http.post(environment.authUrl, params.toString(), options)
         .subscribe(data =>{
           this.saveToken(data.json());
-          this.logged = true;
+
           this.getUser(email).then(result => resolve(result));
       }, err => resolve(false));
     });
@@ -90,6 +90,7 @@ export class LoginService implements CanActivate {
         console.log(response);
         this.user = response.json();
         console.log(this.user);
+        this.logged = true;
         localStorage.setItem('user', JSON.stringify(this.user));
 
         resolve(true);

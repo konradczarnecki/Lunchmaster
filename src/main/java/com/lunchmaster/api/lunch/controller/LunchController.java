@@ -44,7 +44,7 @@ public class LunchController {
         return this.lunchService.fetchLunch(lunchId);
     }
 
-    /* Save Lunch */
+    /* Save new Lunch */
     @PutMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Response<Lunch> saveLunch(@RequestBody Lunch lunch) {
         return this.lunchService.saveLunch(lunch);
@@ -55,6 +55,14 @@ public class LunchController {
     public Response<String> deleteLunch(@RequestParam("id") int lunchId) {
         return this.lunchService.deleteLunch(lunchId);
     }
+
+    /* Edit restaurant */
+    @PostMapping(value = "/change-restaurant", produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Response<String> changeRestaurant(@RequestParam("lunchId") int lunchId,
+                                             @RequestParam("restaurantId") int restaurantId){
+        return lunchService.changeRestaurant(lunchId,restaurantId);
+    }
+
 
 
     /* ORDER */

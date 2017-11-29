@@ -8,6 +8,7 @@ import com.lunchmaster.api.lunch.dto.LunchStatus;
 import com.lunchmaster.api.lunch.dto.Order;
 import com.lunchmaster.api.lunch.service.LunchService;
 import com.lunchmaster.api.restaurant.dao.RestaurantDao;
+import com.lunchmaster.api.restaurant.dto.Restaurant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,14 @@ public class LunchServiceImpl implements LunchService {
 
     private LunchDao lunchDao;
     private OrderDao orderDao;
+    private RestaurantDao restaurantDao;
     private static final Logger LOGGER = LoggerFactory.getLogger(LunchServiceImpl.class);
 
     @Autowired
     public LunchServiceImpl(LunchDao lunchDao, OrderDao orderDao, RestaurantDao restaurantDao) {
         this.lunchDao = lunchDao;
         this.orderDao = orderDao;
+        this.restaurantDao=restaurantDao;
     }
 
     public LunchServiceImpl() {
@@ -50,6 +53,27 @@ public class LunchServiceImpl implements LunchService {
     @Override
     public Lunch fetchLunch(int id) {
         return this.lunchDao.getById(id);
+    }
+
+    @Override
+    public Response<String> changeRestaurant(int lunchId, int restaurantId) {
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+        Restaurant restaurant = restaurantDao.getById(restaurantId);
+
+        if(lunch==null || restaurant==null){
+            return resp.error();
+        }
+        if(lunch.isOpen() && lunch.getOrders().size()==0){
+            try {
+                lunch.setRestaurant(restaurantDao.getById(restaurantId));
+                return resp.success();
+            }
+            catch (Exception exc){
+                return resp.error();
+            }
+        }
+        return resp.forbidden();
     }
 
     /* save new lunch */
@@ -71,7 +95,7 @@ public class LunchServiceImpl implements LunchService {
         if (lunch == null) {
             return resp.error();
         }
-        if (canBeDeleted(lunch)){
+        if (canBeDeleted(lunch)) {
             try {
                 this.orderDao.deleteByLunchId(lunchId);
                 this.lunchDao.deleteById(lunchId);
@@ -182,10 +206,10 @@ public class LunchServiceImpl implements LunchService {
                 && order.getUser() != null;
     }
 
-    private boolean canBeDeleted(Lunch lunch){
+    private boolean canBeDeleted(Lunch lunch) {
         try {
             return (lunch.isOpen() || lunch.isClosed());
-        }catch(Exception exc){
+        } catch (Exception exc) {
             //bad practice lol :)
             return false;
         }

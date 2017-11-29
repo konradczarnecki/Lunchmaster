@@ -5,7 +5,6 @@ import com.lunchmaster.api.lunch.dto.Lunch;
 import com.lunchmaster.api.lunch.dto.Order;
 
 import java.util.List;
-import java.util.Date;
 
 /**
  * Created by m.slefarski on 2017-09-25.
@@ -20,6 +19,8 @@ public interface LunchService {
     Response<String> deleteLunch(int lunchId);
 
     Lunch fetchLunch(int id);
+
+    Response<String> changeRestaurant(int lunchId, int restaurantId);
 
 
     /* ORDER */

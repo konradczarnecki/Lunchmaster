@@ -27,14 +27,12 @@ public class LunchServiceImpl implements LunchService {
 
     private LunchDao lunchDao;
     private OrderDao orderDao;
-    private RestaurantDao restaurantDao;
     private static final Logger LOGGER = LoggerFactory.getLogger(LunchServiceImpl.class);
 
     @Autowired
     public LunchServiceImpl(LunchDao lunchDao, OrderDao orderDao, RestaurantDao restaurantDao) {
         this.lunchDao = lunchDao;
         this.orderDao = orderDao;
-        this.restaurantDao = restaurantDao;
     }
 
     public LunchServiceImpl() {
@@ -54,45 +52,14 @@ public class LunchServiceImpl implements LunchService {
         return this.lunchDao.getById(id);
     }
 
-    /**
-     * save lunch - allow saving only new lunches.
-     * Editing properties can be achieved only through specified api calls.
-     * This approach secures unwanted changes
-     */
+    /* save new lunch */
     @Override
     public Response<Lunch> saveLunch(Lunch lunch) {
-        Response<Lunch> resp = new Response<>(lunch);
-        //it's create
         if (lunch.getId() == 0) {
-            try {
-                //ensure correct values for new lunch
-                //TODO ensure correct deadline
-                lunch.getOrders().clear();
-                lunch.setStatus(LunchStatus.OPEN.name());
-                lunch =lunchDao.save(lunch);
-                return resp.success();
-            } catch (Exception exc) {
-                return resp.error();
-            }
+            return createNewLunch(lunch);
+        } else {
+            return new Response<Lunch>().forbidden();
         }
-        //it's update - treat 'lunch' as proxy object
-        else {
-            //fetch lunch from db to ensure uncorrupted data
-            Lunch l = this.fetchLunch(lunch.getId());
-            l.setStatus(lunch.getStatus());
-            l.setDeadline(lunch.getDeadline());
-            //you can modify restaurant when there are no orders yet
-            if (l.getOrders().size() == 0) {
-                l.setRestaurant(lunch.getRestaurant());
-            }
-            try {
-                lunch = this.lunchDao.save(l);
-                return resp.success();
-            } catch (Exception exc) {
-                return resp.error();
-            }
-        }
-
     }
 
     /* Delete lunch by id */
@@ -102,10 +69,9 @@ public class LunchServiceImpl implements LunchService {
         Lunch lunch = lunchDao.getById(lunchId);
         //lunch not found
         if (lunch == null) {
-            return resp.forbidden();
+            return resp.error();
         }
-        //lunch found
-        else {
+        if (canBeDeleted(lunch)){
             try {
                 this.orderDao.deleteByLunchId(lunchId);
                 this.lunchDao.deleteById(lunchId);
@@ -115,6 +81,22 @@ public class LunchServiceImpl implements LunchService {
                 return resp.error();
             }
         }
+        return resp.forbidden();
+    }
+
+    /* LUNCH PRIVATE METHODS */
+    /* create new lunch */
+    private Response<Lunch> createNewLunch(Lunch lunch) {
+        Response<Lunch> resp = new Response<>(lunch);
+        try {
+            if (isNewLunchOK(lunch)) {
+                lunch = lunchDao.save(lunch);
+                return resp.success();
+            }
+            return resp.forbidden();
+        } catch (Exception exc) {
+            return resp.error();
+        }
     }
 
 
@@ -123,31 +105,12 @@ public class LunchServiceImpl implements LunchService {
     @Override
     public Response<Order> saveOrder(Order order) {
         Response<Order> resp = new Response<>(order);
-        //check if we are before deadline. Status change can be late,
-        // soe we can only be sure by comparing time.
-        //TODO check if lunch is in scope
-        if (this.lunchDao.getById(order.getLunchId()).getDeadline().getTime() < new Date().getTime()) {
-            //it's create - save new order
-            if (order.getId() == 0) {
-                order.getDishes().clear();
-                try {
-                    order = this.orderDao.save(order);
-                    return resp.success();
-                } catch (Exception exc) {
-                    return resp.error();
-                }
-            }
-            //it's update - treat 'order' as proxy object
-            else {
-                Order o = this.fetchOrder(order.getId());
-                o.setDishes(order.getDishes());
-                o.setNote(order.getNote());
-                try {
-                    order = this.orderDao.save(o);
-                    return resp.success();
-                } catch (Exception exc) {
-                    return resp.error();
-                }
+        if (isOrderOK(order)) {
+            try {
+                order = this.orderDao.save(order);
+                return resp.success();
+            } catch (Exception exc) {
+                return resp.error();
             }
         }
         return resp.forbidden();
@@ -157,12 +120,15 @@ public class LunchServiceImpl implements LunchService {
     public Response<String> deleteOrder(int orderId) {
         Response<String> resp = new Response<>();
         Order order = orderDao.getById(orderId);
-        //id not in database
+        //order not found
         if (order == null) {
             return resp.error();
         }
-        //order found
-        else {
+        //order found but after deadline
+        else if (!isLunchBeforeDeadline(order.getLunchId())) {
+            return resp.forbidden();
+        } else {
+            //order found and lunch is before deadline
             try {
                 this.orderDao.deleteById(orderId);
                 return resp.success();
@@ -182,5 +148,65 @@ public class LunchServiceImpl implements LunchService {
         return this.orderDao.getByLunchId(lunchId);
     }
 
-}
 
+    private boolean isLunchBeforeDeadline(int lunchId) {
+        try {
+            return (this.lunchDao.getById(lunchId).getDeadline().getTime() > new Date().getTime());
+        } catch (Exception exc) {
+            return false;
+        }
+    }
+
+    private boolean isLunchBeforeDeadline(Order order) {
+        try {
+            return (this.lunchDao.getById(order.getLunchId()).getDeadline().getTime() > new Date().getTime());
+        } catch (Exception exc) {
+            return false;
+        }
+    }
+
+    private boolean isNewDeadlineOK(Date newDeadline) {
+        return newDeadline.getTime() > new Date().getTime();
+    }
+
+    private boolean isNewLunchOK(Lunch lunch) {
+        return isNewDeadlineOK(lunch.getDeadline())
+                && lunch.isOpen()
+                && lunch.getStatus().equals(LunchStatus.OPEN.name())
+                && lunch.getRestaurant() != null
+                && lunch.getLunchMaster() != null;
+    }
+
+    private boolean isOrderOK(Order order) {
+        return isLunchBeforeDeadline(order)
+                && order.getDishes().size() > 0
+                && order.getUser() != null;
+    }
+
+    private boolean canBeDeleted(Lunch lunch){
+        try {
+            return (lunch.isOpen() || lunch.isClosed());
+        }catch(Exception exc){
+            //bad practice lol :)
+            return false;
+        }
+    }
+
+
+    //TODO - move private methods as public static to lunch and order classes
+
+    //TODO - check if user can delete order/lunch
+
+    //TODO - closed lunches without orders should not be archieved
+
+    //TODO - lunch cannot be 'ordered' if it has no orders
+
+    //TODO - we can only delete lunch if is OPEN/CLOSE
+
+    //TODO - lunch without orders after deadline should be automaticaly deleted
+
+    //TODO - preparated order save can enable ordering dishesh from other restaurant
+
+
+
+}

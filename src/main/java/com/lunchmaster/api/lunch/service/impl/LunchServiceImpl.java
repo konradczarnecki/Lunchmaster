@@ -35,7 +35,7 @@ public class LunchServiceImpl implements LunchService {
     public LunchServiceImpl(LunchDao lunchDao, OrderDao orderDao, RestaurantDao restaurantDao) {
         this.lunchDao = lunchDao;
         this.orderDao = orderDao;
-        this.restaurantDao=restaurantDao;
+        this.restaurantDao = restaurantDao;
     }
 
     public LunchServiceImpl() {
@@ -61,15 +61,33 @@ public class LunchServiceImpl implements LunchService {
         Lunch lunch = fetchLunch(lunchId);
         Restaurant restaurant = restaurantDao.getById(restaurantId);
 
-        if(lunch==null || restaurant==null){
+        if (lunch == null || restaurant == null) {
             return resp.error();
         }
-        if(lunch.isOpen() && lunch.getOrders().size()==0){
+        if (lunch.isOpen() && lunch.getOrders().size() == 0) {
             try {
                 lunch.setRestaurant(restaurantDao.getById(restaurantId));
                 return resp.success();
+            } catch (Exception exc) {
+                return resp.error();
             }
-            catch (Exception exc){
+        }
+        return resp.forbidden();
+    }
+
+    @Override
+    public Response<String> closeLunch(int lunchId) {
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+        //in not null and legal state change
+        if (lunch != null && lunch.checkStatus(LunchStatus.CLOSED)) {
+            lunch.changeStatus(LunchStatus.CLOSED);
+            //user is forcing lunch close - set deadline to now
+            lunch.setDeadline(new Date());
+            try {
+                saveLunch(lunch);
+                return resp.success();
+            } catch (Exception exc) {
                 return resp.error();
             }
         }

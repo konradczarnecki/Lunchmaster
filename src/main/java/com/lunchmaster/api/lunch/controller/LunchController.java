@@ -56,14 +56,18 @@ public class LunchController {
         return this.lunchService.deleteLunch(lunchId);
     }
 
-    /* Edit restaurant */
+    /* Change restaurant */
     @PostMapping(value = "/change-restaurant", produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Response<String> changeRestaurant(@RequestParam("lunchId") int lunchId,
                                              @RequestParam("restaurantId") int restaurantId){
         return lunchService.changeRestaurant(lunchId,restaurantId);
     }
 
-
+    /* Change status */
+    @PostMapping(value = "/close", produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Response<String> closeLunch(@RequestParam("lunchId") int lunchId){
+        return lunchService.closeLunch(lunchId);
+    }
 
     /* ORDER */
     /* Get order by Id */

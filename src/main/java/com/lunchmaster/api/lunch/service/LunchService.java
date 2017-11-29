@@ -22,6 +22,8 @@ public interface LunchService {
 
     Response<String> changeRestaurant(int lunchId, int restaurantId);
 
+    Response<String> closeLunch(int lunchId);
+
 
     /* ORDER */
     Response<Order> saveOrder(Order order);

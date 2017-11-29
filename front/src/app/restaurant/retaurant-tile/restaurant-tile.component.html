@@ -1,0 +1,19 @@
+<div class="tile" [ngStyle]="{ color : theme.fontColor }"
+     (mouseover)="mouseOver()" (mouseout)="mouseLeave()" (mousedown)="mouseDown()" (mouseup)="mouseUp()" #tile>
+
+
+  <div class="filler"></div>
+
+  <img [src]="restaurant.logo"/>
+
+  <div id="details">
+
+    <div id="restaurant">{{restaurant.name}}</div>
+
+    <div id="description">{{restaurant.description}}</div>
+
+
+  </div>
+
+</div>
+

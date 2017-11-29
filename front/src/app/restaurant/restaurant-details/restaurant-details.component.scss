@@ -1,0 +1,165 @@
+@import "../../common";
+
+#frame {
+  width: 500px;
+  height: 650px;
+  position: relative;
+  margin: auto;
+  padding-bottom: 15px;
+
+  border-radius: 5px;
+  font-family: $font;
+  font-size: 20px;
+
+  display: grid;
+  grid-template-rows: 50px 140px 1fr;
+  grid-row-gap: 10px;
+  overflow: hidden;
+  align-items: stretch;
+  justify-items: center;
+
+  @media screen and (max-width: 850px) {
+    width: 95vw;
+  }
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+#close {
+  width: 105%;
+  height: 20px;
+
+  position: absolute;
+  left: -10px;
+  right: 0;
+  margin: 10px auto;
+  bottom: -13px;
+
+  border-top: none;
+  border-radius: 3px;
+  font-size: 14px;
+  text-align: center;
+}
+
+#close:hover {
+  cursor: pointer;
+  background-color: $hover-clr;
+}
+
+
+#info {
+
+  width: 90%;
+
+  display: grid;
+  grid-template-rows: 40% 1fr;
+  grid-template-columns: 60% 1fr;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+#menu {
+  width: 90%;
+
+  display: grid;
+  grid-template-rows: 50px 20px;
+  grid-auto-rows: 30px;
+}
+
+#name {
+
+  font-size: 35px;
+}
+
+#restaurantDetails {
+  grid-column: 1;
+  grid-row: 2;
+
+  padding: 3px;
+  font-size: 15px;
+}
+
+.detail {
+  height: 20px;
+}
+
+#avgTime {
+  grid-row: 2;
+  grid-column: 2;
+  font-size: 20px;
+  transform: translateY(7px);
+}
+
+#topRow {
+  width: 100%;
+
+}
+
+#menuLabel {
+  width: 30%;
+  height: 100%;
+
+  float: left;
+
+  font-size: 32px;
+}
+
+
+#addDish {
+  width: 70%;
+  height: 100%;
+
+  float: right;
+
+  display: grid;
+  grid-template-columns: 180px 60px 40px;
+  grid-column-gap: 5px;
+
+  align-items: center;
+
+  $height: 35px;
+
+  input {
+    height: $height;
+    background: transparent;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding-left: 5px;
+  }
+
+  div {
+    height: $height;
+    box-sizing: border-box;
+
+    border-radius: 3px;
+
+    font-size: 18px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-weight: 700;
+  }
+
+  div:hover {
+    cursor: pointer;
+    background: $hover-clr;
+  }
+}
+
+.menuPosition {
+  width: 100%;
+  height: 100%;
+}
+
+.dishName {
+  float: left;
+}
+
+.dishPrice {
+  float: right;
+  transform: translateX(-100px);
+}
+
+

@@ -55,6 +55,7 @@ public class LunchServiceImpl implements LunchService {
         return this.lunchDao.getById(id);
     }
 
+    /* Change restaurant */
     @Override
     public Response<String> changeRestaurant(int lunchId, int restaurantId) {
         Response<String> resp = new Response<>();
@@ -75,6 +76,7 @@ public class LunchServiceImpl implements LunchService {
         return resp.forbidden();
     }
 
+    /* Close lunch */
     @Override
     public Response<String> closeLunch(int lunchId) {
         Response<String> resp = new Response<>();
@@ -93,6 +95,34 @@ public class LunchServiceImpl implements LunchService {
         }
         return resp.forbidden();
     }
+
+    @Override
+    public Response<String> changeDeadline(int lunchId, long deadline) {
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+        Date deadlineDate = new Date();
+        deadlineDate.setTime(deadline);
+
+        //check if not null
+        if(lunch==null) {
+            return resp.error();
+        }
+        //check if not open or deadlineDate is wrong
+        else if(deadlineDate.getTime()<=new Date().getTime() || !lunch.isOpen()){
+            return resp.forbidden();
+        }
+        //not null and correct deadlineDate
+        else{
+            try{
+                lunch.setDeadline(deadlineDate);
+                saveLunch(lunch);
+                return resp.success();
+            }catch(Exception exc){
+                return resp.error();
+            }
+        }
+    }
+
 
     /* save new lunch */
     @Override

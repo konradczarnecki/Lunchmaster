@@ -6,33 +6,25 @@
 
   <div class="filler"></div>
 
-  <div class="menuLink" routerLink="/wall"
-       [ngClass]="{'inactive' : !loginService.logged}">wall</div>
-
-  <div class="menuLink" routerLink="/wall"
-       [ngClass]="{'inactive' : !loginService.logged}">billing</div>
-
-  <div class="menuLink" routerLink="/wall"
-       [ngClass]="{'inactive' : !loginService.logged}">restaurants</div>
-
-  <div class="menuLink" routerLink="/profile"
-       [ngClass]="{'inactive' : !loginService.logged}">profile</div>
+  <div class="menuLink" routerLink="/wall" [ngClass]="{'inactive' : !loginService.logged}">wall</div>
+  <div class="menuLink" routerLink="/wall" [ngClass]="{'inactive' : !loginService.logged}">billing</div>
+  <div class="menuLink" routerLink="/wall" [ngClass]="{'inactive' : !loginService.logged}">restaurants</div>
+  <div class="menuLink" routerLink="/profile" [ngClass]="{'inactive' : !loginService.logged}">profile</div>
 
   <div class="filler"></div>
 
   <div id="userInfo" *ngIf="loginService.logged">
     Hello, {{loginService.user.firstName}}
   </div>
+
   <div id="substitute" *ngIf="!loginService.logged"></div>
 
   <div id="themes">
 
-    <div class="theme"
-         *ngFor="let th of themes; let i = index;"
-         [ngClass]="{'selected' : theme.current == i}"
-         [ngStyle]="{background : th.secColor}"
-         (click)="theme.setTheme(i)">
+    <div class="theme" *ngFor="let th of themes; let i = index;"
+         [ngClass]="{'selected' : theme.current == i}" [ngStyle]="{background : th.secColor}" (click)="theme.setTheme(i)">
     </div>
 
   </div>
+
 </div>

@@ -85,7 +85,6 @@ public class LunchServiceImpl implements LunchService {
     }
 
     /* LUNCH PRIVATE METHODS */
-    /* create new lunch */
     private Response<Lunch> createNewLunch(Lunch lunch) {
         Response<Lunch> resp = new Response<>(lunch);
         try {
@@ -193,20 +192,16 @@ public class LunchServiceImpl implements LunchService {
     }
 
 
-    //TODO - move private methods as public static to lunch and order classes
+    //TODO move private methods as public static to lunch and order classes
 
-    //TODO - check if user can delete order/lunch
+    //TODO check if user can delete order/lunch
 
-    //TODO - closed lunches without orders should not be archieved
+    //TODO closed lunches without orders should not be archieved
 
-    //TODO - lunch cannot be 'ordered' if it has no orders
+    //TODO lunch cannot be 'ordered' if it has no orders
 
     //TODO - we can only delete lunch if is OPEN/CLOSE
 
     //TODO - lunch without orders after deadline should be automaticaly deleted
-
-    //TODO - preparated order save can enable ordering dishesh from other restaurant
-
-
 
 }

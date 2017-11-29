@@ -56,6 +56,10 @@ export class ThemeService {
     return 'solid 1px ' + this.themes[this.current].highlightColor;
   }
 
+  get border2px(){
+    return 'solid 2px ' +this.themes[this.current].highlightColor;
+  }
+
   get name() {
     return this.themes[this.current].name;
   }

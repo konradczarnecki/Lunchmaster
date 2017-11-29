@@ -1,6 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { Router } from '@angular/router';
-import {ThemeService} from "./theme/theme.service";
+import { Component, OnInit } from '@angular/core';
+
+import { ThemeService } from './theme/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import {ThemeService} from "./theme/theme.service";
 })
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router, private theme: ThemeService) {}
+  constructor(private theme: ThemeService) {}
 
   ngOnInit() {
 

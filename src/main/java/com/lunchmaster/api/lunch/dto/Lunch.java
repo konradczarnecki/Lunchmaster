@@ -106,7 +106,7 @@ public class Lunch implements Serializable{
     }
 
     public void setStatus(String status) {
-        changeState(LunchStatus.valueOf(status));
+        changeStatus(LunchStatus.valueOf(status));
     }
 
 
@@ -133,9 +133,8 @@ public class Lunch implements Serializable{
         return LunchStatus.valueOf(this.status).equals(LunchStatus.ARCHIVED);
     }
 
-
     /* State machine */
-    public boolean changeState(LunchStatus ls){
+    public boolean changeStatus(LunchStatus ls){
         switch (LunchStatus.valueOf(this.status)){
 
             case OPEN:
@@ -145,7 +144,11 @@ public class Lunch implements Serializable{
                 }
 
             case CLOSED:
-                if(ls.equals(LunchStatus.ORDERED) || ls.equals(LunchStatus.CLOSED)){
+                if(ls.equals(LunchStatus.OPEN)){
+                    this.status = ls.name();
+                    return true;
+                }
+                else if(ls.equals(LunchStatus.ORDERED) && this.orders.size()>0){
                     this.status = ls.name();
                     return true;
                 }
@@ -163,20 +166,6 @@ public class Lunch implements Serializable{
                 }
         }
         return false;
-    }
-
-    //TODO
-    @Override
-    public String toString() {
-        return "Lunch{" +
-                "id=" + id +
-                ", status='" + status + '\'' +
-                ", deadline=" + deadline +
-                ", expectedDelivery=" + expectedDelivery +
-                ", restaurant=" + restaurant +
-                ", lunchMaster=" + lunchMaster +
-                ", orders=" + orders.toString() +
-                '}';
     }
 
 }

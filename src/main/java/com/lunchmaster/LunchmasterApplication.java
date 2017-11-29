@@ -17,6 +17,9 @@ public class LunchmasterApplication {
 	@Value("#{'${allowed.origins}'.split(',')}")
 	private String[] allowedOrigins;
 
+	@Value("#{'${allowed.methods}'.split(',')}")
+	private String[] allowedMethods;
+
 	public static void main(String[] args) {
 		SpringApplication.run(LunchmasterApplication.class, args);
 	}
@@ -26,7 +29,8 @@ public class LunchmasterApplication {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/**").allowedOrigins(allowedOrigins);
+
+				registry.addMapping("/api/**").allowedOrigins(allowedOrigins).allowedMethods(allowedMethods);
 			}
 		};
 	}

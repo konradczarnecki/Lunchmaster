@@ -5,10 +5,11 @@
   top: 0;
   left: 0;
 
-  display: grid;
-  grid-template-rows: 40px 1fr;
   overflow: hidden;
   background-size: cover;
+
+  display: grid;
+  grid-template-rows: 40px 1fr;
 }
 
 app-topbar {

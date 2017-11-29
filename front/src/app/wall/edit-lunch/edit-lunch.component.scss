@@ -1,0 +1,98 @@
+@import '../../common';
+
+.frame {
+  width: 400px;
+  height: 350px;
+  position: relative;
+  margin: auto;
+  padding-bottom: 15px;
+
+  border-radius: 5px;
+  font-family: $font;
+  font-size: 20px;
+
+  display: grid;
+  grid-template-rows: 40px 40px 15px repeat(3, 35px) 65px 1fr;
+  grid-row-gap: 10px;
+  overflow: hidden;
+
+  @media screen and (max-width: 850px) {
+    width: 95vw;
+  }
+}
+
+#close {
+  width: 105%;
+  height: 20px;
+
+  position: absolute;
+  left: -10px;
+  right: 0;
+  margin: 10px auto;
+  bottom: -13px;
+
+  border-top: none;
+  border-radius: 3px;
+  font-size: 14px;
+  text-align: center;
+}
+
+#close:hover {
+  cursor: pointer;
+  background-color: $hover-clr;
+}
+
+.title {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  font-size: 25px;
+}
+
+.row {
+  width: 100%;
+  height: 100%;
+  line-height: 35px;
+}
+
+
+.left {
+  float: left;
+  margin-left: 25px;
+}
+
+.right {
+  float: right;
+  margin-right: 30px;
+}
+
+input {
+  width: 45%;
+  height: 100%;
+  float: left;
+  padding-left: 10px;
+  box-sizing: border-box;
+  background: transparent;
+  border-radius: 3px;
+  font-size: 17px;
+}
+
+.createLunch {
+  width: 60%;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 3px;
+  text-align: center;
+
+  justify-self: center;
+  align-self: center;
+}
+
+.createLunch:hover {
+  cursor: pointer;
+  background-color: $hover-clr;
+}
+
+.disabled {
+  background: rgba(118, 118, 118, 0.27);
+}

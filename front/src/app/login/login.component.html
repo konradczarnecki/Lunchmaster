@@ -1,19 +1,20 @@
 <div class="wrapper" [ngStyle]="{ background: theme.secColor }">
+
   <div id="loginBox">
 
     <input id="username" class="round" placeholder="username"
-           [(ngModel)]="mail" [ngClass]="{ 'invalid' : invalidCredentials }"
-           [ngStyle]="{ border : theme.border1px, color : theme.secFontColor}" (keyup.enter)="login()">
+           [ngClass]="{ 'invalid' : invalidCredentials }" [ngStyle]="{ border : theme.border1px, color : theme.secFontColor}"
+           [(ngModel)]="mail"  (keyup.enter)="login()">
 
     <input id="password" class="round" placeholder="password"
-           [(ngModel)]="password" [ngClass]="{ 'invalid' : invalidCredentials }"
-           [ngStyle]="{ border : theme.border1px, color : theme.secFontColor }" (keyup.enter)="login()">
+           [ngClass]="{ 'invalid' : invalidCredentials }" [ngStyle]="{ border : theme.border1px, color : theme.secFontColor }"
+           [(ngModel)]="password" (keyup.enter)="login()">
 
     <div id="buttons">
-      <div id="login" class="round" (click)="login()"
-           [ngStyle]="{ border : theme.border1px, color : theme.secFontColor  }">login</div>
-      <div id="register" class="round"
-           [ngStyle]="{ border : theme.border1px, color : theme.secFontColor }">register</div>
+
+      <div id="login" class="round" [ngStyle]="{ border : theme.border1px, color : theme.secFontColor }" (click)="login()">login</div>
+      <div id="register" class="round" [ngStyle]="{ border : theme.border1px, color : theme.secFontColor }">register</div>
+
     </div>
 
   </div>

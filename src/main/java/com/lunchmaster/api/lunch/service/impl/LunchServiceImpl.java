@@ -237,6 +237,7 @@ public class LunchServiceImpl implements LunchService {
         return resp.forbidden();
     }
 
+    /* Delete order */
     @Override
     public Response<String> deleteOrder(int orderId) {
         Response<String> resp = new Response<>();
@@ -259,11 +260,13 @@ public class LunchServiceImpl implements LunchService {
         }
     }
 
+    /* fetch order */
     @Override
     public Order fetchOrder(int id) {
         return this.orderDao.getById(id);
     }
 
+    /* fetch list of orders by lunch id */
     @Override
     public List<Order> fetchOrderByLunchId(int lunchId) {
         return this.orderDao.getByLunchId(lunchId);

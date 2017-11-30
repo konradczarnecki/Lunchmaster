@@ -62,18 +62,32 @@ public class LunchController {
         return lunchService.changeRestaurant(lunchId, restaurantId);
     }
 
-    /* Change status */
+    /* Close lunch */
     @PostMapping(value = "/close", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Response<String> closeLunch(@RequestParam("lunchId") int lunchId) {
         return lunchService.closeLunch(lunchId);
     }
 
-    /* Change deadline (for open lunches) */
+    /* Change deadline */
     @PostMapping(value = "/change-deadline", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Response<String> changeDeadline(@RequestParam("lunchId") int lunchId,
                                            @RequestParam("deadline") long deadline) {
         return lunchService.changeDeadline(lunchId, deadline);
     }
+
+    /* Change expected delivery */
+    @PostMapping(value = "/change-exp-delivery", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Response<String> changeExpectedDelivery(@RequestParam("lunchId") int lunchId,
+                                           @RequestParam("expectedDelivery") int expectedDelivery) {
+        return lunchService.changeDeadline(lunchId, expectedDelivery);
+    }
+
+    /* Re-open lunch */
+    @PostMapping(value = "/re-open", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Response<String> reopenLunch(@RequestParam("lunchId") int lunchId) {
+        return lunchService.reopenLunch(lunchId);
+    }
+
 
     /* ORDER */
     /* Get order by Id */
@@ -93,6 +107,5 @@ public class LunchController {
     public Response<String> deleteOrder(@RequestParam("id") int orderId) {
         return this.lunchService.deleteOrder(orderId);
     }
-
 
 }

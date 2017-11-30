@@ -17,6 +17,8 @@ public interface LunchService {
 
     List<Lunch> fetchLunches();
 
+    Response<String> reopenLunch(int lunchId);
+
     Response<Lunch> saveLunch(Lunch lunch);
 
     Response<String> deleteLunch(int lunchId);
@@ -26,6 +28,9 @@ public interface LunchService {
     Response<String> closeLunch(int lunchId);
 
     Response<String> changeDeadline(int lunchId, long deadline);
+
+    Response<String> changeExpectedDelivery(int lunchId, int expectedDelivery);
+
 
 
     /* ORDER */

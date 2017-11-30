@@ -81,7 +81,7 @@ public class LunchServiceImpl implements LunchService {
     public Response<String> closeLunch(int lunchId) {
         Response<String> resp = new Response<>();
         Lunch lunch = fetchLunch(lunchId);
-        //in not null and legal state change
+        //is not null and is legal to change status
         if (lunch != null && lunch.checkStatus(LunchStatus.CLOSED)) {
             lunch.changeStatus(LunchStatus.CLOSED);
             //user is forcing lunch close - set deadline to now
@@ -96,6 +96,7 @@ public class LunchServiceImpl implements LunchService {
         return resp.forbidden();
     }
 
+    /* Change deadline */
     @Override
     public Response<String> changeDeadline(int lunchId, long deadline) {
         Response<String> resp = new Response<>();
@@ -115,6 +116,55 @@ public class LunchServiceImpl implements LunchService {
         else{
             try{
                 lunch.setDeadline(deadlineDate);
+                lunch.setStatus(LunchStatus.OPEN.name());
+                saveLunch(lunch);
+                return resp.success();
+            }catch(Exception exc){
+                return resp.error();
+            }
+        }
+    }
+
+    /* Change expected delivery */
+    @Override
+    public Response<String> changeExpectedDelivery(int lunchId, int expectedDelivery){
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+
+        if(lunch==null){
+            return resp.error();
+        }
+        else if(lunch.isDelivered() || lunch.isArchived()){
+            return resp.forbidden();
+        }
+        else{
+            lunch.setExpectedDelivery(expectedDelivery);
+            try {
+                saveLunch(lunch);
+                return resp.success();
+            }catch (Exception exc){
+                return resp.error();
+            }
+        }
+    }
+
+    /* Reopen lunch */
+    @Override
+    public Response<String> reopenLunch(int lunchId){
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+
+        if(lunch==null){
+            return resp.error();
+        }
+        else if(!lunch.isClosed()){
+            return resp.forbidden();
+        }
+        else{
+            //prolong deadline by 10 minutes
+            lunch.getDeadline().setTime(lunch.getDeadline().getTime()+600_000);
+            lunch.setStatus(LunchStatus.OPEN.name());
+            try{
                 saveLunch(lunch);
                 return resp.success();
             }catch(Exception exc){

@@ -61,7 +61,7 @@ public class LunchControllerTest {
         Lunch lunch = new Lunch();
         lunch.setId(1);
         lunch.setStatus("OPEN");
-        lunch.setDeadline(Instant.ofEpochMilli(MIDNIGHT_01_10_2017_EPOCH).atZone(ZoneId.systemDefault()).toLocalDateTime());
+        lunch.setDeadline(new Date(MIDNIGHT_01_10_2017_EPOCH));
         lunch.setExpectedDelivery(40);
         lunch.setRestaurant(new Restaurant());
         lunch.setLunchMaster(new User());

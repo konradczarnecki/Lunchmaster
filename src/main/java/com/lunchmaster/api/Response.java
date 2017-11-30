@@ -73,4 +73,8 @@ public class Response<T> {
         return this;
     }
 
+    public boolean isSuccess(){
+        return this.status.equals(SUCCESS);
+    }
+
 }

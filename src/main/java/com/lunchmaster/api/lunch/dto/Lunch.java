@@ -134,34 +134,38 @@ public class Lunch implements Serializable{
     }
 
     /* State machine */
-    public boolean changeStatus(LunchStatus ls){
+    public boolean changeStatus(LunchStatus ls) {
+        if(checkStatus(ls)) {
+            this.status = ls.name();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkStatus(LunchStatus ls){
         switch (LunchStatus.valueOf(this.status)){
 
             case OPEN:
-                if(ls.equals(LunchStatus.CLOSED)){
-                    this.status = ls.name();
+                if(ls.equals(LunchStatus.CLOSED) || ls.equals(LunchStatus.OPEN)){
                     return true;
                 }
 
             case CLOSED:
                 if(ls.equals(LunchStatus.OPEN)){
-                    this.status = ls.name();
                     return true;
                 }
                 else if(ls.equals(LunchStatus.ORDERED) && this.orders.size()>0){
-                    this.status = ls.name();
                     return true;
                 }
 
             case ORDERED:
                 if(ls.equals(LunchStatus.DELIVERED)){
-                    this.status=ls.name();
                     return true;
                 }
 
             case DELIVERED:
+                //TODO and if all orders are settled
                 if(ls.equals(LunchStatus.ARCHIVED)){
-                    this.status=ls.name();
                     return  true;
                 }
         }

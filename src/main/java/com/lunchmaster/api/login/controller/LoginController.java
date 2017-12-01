@@ -26,9 +26,9 @@ public class LoginController {
 
     @PreAuthorize("#oauth2.hasScope('read')")
     @GetMapping(value = "/me")
-    public ResponseEntity<?> showUser(Principal principal){
-
-        User authenticatedUser = service.getUserByEmail(principal.getName());
+    public ResponseEntity<?> authenticatedUser(Principal principal){
+        User authenticatedUser = service.findUserByEmail(principal.getName());
+        LOGGER.debug("Attempt to retrieve an authenticated user");
 
         if(authenticatedUser == null){
             return new ResponseEntity<>("Are You authenticated ?", HttpStatus.NOT_FOUND);

@@ -1,8 +1,6 @@
 package com.lunchmaster.api.login.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,11 +36,6 @@ public class User implements UserDetails {
     @Column(name = "password")
     @JsonIgnore
     private String password;
-
-    @Transient
-    @JsonProperty("password")
-    @JsonInclude()
-    private String loginPwd;
 
     @Column(name="mobile")
     private String mobile;
@@ -152,14 +145,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getLoginPwd() {
-        return loginPwd;
-    }
-
-    public void setLoginPwd(String loginPwd) {
-        this.loginPwd = loginPwd;
-    }
-
     public String getMobile() {
         return mobile;
     }
@@ -224,7 +209,6 @@ public class User implements UserDetails {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", loginPwd='" + loginPwd + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", part='" + part + '\'' +
                 ", group='" + group + '\'' +

@@ -13,17 +13,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     public LoginServiceImpl(UserDao dao){
-
         this.dao = dao;
     }
 
-    public boolean authorize(User loggedUser) {
-
-        User fromDb = dao.findUserByEmail(loggedUser.getEmail());
-        return fromDb != null && fromDb.getPassword().equals(loggedUser.getLoginPwd());
-    }
-
-    public User getUserByEmail(String email){
+    public User findUserByEmail(String email){
         return dao.findUserByEmail(email);
     }
 }

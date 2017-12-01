@@ -4,12 +4,12 @@
 
   <div id="info">
 
-    <div id="name">{{restaurant.name}}</div>
+    <div id="restaurantName">{{restaurant.name}}</div>
 
     <div id="restaurantDetails">
       <div id="address" class="detail">{{restaurant.address}}</div>
       <div id="phone" class="detail">tel. {{restaurant.phone}}</div>
-      <div id="link" class="detail"><a [ngStyle]="{color : theme.secFontColor}"  [href]="restaurant.link">website</a></div>
+      <div id="link" class="detail"><a [ngStyle]="{color : theme.secFontColor}" [href]="restaurant.link">website</a></div>
     </div>
 
     <div id="avgTime">
@@ -36,6 +36,7 @@
         <div id="addOrderButton" [ngStyle]="{ border : theme.border1px }" (click)="addDish()">+</div>
 
       </div>
+
     </div>
 
     <div class="filler"></div>

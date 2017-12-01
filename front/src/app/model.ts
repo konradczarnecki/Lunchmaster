@@ -13,13 +13,13 @@ export interface Restaurant {
 
   id: number;
   name: string;
-  logo: string;
+  description: string;
   phone: string;
   address: string;
   link: string;
-  description: string;
+  logo: string;
   avgDeliveryTime: number;
-  dishes: Dish[];
+  dishes?: Dish[];
 }
 
 export interface Dish {

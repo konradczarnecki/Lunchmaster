@@ -16,4 +16,15 @@ export class RestaurantService {
     });
   }
 
+  addRestaurant(restaurant: Restaurant): Promise<boolean> {
+
+    return new Promise<boolean>(resolve => {
+
+      this.http.put(`${environment.apiHost}/api/restaurant/save`, restaurant).subscribe(response => {
+
+        resolve(response.json().status === 'success');
+      });
+    });
+  }
+
 }

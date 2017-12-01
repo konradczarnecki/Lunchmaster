@@ -1,7 +1,7 @@
 @import '../../common';
 
 .frame {
-  width: 400px;
+  width: 350px;
   height: 350px;
   position: relative;
   margin: auto;
@@ -13,6 +13,7 @@
 
   display: grid;
   grid-template-rows: 40px 40px 15px repeat(3, 35px) 65px 1fr;
+  justify-items: center;
   grid-row-gap: 10px;
   overflow: hidden;
 
@@ -50,7 +51,7 @@
 }
 
 .row {
-  width: 100%;
+  width: 85%;
   height: 100%;
   line-height: 35px;
 }
@@ -58,12 +59,12 @@
 
 .left {
   float: left;
-  margin-left: 25px;
+  //margin-left: 25px;
 }
 
 .right {
   float: right;
-  margin-right: 30px;
+  //margin-right: 30px;
 }
 
 input {
@@ -78,7 +79,7 @@ input {
 }
 
 .createLunch {
-  width: 60%;
+  width: 85%;
   height: 35px;
   line-height: 35px;
   border-radius: 3px;

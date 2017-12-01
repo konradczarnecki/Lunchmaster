@@ -12,11 +12,10 @@ import {RestaurantService} from '../service/restaurant.service';
 })
 export class EditRestaurantComponent implements OnInit {
 
-  @Input() restaurant: Restaurant | Restaurant;
-
   @Output() close = new EventEmitter<boolean>();
   @Output() refresh = new EventEmitter<boolean>();
 
+  restaurant: Restaurant;
 
   constructor(public theme: ThemeService,
               public service: RestaurantService,
@@ -25,11 +24,27 @@ export class EditRestaurantComponent implements OnInit {
 
   ngOnInit() {
 
+    this.restaurant = {
+      id : null,
+      name : '',
+      description : '',
+      logo : '',
+      phone : '',
+      address : '',
+      link : '',
+      avgDeliveryTime : null
+    };
 
   }
 
   submit(){
 
+    for(const field in this.restaurant) if(this.restaurant.hasOwnProperty(field) && !this.restaurant[field]) return;
+
+    this.service.addRestaurant(this.restaurant).then(result => {
+
+      if(result) this.refresh.emit(true);
+    });
   }
 
   clickClose(){

@@ -1,7 +1,5 @@
-<div class="frame" [ngStyle]="{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }">
+<div class="frame" [ngStyle]="{ background : theme.tetrColor, color : theme.secFontColor }">
 
-  <div class="filler"></div>
-  <div class="title">NEW RESTAURANT</div>
   <div class="filler"></div>
 
   <div class="row">
@@ -9,7 +7,7 @@
     <span class="left">Name</span>
 
     <input class="right" type="text"
-           [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="restaurant.name" />
+           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="restaurant.name" />
 
   </div>
 
@@ -18,7 +16,7 @@
     <span class="left">Description</span>
 
     <input class="right" type="text"
-           [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="restaurant.description" />
+           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="restaurant.description" />
 
   </div>
 
@@ -27,7 +25,7 @@
     <span class="left">Phone</span>
 
     <input class="right" type="text"
-           [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="restaurant.phone" />
+           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="restaurant.phone" />
 
   </div>
 
@@ -36,7 +34,7 @@
     <span class="left">Address</span>
 
     <input class="right" type="text"
-           [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="restaurant.address" />
+           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="restaurant.address" />
 
   </div>
 
@@ -45,7 +43,7 @@
     <span class="left">Avg. delivery</span>
 
     <input class="right" type="text" placeholder="min"
-           [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="restaurant.avgDeliveryTime" />
+           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="restaurant.avgDeliveryTime" />
 
   </div>
 
@@ -54,7 +52,7 @@
     <span class="left">Link</span>
 
     <input class="right" type="text"
-           [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="restaurant.link" />
+           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="restaurant.link" />
 
   </div>
 
@@ -63,16 +61,18 @@
     <span class="left">Logo link</span>
 
     <input class="right" type="text"
-           [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="restaurant.logo" />
+           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="restaurant.logo" />
 
   </div>
 
-  <div class="createLunch" [ngStyle]="{ border : theme.border1px }" (click)="submit()">PYSZNE.PL IMPORT</div>
-  <div class="createLunch" [ngStyle]="{ border : theme.border1px }" (click)="submit()" >ADD RESTAURANT</div>
+  <div class="filler"></div>
+
+  <div class="createLunch" [ngStyle]="{ border : theme.border1pxFontClr}" (click)="submit()">PYSZNE.PL IMPORT</div>
+  <div class="createLunch" [ngStyle]="{ border : theme.border1pxFontClr }" (click)="submit()" >ADD RESTAURANT</div>
 
 
   <div style="height: 5px"></div>
 
-  <div id="close" [ngStyle]="{ border: theme.border1px, borderTop : 'none'}" (click)="clickClose()" >&#x25B2;</div>
+  <div id="close" [ngStyle]="{ borderTop : 'none'}" (click)="clickClose()" >&#x25B2;</div>
 
 </div>

@@ -1,4 +1,4 @@
-<div id="frame" [ngStyle]="{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }">
+<div id="frame" [ngStyle]="{ background : theme.tetrColor, color : theme.secFontColor }">
 
   <div class="filler"></div>
 
@@ -28,12 +28,12 @@
       <div id="addDish">
 
         <input type="text" placeholder="New dish"
-               [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="dishInput"/>
+               [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="dishInput"/>
 
         <input type="text" placeholder="PLN"
-               [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="dishPriceInput"/>
+               [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="dishPriceInput"/>
 
-        <div id="addOrderButton" [ngStyle]="{ border : theme.border1px }" (click)="addDish()">+</div>
+        <div id="addOrderButton" [ngStyle]="{ border : theme.border1pxFontClr }" (click)="addDish()">+</div>
 
       </div>
 

@@ -22,7 +22,7 @@
   <div id="themes">
 
     <div class="theme" *ngFor="let th of themes; let i = index;"
-         [ngClass]="{'selected' : theme.current == i}" [ngStyle]="{background : th.secColor}" (click)="theme.setTheme(i)">
+         [ngClass]="{'selected' : theme.current == i}" [ngStyle]="{background : th.mainColor}" (click)="theme.setTheme(i)">
     </div>
 
   </div>

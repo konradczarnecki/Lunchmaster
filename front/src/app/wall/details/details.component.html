@@ -1,10 +1,10 @@
-<div id="frame" [ngStyle]="{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }">
+<div id="frame" [ngStyle]="{ background : theme.tetrColor, color : theme.secFontColor }">
 
   <div class="filler"></div>
 
   <div id="info" [ngStyle]="{ color : theme.secFontColor }">
 
-    <div id="restaurant" class="verticalSection" [ngStyle]="{ 'border-right' : theme.border1px }">
+    <div id="restaurant" class="verticalSection" [ngStyle]="{ 'border-right' : theme.border1pxFontClr }">
 
       <div id="restaurantName" class="infoHeader">{{lunch.restaurant.name}}</div>
 
@@ -21,7 +21,7 @@
 
     </div>
 
-    <div id="lunchmaster" class="verticalSection" [ngStyle]="{ 'border-right' : theme.border1px }">
+    <div id="lunchmaster" class="verticalSection" [ngStyle]="{ 'border-right' : theme.border1pxFontClr }">
 
       <div id="lunchmasterName" class="infoHeader">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>
 
@@ -51,14 +51,14 @@
       <div id="addDish">
 
         <input type="text" list="dishes"
-               [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }"
+               [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }"
                [(ngModel)]="orderInput" (keyup.enter)="addDish()"/>
 
         <datalist id="dishes">
           <option *ngFor="let dish of lunch.restaurant.dishes" [value]="dish.name">{{dish.name}}</option>
         </datalist>
 
-        <div id="addOrderButton" [ngStyle]="{ border : theme.border1px }" (click)="addDish()">+</div>
+        <div id="addOrderButton" [ngStyle]="{ border : theme.border1pxFontClr }" (click)="addDish()">+</div>
 
       </div>
 
@@ -70,7 +70,7 @@
       <div id="participantsHeader">Participants</div>
 
       <div class="order" *ngFor="let order of lunch.orders; let i = index;"
-           [ngClass]="{'pointer' : orderBelongsToUser(i)}" [ngStyle]="{ border : theme.border1px }" [id]="'order' + i"
+           [ngClass]="{'pointer' : orderBelongsToUser(i)}" [ngStyle]="{ border : theme.border1pxFontClr }" [id]="'order' + i"
            (mouseover)="showOrderDetails(i)" (mouseleave)="hideOrderDetails()" (click)="deleteOrder(i)" >
 
         {{order.user.firstName}} {{order.user.lastName}}
@@ -92,7 +92,7 @@
           <span class="dishPrice">{{total()}}</span>
         </div>
 
-        <div id="placeOrder" [ngStyle]="{ border : theme.border1px }" (click)="placeOrder()" >ORDER</div>
+        <div id="placeOrder" [ngStyle]="{ border : theme.border1pxFontClr }" (click)="placeOrder()" >ORDER</div>
 
       </div>
 
@@ -102,27 +102,27 @@
   <div id="lunchmasterButtons" *ngIf="userIsLunchmaster()">
 
     <div id="list" class="lunchmasterButton" title="Shows list of all orders from this lunch"
-         [ngStyle]="{ border : theme.border1px, color : theme.secFontColor }" (click)="showList()">LIST</div>
+         [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" (click)="showList()">LIST</div>
 
     <div id="delete" class="lunchmasterButton" title="Delete lunch"
-         [ngStyle]="{ border : theme.border1px, color : theme.secFontColor }" (click)="deleteLunch()" >DELETE</div>
+         [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" (click)="deleteLunch()" >DELETE</div>
 
     <div id="edit" class="lunchmasterButton" title="Edit lunch"
-         [ngStyle]="{ border : theme.border1px, color : theme.secFontColor }" (click)="editLunch()" >EDIT</div>
+         [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" (click)="editLunch()" >EDIT</div>
 
     <div id="closeLunch" class="lunchmasterButton" title="Close lunch"
-         [ngStyle]="{border : theme.border1px, color : theme.secFontColor}" >CLOSE</div>
+         [ngStyle]="{border : theme.border1pxFontClr, color : theme.secFontColor}" >CLOSE</div>
 
   </div>
 
   <div style="height: 5px"></div>
 
-  <div id="close" [ngStyle]="{ border: theme.border1px, borderTop : 'none'}" (click)="clickClose()" >&#x25B2;</div>
+  <div id="close" [ngStyle]="{ border: theme.border1pxFontClr, borderTop : 'none'}" (click)="clickClose()" >&#x25B2;</div>
 
 </div>
 
 <div id="orderDetails" *ngIf="orderDetailsIndex != -1"
-     [ngStyle]="{ background : theme.tetrColor, border : theme.border1px, color : theme.secFontColor }" #orderDetails>
+     [ngStyle]="{ background : theme.secColor, border : theme.border1pxFontClr, color : theme.fontColor }" #orderDetails>
 
   <div *ngFor="let dish of activeOrder().dishes">
     <span class="dishName">{{dish.name}}</span>

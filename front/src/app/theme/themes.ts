@@ -25,8 +25,19 @@ export const pinkrazeTheme: Theme = {
   tetrColor : 'rgb(45, 66, 192)',
   highlightColor : 'rgba(221, 174, 230, 0.5)',
   fontColor : 'rgba(43, 43, 43, 0.81)',
-  secFontColor : 'rgba(220, 220, 220, 0.9)',
+  secFontColor : 'rgba(210, 210, 210, 0.9)',
   backgroundCount : 5
 };
 
-export const themes: Theme[] = [ defaultTheme, pinkrazeTheme ];
+export const newTheme: Theme = {
+  name : 'pinkraze',
+  mainColor : 'rgba(145, 235, 70, 0.99)',
+  secColor : 'rgba(240, 235, 242, 0.99)',
+  tetrColor : 'rgba(120, 215, 60, 0.99)',
+  highlightColor : 'rgba(150, 150, 150, 0.3)',
+  fontColor : 'rgba(43, 43, 43, 0.81)',
+  secFontColor : 'rgba(43, 43, 43, 0.7)',
+  backgroundCount : 5
+};
+
+export const themes: Theme[] = [ pinkrazeTheme, newTheme ];

@@ -60,6 +60,10 @@ export class ThemeService {
     return 'solid 2px ' +this.themes[this.current].highlightColor;
   }
 
+  get border1pxFontClr(){
+    return 'solid 1px ' + this.secFontColor;
+  }
+
   get name() {
     return this.themes[this.current].name;
   }

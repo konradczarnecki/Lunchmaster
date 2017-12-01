@@ -98,6 +98,8 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__login_login_service__ = __webpack_require__("../../../../../src/app/login/login.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__profile_profile_component__ = __webpack_require__("../../../../../src/app/profile/profile.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__restaurant_restaurants_component__ = __webpack_require__("../../../../../src/app/restaurant/restaurants.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__restaurant_restaurant_module__ = __webpack_require__("../../../../../src/app/restaurant/restaurant.module.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -118,11 +120,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
 var routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'wall', component: __WEBPACK_IMPORTED_MODULE_9__wall_wall_component__["a" /* WallComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_11__login_login_service__["a" /* LoginService */]] },
     { path: 'profile', component: __WEBPACK_IMPORTED_MODULE_13__profile_profile_component__["a" /* ProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_11__login_login_service__["a" /* LoginService */]] },
-    { path: 'login', component: __WEBPACK_IMPORTED_MODULE_12__login_login_component__["a" /* LoginComponent */] }
+    { path: 'login', component: __WEBPACK_IMPORTED_MODULE_12__login_login_component__["a" /* LoginComponent */] },
+    { path: 'restaurants', component: __WEBPACK_IMPORTED_MODULE_14__restaurant_restaurants_component__["a" /* RestaurantsComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_11__login_login_service__["a" /* LoginService */]] }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -141,6 +146,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* RouterModule */],
             __WEBPACK_IMPORTED_MODULE_6__wall_wall_module__["a" /* WallModule */],
+            __WEBPACK_IMPORTED_MODULE_15__restaurant_restaurant_module__["a" /* RestaurantModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* HttpModule */],
             __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* RouterModule */].forRoot(routes),
@@ -382,6 +388,534 @@ var _a, _b;
 
 /***/ }),
 
+/***/ "../../../../../src/app/restaurant/animations.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return slideAnimation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return slideUpAnimation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return fadeAnimation; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_animations__ = __webpack_require__("../../../animations/@angular/animations.es5.js");
+
+var slideAnimation = Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["j" /* trigger */])('slide', [
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["i" /* transition */])('void => *', [
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ transform: 'translate(0, -100%)' }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["e" /* animate */])('300ms cubic-bezier(.58,.7,.46,1.02)')
+    ]),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["i" /* transition */])('* => void', [
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["e" /* animate */])('300ms cubic-bezier(.58,.7,.46,1.02)', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ transform: 'translate(0, -100%)' }))
+    ])
+]);
+var slideUpAnimation = Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["j" /* trigger */])('slideUp', [
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["i" /* transition */])('void => *', [
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ transform: 'translate(0, 100%)' }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["e" /* animate */])('300ms cubic-bezier(.58,.7,.46,1.02)')
+    ]),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["i" /* transition */])('* => void', [
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["e" /* animate */])('300ms cubic-bezier(.58,.7,.46,1.02)', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ transform: 'translate(0, 100%)' }))
+    ])
+]);
+var fadeAnimation = Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["j" /* trigger */])('fade', [
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["g" /* state */])('shown', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ opacity: 1 })),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["g" /* state */])('hidden', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ opacity: 0.25 })),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["i" /* transition */])('shown <=> hidden', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["e" /* animate */])('300ms ease-out'))
+]);
+//# sourceMappingURL=animations.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/edit-restaurant/edit-restaurant.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"frame\" [ngStyle]=\"{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }\">\r\n\r\n  <div class=\"filler\"></div>\r\n  <div class=\"title\">NEW RESTAURANT</div>\r\n  <div class=\"filler\"></div>\r\n\r\n  <div class=\"row\">\r\n\r\n    <span class=\"left\">Name</span>\r\n\r\n    <input class=\"right\" type=\"text\"\r\n           [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"restaurant.name\" />\r\n\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n\r\n    <span class=\"left\">Description</span>\r\n\r\n    <input class=\"right\" type=\"text\"\r\n           [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"restaurant.description\" />\r\n\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n\r\n    <span class=\"left\">Phone</span>\r\n\r\n    <input class=\"right\" type=\"text\"\r\n           [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"restaurant.phone\" />\r\n\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n\r\n    <span class=\"left\">Address</span>\r\n\r\n    <input class=\"right\" type=\"text\"\r\n           [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"restaurant.address\" />\r\n\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n\r\n    <span class=\"left\">Avg. delivery</span>\r\n\r\n    <input class=\"right\" type=\"text\" placeholder=\"min\"\r\n           [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"restaurant.avgDeliveryTime\" />\r\n\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n\r\n    <span class=\"left\">Link</span>\r\n\r\n    <input class=\"right\" type=\"text\"\r\n           [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"restaurant.link\" />\r\n\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n\r\n    <span class=\"left\">Logo link</span>\r\n\r\n    <input class=\"right\" type=\"text\"\r\n           [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"restaurant.logo\" />\r\n\r\n  </div>\r\n\r\n  <div class=\"createLunch\" [ngStyle]=\"{ border : theme.border1px }\" (click)=\"submit()\">PYSZNE.PL IMPORT</div>\r\n  <div class=\"createLunch\" [ngStyle]=\"{ border : theme.border1px }\" (click)=\"submit()\" >ADD RESTAURANT</div>\r\n\r\n\r\n  <div style=\"height: 5px\"></div>\r\n\r\n  <div id=\"close\" [ngStyle]=\"{ border: theme.border1px, borderTop : 'none'}\" (click)=\"clickClose()\" >&#x25B2;</div>\r\n\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/edit-restaurant/edit-restaurant.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
+
+// module
+exports.push([module.i, ".frame {\n  width: 350px;\n  height: 350px;\n  position: relative;\n  margin: auto;\n  padding-bottom: 15px;\n  border-radius: 5px;\n  font-family: \"Lato\";\n  font-size: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 40px 40px 15px (35px)[3] 65px 1fr;\n      grid-template-rows: 40px 40px 15px repeat(3, 35px) 65px 1fr;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  grid-row-gap: 10px;\n  overflow: hidden; }\n  @media screen and (max-width: 850px) {\n    .frame {\n      width: 95vw; } }\n\n#close {\n  width: 105%;\n  height: 20px;\n  position: absolute;\n  left: -10px;\n  right: 0;\n  margin: 10px auto;\n  bottom: -13px;\n  border-top: none;\n  border-radius: 3px;\n  font-size: 14px;\n  text-align: center; }\n\n#close:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n.title {\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  font-size: 25px; }\n\n.row {\n  width: 85%;\n  height: 100%;\n  line-height: 35px; }\n\n.left {\n  float: left; }\n\n.right {\n  float: right; }\n\ninput {\n  width: 45%;\n  height: 100%;\n  float: left;\n  padding-left: 10px;\n  box-sizing: border-box;\n  background: transparent;\n  border-radius: 3px;\n  font-size: 17px; }\n\n.createLunch {\n  width: 85%;\n  height: 35px;\n  line-height: 35px;\n  border-radius: 3px;\n  text-align: center;\n  justify-self: center;\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center; }\n\n.createLunch:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n.disabled {\n  background: rgba(118, 118, 118, 0.27); }\n\n.frame {\n  width: 350px;\n  height: 550px;\n  position: relative;\n  margin: auto;\n  padding-bottom: 15px;\n  border-radius: 5px;\n  font-family: \"Lato\";\n  font-size: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 40px 40px 15px (35px)[8] 65px 1fr;\n      grid-template-rows: 40px 40px 15px repeat(8, 35px) 65px 1fr;\n  grid-row-gap: 10px;\n  overflow: hidden; }\n  @media screen and (max-width: 850px) {\n    .frame {\n      width: 95vw; } }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/edit-restaurant/edit-restaurant.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditRestaurantComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login_service__ = __webpack_require__("../../../../../src/app/login/login.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_restaurant_service__ = __webpack_require__("../../../../../src/app/restaurant/service/restaurant.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var EditRestaurantComponent = (function () {
+    function EditRestaurantComponent(theme, service, loginService) {
+        this.theme = theme;
+        this.service = service;
+        this.loginService = loginService;
+        this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.refresh = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+    }
+    EditRestaurantComponent.prototype.ngOnInit = function () {
+        this.restaurant = {
+            id: null,
+            name: '',
+            description: '',
+            logo: '',
+            phone: '',
+            address: '',
+            link: '',
+            avgDeliveryTime: null
+        };
+    };
+    EditRestaurantComponent.prototype.submit = function () {
+        var _this = this;
+        for (var field in this.restaurant)
+            if (this.restaurant.hasOwnProperty(field) && !this.restaurant[field])
+                return;
+        this.service.addRestaurant(this.restaurant).then(function (result) {
+            if (result)
+                _this.refresh.emit(true);
+        });
+    };
+    EditRestaurantComponent.prototype.clickClose = function () {
+        this.close.emit(true);
+    };
+    return EditRestaurantComponent;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], EditRestaurantComponent.prototype, "close", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], EditRestaurantComponent.prototype, "refresh", void 0);
+EditRestaurantComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-edit-restaurant',
+        template: __webpack_require__("../../../../../src/app/restaurant/edit-restaurant/edit-restaurant.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/restaurant/edit-restaurant/edit-restaurant.component.scss")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__service_restaurant_service__["a" /* RestaurantService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__service_restaurant_service__["a" /* RestaurantService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__login_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__login_login_service__["a" /* LoginService */]) === "function" && _c || Object])
+], EditRestaurantComponent);
+
+var _a, _b, _c;
+//# sourceMappingURL=edit-restaurant.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/restaurant-details/restaurant-details.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"frame\" [ngStyle]=\"{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }\">\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div id=\"info\">\r\n\r\n    <div id=\"restaurantName\">{{restaurant.name}}</div>\r\n\r\n    <div id=\"restaurantDetails\">\r\n      <div id=\"address\" class=\"detail\">{{restaurant.address}}</div>\r\n      <div id=\"phone\" class=\"detail\">tel. {{restaurant.phone}}</div>\r\n      <div id=\"link\" class=\"detail\"><a [ngStyle]=\"{color : theme.secFontColor}\" [href]=\"restaurant.link\">website</a></div>\r\n    </div>\r\n\r\n    <div id=\"avgTime\">\r\n      <div id=\"avgLabel\">Avg. delivery: </div>\r\n      <div id=\"avgValue\">{{restaurant.avgDeliveryTime}} min</div>\r\n    </div>\r\n\r\n  </div>\r\n\r\n  <div id=\"menu\">\r\n\r\n    <div id=\"topRow\">\r\n\r\n      <div id=\"menuLabel\">Menu</div>\r\n\r\n      <div id=\"addDish\">\r\n\r\n        <input type=\"text\" placeholder=\"New dish\"\r\n               [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"dishInput\"/>\r\n\r\n        <input type=\"text\" placeholder=\"PLN\"\r\n               [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"dishPriceInput\"/>\r\n\r\n        <div id=\"addOrderButton\" [ngStyle]=\"{ border : theme.border1px }\" (click)=\"addDish()\">+</div>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"filler\"></div>\r\n\r\n    <div class=\"menuPosition\" *ngFor=\"let dish of restaurant.dishes\">\r\n      <div class=\"dishName\">{{dish.name}}</div>\r\n      <div class=\"dishPrice\">{{dish.price}} PLN</div>\r\n    </div>\r\n\r\n\r\n  </div>\r\n\r\n\r\n  <div id=\"close\" [ngStyle]=\"{ border: theme.border1px, borderTop : 'none'}\" (click)=\"clickClose()\" >&#x25B2;</div>\r\n\r\n</div>\r\n\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/restaurant-details/restaurant-details.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
+
+// module
+exports.push([module.i, "#frame {\n  width: 450px;\n  height: 650px;\n  position: relative;\n  margin: auto;\n  padding-bottom: 15px;\n  border-radius: 5px;\n  font-family: \"Lato\";\n  font-size: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 50px 140px 1fr;\n      grid-template-rows: 50px 140px 1fr;\n  grid-row-gap: 10px;\n  overflow: hidden;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n  @media screen and (max-width: 850px) {\n    #frame {\n      width: 95vw; } }\n\n#info {\n  width: 90%;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 40% 1fr;\n      grid-template-rows: 40% 1fr;\n  -ms-grid-columns: 60% 1fr;\n      grid-template-columns: 60% 1fr;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch; }\n\n#restaurantName {\n  font-size: 35px; }\n\n#restaurantDetails {\n  -ms-grid-column: 1;\n      grid-column: 1;\n  -ms-grid-row: 2;\n      grid-row: 2;\n  padding: 3px;\n  font-size: 15px; }\n\n.detail {\n  height: 20px; }\n\n#avgTime {\n  -ms-grid-row: 2;\n      grid-row: 2;\n  -ms-grid-column: 2;\n      grid-column: 2;\n  font-size: 20px;\n  -webkit-transform: translateY(7px);\n          transform: translateY(7px); }\n\n#menu {\n  width: 90%;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 50px 20px;\n      grid-template-rows: 50px 20px;\n  grid-auto-rows: 30px; }\n\n#topRow {\n  width: 100%; }\n\n#menuLabel {\n  width: 30%;\n  height: 100%;\n  float: left;\n  font-size: 32px; }\n\n#addDish {\n  height: 100%;\n  float: right;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 160px 60px 40px;\n      grid-template-columns: 160px 60px 40px;\n  grid-column-gap: 5px; }\n  #addDish input {\n    height: 35px;\n    box-sizing: border-box;\n    padding-left: 5px;\n    border-radius: 3px;\n    background: transparent; }\n  #addDish div {\n    height: 35px;\n    box-sizing: border-box;\n    border-radius: 3px;\n    font-size: 18px;\n    font-weight: 700;\n    display: -ms-grid;\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -ms-grid-column-align: center;\n        justify-items: center; }\n  #addDish div:hover {\n    cursor: pointer;\n    background: rgba(180, 180, 180, 0.1); }\n\n.menuPosition {\n  width: 100%;\n  height: 100%; }\n\n.dishName {\n  float: left; }\n\n.dishPrice {\n  float: right;\n  -webkit-transform: translateX(-10px);\n          transform: translateX(-10px); }\n\n#close {\n  width: 105%;\n  height: 20px;\n  position: absolute;\n  left: -10px;\n  right: 0;\n  margin: 10px auto;\n  bottom: -13px;\n  border-top: none;\n  border-radius: 3px;\n  font-size: 14px;\n  text-align: center; }\n\n#close:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/restaurant-details/restaurant-details.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestaurantDetailsComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login_service__ = __webpack_require__("../../../../../src/app/login/login.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_restaurant_service__ = __webpack_require__("../../../../../src/app/restaurant/service/restaurant.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var RestaurantDetailsComponent = (function () {
+    function RestaurantDetailsComponent(theme, service, loginService, changeDetector) {
+        this.theme = theme;
+        this.service = service;
+        this.loginService = loginService;
+        this.changeDetector = changeDetector;
+        this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.refresh = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+    }
+    RestaurantDetailsComponent.prototype.ngOnInit = function () {
+    };
+    RestaurantDetailsComponent.prototype.clickClose = function () {
+        this.close.emit(true);
+    };
+    return RestaurantDetailsComponent;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+    __metadata("design:type", Object)
+], RestaurantDetailsComponent.prototype, "restaurant", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], RestaurantDetailsComponent.prototype, "close", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], RestaurantDetailsComponent.prototype, "refresh", void 0);
+RestaurantDetailsComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-restaurant-details',
+        template: __webpack_require__("../../../../../src/app/restaurant/restaurant-details/restaurant-details.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/restaurant/restaurant-details/restaurant-details.component.scss")],
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__service_restaurant_service__["a" /* RestaurantService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__service_restaurant_service__["a" /* RestaurantService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__login_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__login_login_service__["a" /* LoginService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */]) === "function" && _d || Object])
+], RestaurantDetailsComponent);
+
+var _e, _f, _a, _b, _c, _d;
+//# sourceMappingURL=restaurant-details.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/restaurant.module.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestaurantModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__restaurants_component__ = __webpack_require__("../../../../../src/app/restaurant/restaurants.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_restaurant_service__ = __webpack_require__("../../../../../src/app/restaurant/service/restaurant.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__retaurant_tile_restaurant_tile_component__ = __webpack_require__("../../../../../src/app/restaurant/retaurant-tile/restaurant-tile.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__edit_restaurant_edit_restaurant_component__ = __webpack_require__("../../../../../src/app/restaurant/edit-restaurant/edit-restaurant.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__restaurant_details_restaurant_details_component__ = __webpack_require__("../../../../../src/app/restaurant/restaurant-details/restaurant-details.component.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+var RestaurantModule = (function () {
+    function RestaurantModule() {
+    }
+    return RestaurantModule;
+}());
+RestaurantModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */]
+        ],
+        declarations: [__WEBPACK_IMPORTED_MODULE_3__restaurants_component__["a" /* RestaurantsComponent */], __WEBPACK_IMPORTED_MODULE_5__retaurant_tile_restaurant_tile_component__["a" /* RestaurantTileComponent */], __WEBPACK_IMPORTED_MODULE_6__edit_restaurant_edit_restaurant_component__["a" /* EditRestaurantComponent */], __WEBPACK_IMPORTED_MODULE_7__restaurant_details_restaurant_details_component__["a" /* RestaurantDetailsComponent */]],
+        providers: [__WEBPACK_IMPORTED_MODULE_4__service_restaurant_service__["a" /* RestaurantService */]]
+    })
+], RestaurantModule);
+
+//# sourceMappingURL=restaurant.module.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/restaurants.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background: theme.secColor }\">\r\n\r\n  <div id=\"grid\" [ngClass]=\"{ 'inactive' : tilesInactive }\" [@fade]=\"tilesInactive ? 'hidden' : 'shown'\">\r\n\r\n    <app-restaurant-tile *ngFor=\"let restaurant of restaurants; let i = index;\" [restaurant]=\"restaurant\" (click)=\"openDetails(i)\"></app-restaurant-tile>\r\n\r\n  </div>\r\n\r\n  <app-restaurant-details *ngIf=\"selected != -1\" [restaurant]=\"restaurants[selected]\"\r\n               (close)=\"onDetailsClosed()\" (refresh)=\"fetchRestaurants()\" [@slide]>\r\n\r\n  </app-restaurant-details>\r\n\r\n  <app-edit-restaurant *ngIf=\"newRestaurantOpened\" (close)=\"onNewRestaurantClosed()\" (refresh)=\"onRestaurantsModified()\" [@slide]>\r\n\r\n  </app-edit-restaurant>\r\n\r\n  <div id=\"newLunchButton\" [ngStyle]=\"{ border : theme.border2px, color : theme.secFontColor, background: theme.secColor }\" (click)=\"openNewRestaurant()\" >+</div>\r\n\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/restaurants.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
+
+// module
+exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  padding-top: 50px; }\n\n#grid {\n  margin: auto;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (minmax(400px, 1fr))[auto-fill];\n      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));\n  grid-auto-rows: 130px;\n  grid-gap: 10px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\napp-restaurant-details, app-edit-restaurant {\n  position: absolute;\n  top: 0;\n  right: -10px; }\n\n.inactive {\n  pointer-events: none; }\n\n#newLunchButton {\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  bottom: 100px;\n  right: 100px;\n  font-size: 75px;\n  font-weight: 700;\n  border-radius: 100%;\n  box-shadow: 2px 2px 3px 0 rgba(81, 81, 81, 0.23);\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n#newLunchButton:hover {\n  cursor: pointer; }\n\n#newLunchButton:active {\n  box-shadow: inset 0.5px 0.5px 5px 2px rgba(77, 77, 77, 0.27); }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/restaurants.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestaurantsComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__animations__ = __webpack_require__("../../../../../src/app/restaurant/animations.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_restaurant_service__ = __webpack_require__("../../../../../src/app/restaurant/service/restaurant.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var RestaurantsComponent = (function () {
+    function RestaurantsComponent(theme, service, changeDet) {
+        this.theme = theme;
+        this.service = service;
+        this.changeDet = changeDet;
+    }
+    Object.defineProperty(RestaurantsComponent.prototype, "tilesInactive", {
+        get: function () {
+            return this.selected !== -1 || this.newRestaurantOpened === true;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    RestaurantsComponent.prototype.ngOnInit = function () {
+        this.fetchRestaurants();
+        this.selected = -1;
+        window.onresize = this.adjustGrid.bind(this);
+    };
+    RestaurantsComponent.prototype.adjustGrid = function () {
+        var tileWidth = 400;
+        var tilesInWindow = 0.8 * window.innerWidth / tileWidth;
+        var extraGap = tilesInWindow - Math.floor(tilesInWindow);
+        var multiplier = extraGap > 0.3 ? Math.floor(tilesInWindow + 0.3) : tilesInWindow;
+        var gridWidth = multiplier * (tileWidth + 15);
+        document.getElementById('grid').style.width = gridWidth + 'px';
+        this.changeDet.detectChanges();
+    };
+    RestaurantsComponent.prototype.fetchRestaurants = function () {
+        var _this = this;
+        this.service.getRestaurants().then(function (restaurants) {
+            _this.restaurants = restaurants;
+            _this.adjustGrid();
+        });
+    };
+    RestaurantsComponent.prototype.openDetails = function (index) {
+        this.newRestaurantOpened = false;
+        this.selected = index;
+    };
+    RestaurantsComponent.prototype.onDetailsClosed = function () {
+        this.selected = -1;
+    };
+    RestaurantsComponent.prototype.openNewRestaurant = function () {
+        this.selected = -1;
+        this.newRestaurantOpened = true;
+    };
+    RestaurantsComponent.prototype.onNewRestaurantClosed = function () {
+        this.newRestaurantOpened = false;
+    };
+    RestaurantsComponent.prototype.onRestaurantsModified = function () {
+        this.newRestaurantOpened = false;
+        this.selected = -1;
+        this.fetchRestaurants();
+    };
+    return RestaurantsComponent;
+}());
+RestaurantsComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-restaurants',
+        template: __webpack_require__("../../../../../src/app/restaurant/restaurants.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/restaurant/restaurants.component.scss")],
+        animations: [__WEBPACK_IMPORTED_MODULE_2__animations__["b" /* slideAnimation */], __WEBPACK_IMPORTED_MODULE_2__animations__["c" /* slideUpAnimation */], __WEBPACK_IMPORTED_MODULE_2__animations__["a" /* fadeAnimation */]],
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__service_restaurant_service__["a" /* RestaurantService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__service_restaurant_service__["a" /* RestaurantService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */]) === "function" && _c || Object])
+], RestaurantsComponent);
+
+var _a, _b, _c;
+//# sourceMappingURL=restaurants.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/retaurant-tile/restaurant-tile.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"tile\" [ngStyle]=\"{ color : theme.fontColor }\"\r\n     (mouseover)=\"mouseOver()\" (mouseout)=\"mouseLeave()\" (mousedown)=\"mouseDown()\" (mouseup)=\"mouseUp()\" #tile>\r\n\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <img [src]=\"restaurant.logo\"/>\r\n\r\n  <div id=\"details\">\r\n\r\n    <div id=\"restaurant\">{{restaurant.name}}</div>\r\n\r\n    <div id=\"description\">{{restaurant.description}}</div>\r\n\r\n\r\n  </div>\r\n\r\n</div>\r\n\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/retaurant-tile/restaurant-tile.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
+
+// module
+exports.push([module.i, ".tile {\n  width: 400px;\n  height: 120px;\n  position: relative;\n  border: solid 1px rgba(174, 174, 174, 0.45);\n  border-radius: 2px;\n  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));\n  font-family: \"Lato\";\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 5px 30% 1fr;\n      grid-template-columns: 5px 30% 1fr;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.tile:hover {\n  cursor: pointer; }\n\nimg {\n  width: 100px;\n  height: 100px; }\n\n#details {\n  -ms-flex-item-align: stretch;\n      -ms-grid-row-align: stretch;\n      align-self: stretch;\n  justify-self: stretch;\n  padding: 5px; }\n\n#restaurant {\n  width: 90%;\n  margin: auto;\n  padding: 10px;\n  font-size: 21px;\n  font-weight: 600; }\n\n#description {\n  width: 90%;\n  margin: auto;\n  font-size: 15px;\n  text-align: justify;\n  text-justify: inter-word; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/retaurant-tile/restaurant-tile.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestaurantTileComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var RestaurantTileComponent = (function () {
+    function RestaurantTileComponent(theme) {
+        this.theme = theme;
+    }
+    RestaurantTileComponent.prototype.ngOnInit = function () {
+    };
+    RestaurantTileComponent.prototype.mouseOver = function () {
+        this.tile.nativeElement.style.boxShadow = '0 0 6px 1px ' + this.theme.highlightColor;
+    };
+    RestaurantTileComponent.prototype.mouseLeave = function () {
+        this.tile.nativeElement.style.boxShadow = 'none';
+    };
+    RestaurantTileComponent.prototype.mouseDown = function () {
+        this.tile.nativeElement.style.boxShadow = 'inset 0 0 3px 1px ' + this.theme.highlightColor;
+    };
+    RestaurantTileComponent.prototype.mouseUp = function () {
+        this.tile.nativeElement.style.boxShadow = '0 0 6px 1px ' + this.theme.highlightColor;
+    };
+    return RestaurantTileComponent;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+    __metadata("design:type", Object)
+], RestaurantTileComponent.prototype, "restaurant", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('tile'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _a || Object)
+], RestaurantTileComponent.prototype, "tile", void 0);
+RestaurantTileComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-restaurant-tile',
+        template: __webpack_require__("../../../../../src/app/restaurant/retaurant-tile/restaurant-tile.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/restaurant/retaurant-tile/restaurant-tile.component.scss")]
+    }),
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _b || Object])
+], RestaurantTileComponent);
+
+var _c, _d, _a, _b;
+//# sourceMappingURL=restaurant-tile.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/restaurant/service/restaurant.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestaurantService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var RestaurantService = (function () {
+    function RestaurantService(http) {
+        this.http = http;
+    }
+    RestaurantService.prototype.getRestaurants = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.http.get(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/restaurant/list").subscribe(function (response) { return resolve(response.json()); });
+        });
+    };
+    RestaurantService.prototype.addRestaurant = function (restaurant) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.http.put(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/restaurant/save", restaurant).subscribe(function (response) {
+                resolve(response.json().status === 'success');
+            });
+        });
+    };
+    return RestaurantService;
+}());
+RestaurantService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
+], RestaurantService);
+
+var _a;
+//# sourceMappingURL=restaurant.service.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/theme/theme.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -537,7 +1071,7 @@ var themes = [defaultTheme, pinkrazeTheme];
 /***/ "../../../../../src/app/topbar/topbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background : theme.mainColor, color : theme.fontColor }\">\r\n\r\n  <div id=\"logo\" [ngStyle]=\"{ color : theme.fontColor }\">\r\n    <span id=\"lunchWord\">LUNCH</span><span id=\"masterWord\">master</span>\r\n  </div>\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div class=\"menuLink\" routerLink=\"/wall\" [ngClass]=\"{'inactive' : !loginService.logged}\">wall</div>\r\n  <div class=\"menuLink\" routerLink=\"/wall\" [ngClass]=\"{'inactive' : !loginService.logged}\">billing</div>\r\n  <div class=\"menuLink\" routerLink=\"/wall\" [ngClass]=\"{'inactive' : !loginService.logged}\">restaurants</div>\r\n  <div class=\"menuLink\" routerLink=\"/profile\" [ngClass]=\"{'inactive' : !loginService.logged}\">profile</div>\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div id=\"userInfo\" *ngIf=\"loginService.logged\">\r\n    Hello, {{loginService.user.firstName}}\r\n  </div>\r\n\r\n  <div id=\"substitute\" *ngIf=\"!loginService.logged\"></div>\r\n\r\n  <div id=\"themes\">\r\n\r\n    <div class=\"theme\" *ngFor=\"let th of themes; let i = index;\"\r\n         [ngClass]=\"{'selected' : theme.current == i}\" [ngStyle]=\"{background : th.secColor}\" (click)=\"theme.setTheme(i)\">\r\n    </div>\r\n\r\n  </div>\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background : theme.mainColor, color : theme.fontColor }\">\r\n\r\n  <div id=\"logo\" [ngStyle]=\"{ color : theme.fontColor }\">\r\n    <span id=\"lunchWord\">LUNCH</span><span id=\"masterWord\">master</span>\r\n  </div>\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div class=\"menuLink\" routerLink=\"/wall\" [ngClass]=\"{'inactive' : !loginService.logged}\">wall</div>\r\n  <div class=\"menuLink\" routerLink=\"/wall\" [ngClass]=\"{'inactive' : !loginService.logged}\">billing</div>\r\n  <div class=\"menuLink\" routerLink=\"/restaurants\" [ngClass]=\"{'inactive' : !loginService.logged}\">restaurants</div>\r\n  <div class=\"menuLink\" routerLink=\"/profile\" [ngClass]=\"{'inactive' : !loginService.logged}\">profile</div>\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div id=\"userInfo\" *ngIf=\"loginService.logged\">\r\n    Hello, {{loginService.user.firstName}}\r\n  </div>\r\n\r\n  <div id=\"substitute\" *ngIf=\"!loginService.logged\"></div>\r\n\r\n  <div id=\"themes\">\r\n\r\n    <div class=\"theme\" *ngFor=\"let th of themes; let i = index;\"\r\n         [ngClass]=\"{'selected' : theme.current == i}\" [ngStyle]=\"{background : th.secColor}\" (click)=\"theme.setTheme(i)\">\r\n    </div>\r\n\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -863,7 +1397,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".frame {\n  width: 400px;\n  height: 350px;\n  position: relative;\n  margin: auto;\n  padding-bottom: 15px;\n  border-radius: 5px;\n  font-family: \"Lato\";\n  font-size: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 40px 40px 15px (35px)[3] 65px 1fr;\n      grid-template-rows: 40px 40px 15px repeat(3, 35px) 65px 1fr;\n  grid-row-gap: 10px;\n  overflow: hidden; }\n  @media screen and (max-width: 850px) {\n    .frame {\n      width: 95vw; } }\n\n#close {\n  width: 105%;\n  height: 20px;\n  position: absolute;\n  left: -10px;\n  right: 0;\n  margin: 10px auto;\n  bottom: -13px;\n  border-top: none;\n  border-radius: 3px;\n  font-size: 14px;\n  text-align: center; }\n\n#close:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n.title {\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  font-size: 25px; }\n\n.row {\n  width: 100%;\n  height: 100%;\n  line-height: 35px; }\n\n.left {\n  float: left;\n  margin-left: 25px; }\n\n.right {\n  float: right;\n  margin-right: 30px; }\n\ninput {\n  width: 45%;\n  height: 100%;\n  float: left;\n  padding-left: 10px;\n  box-sizing: border-box;\n  background: transparent;\n  border-radius: 3px;\n  font-size: 17px; }\n\n.createLunch {\n  width: 60%;\n  height: 35px;\n  line-height: 35px;\n  border-radius: 3px;\n  text-align: center;\n  justify-self: center;\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center; }\n\n.createLunch:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n.disabled {\n  background: rgba(118, 118, 118, 0.27); }\n", ""]);
+exports.push([module.i, ".frame {\n  width: 350px;\n  height: 350px;\n  position: relative;\n  margin: auto;\n  padding-bottom: 15px;\n  border-radius: 5px;\n  font-family: \"Lato\";\n  font-size: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 40px 40px 15px (35px)[3] 65px 1fr;\n      grid-template-rows: 40px 40px 15px repeat(3, 35px) 65px 1fr;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  grid-row-gap: 10px;\n  overflow: hidden; }\n  @media screen and (max-width: 850px) {\n    .frame {\n      width: 95vw; } }\n\n#close {\n  width: 105%;\n  height: 20px;\n  position: absolute;\n  left: -10px;\n  right: 0;\n  margin: 10px auto;\n  bottom: -13px;\n  border-top: none;\n  border-radius: 3px;\n  font-size: 14px;\n  text-align: center; }\n\n#close:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n.title {\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  font-size: 25px; }\n\n.row {\n  width: 85%;\n  height: 100%;\n  line-height: 35px; }\n\n.left {\n  float: left; }\n\n.right {\n  float: right; }\n\ninput {\n  width: 45%;\n  height: 100%;\n  float: left;\n  padding-left: 10px;\n  box-sizing: border-box;\n  background: transparent;\n  border-radius: 3px;\n  font-size: 17px; }\n\n.createLunch {\n  width: 85%;\n  height: 35px;\n  line-height: 35px;\n  border-radius: 3px;\n  text-align: center;\n  justify-self: center;\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center; }\n\n.createLunch:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n.disabled {\n  background: rgba(118, 118, 118, 0.27); }\n", ""]);
 
 // exports
 

@@ -21,7 +21,7 @@ export class TileComponent implements OnInit {
 
   mouseOver(){
 
-    this.tile.nativeElement.style.boxShadow = '0 0 6px 1px ' + this.theme.highlightColor;
+    this.tile.nativeElement.style.boxShadow = '0 0 3px 1px ' + this.theme.highlightColor;
   }
 
   mouseLeave(){
@@ -36,6 +36,6 @@ export class TileComponent implements OnInit {
 
   mouseUp(){
 
-    this.tile.nativeElement.style.boxShadow = '0 0 6px 1px ' + this.theme.highlightColor;
+    this.tile.nativeElement.style.boxShadow = '0 0 3px 1px ' + this.theme.highlightColor;
   }
 }

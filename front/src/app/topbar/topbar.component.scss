@@ -11,7 +11,7 @@
   grid-template-columns: 150px 30px 50px repeat(3, 100px) 1fr 150px 150px 20px;
   align-items: center;
   justify-items: stretch;
-  position: sticky
+  position: sticky;
 }
 
 .menuLink {
@@ -46,7 +46,7 @@
 }
 
 .selected {
-  border: solid rgba(22, 21, 23, 0.61) 2px;
+  border: solid rgba(22, 21, 23, 0.31) 1px;
 }
 
 #lunchWord {

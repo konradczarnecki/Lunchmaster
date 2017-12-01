@@ -19,6 +19,6 @@
 
   <app-list *ngIf="lunchForList" [lunch]="lunchForList" (close)="onListClosed()" [@slideUp]></app-list>
 
-  <div id="newLunchButton" [ngStyle]="{ border : theme.border2px, color : theme.secFontColor, background: theme.secColor }" (click)="openNewLunch()" >+</div>
+  <div id="newLunchButton" [ngStyle]="{ color : theme.secFontColor, background: theme.tetrColor }" (click)="openNewLunch()" >+</div>
 
 </div>

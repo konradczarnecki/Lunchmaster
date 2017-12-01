@@ -1,9 +1,4 @@
-<div class="frame" [ngStyle]="{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }">
-
-  <div class="filler"></div>
-
-  <div class="title" *ngIf="!lunch">NEW LUNCH</div>
-  <div class="title" *ngIf="lunch">EDIT LUNCH</div>
+<div class="frame" [ngStyle]="{ background : theme.tetrColor, color : theme.secFontColor }">
 
   <div class="filler"></div>
 
@@ -12,7 +7,7 @@
     <span class="left">Restaurant</span>
 
     <input class="right" type="text" list="restaurants" [attr.disabled]="lunch" [ngClass]="{ 'disabled' : lunch }"
-           [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="chosenRestaurant" />
+           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="chosenRestaurant" />
 
     <datalist id="restaurants">
       <option *ngFor="let restaurant of restaurants">{{restaurant.name}}</option>
@@ -26,7 +21,7 @@
     <span class="left">Deadline</span>
 
     <input class="right" type="text" placeholder="hh:mm"
-           [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="deadline" />
+           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="deadline" />
 
   </div>
 
@@ -35,12 +30,12 @@
     <span class="left">Expected</span>
 
     <input class="right" type="text" placeholder="min"
-           [ngStyle]="{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }" [(ngModel)]="expected" />
+           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="expected" />
 
   </div>
 
-  <div class="createLunch" *ngIf="!lunch" [ngStyle]="{ border : theme.border1px }" (click)="submit()" >CREATE LUNCH</div>
-  <div class="createLunch" *ngIf="lunch" [ngStyle]="{ border : theme.border1px }" (click)="submit()">SAVE CHANGES</div>
+  <div class="createLunch" *ngIf="!lunch" [ngStyle]="{ border : theme.border1pxFontClr }" (click)="submit()" >CREATE LUNCH</div>
+  <div class="createLunch" *ngIf="lunch" [ngStyle]="{ border : theme.border1pxFontClr }" (click)="submit()">SAVE CHANGES</div>
 
   <div style="height: 5px"></div>
 

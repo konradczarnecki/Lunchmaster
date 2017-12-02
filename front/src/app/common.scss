@@ -7,3 +7,60 @@ $gap: 10px;
 $font: 'Lato';
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
+@mixin grid-rows($rows, $gap: 0){
+  display: grid;
+  grid-template-rows: $rows;
+  grid-row-gap: $gap;
+}
+
+@mixin grid-columns($columns, $gap: 0){
+  display: grid;
+  grid-template-columns: $columns;
+  grid-column-gap: $gap;
+}
+
+@mixin grid($rows, $columns, $gap: 0){
+  @include grid-rows($rows, $gap);
+  @include grid-columns($columns, $gap);
+}
+
+@mixin grid-stretch(){
+  display: grid;
+  align-items: stretch;
+  justify-items: stretch;
+}
+
+@mixin grid-center(){
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+@mixin size($dim1, $dim2: -1){
+
+  @if $dim2 == -1 {
+    width: $dim1;
+    height: $dim1;
+  }
+  @else {
+    width: $dim1;
+    height: $dim2;
+  }
+}
+
+@mixin size100p(){
+  @include size(100%, 100%);
+}
+
+@mixin absolute($top, $right, $bottom, $left){
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin absolute-center(){
+  @include absolute(0, 0, 0, 0);
+  margin: auto;
+}

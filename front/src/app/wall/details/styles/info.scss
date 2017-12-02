@@ -1,0 +1,60 @@
+#info {
+  width: 90%;
+  height: 100%;
+  margin: auto;
+
+  transform: translate(3%, 0);
+  font-size: 15px;
+
+  display: grid;
+  $side-column: 23%;
+  grid-template-columns: $side-column 1fr $side-column;
+  align-items: stretch;
+  justify-items: stretch;
+
+  br {
+    line-height: 150%;
+  }
+}
+
+#delivery {
+  text-align: left;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20px 1fr 20px 1fr;
+  align-items: center;
+  justify-items: stretch;
+}
+
+#restaurant {
+  padding-right: 30px;
+  text-align: right;
+}
+
+#lunchmaster {
+  padding-left: 30px;
+  text-align: left;
+}
+
+.labels {
+  font-size: 15px;
+}
+
+.hours {
+  font-size: 22px;
+}
+
+.labels, .hours {
+  padding-left: 30px;
+  text-align: left;
+}
+
+.infoDetails {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.infoHeader {
+  font-size: 20px;
+}

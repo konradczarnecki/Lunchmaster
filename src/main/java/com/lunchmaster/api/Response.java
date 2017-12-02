@@ -1,19 +1,31 @@
 package com.lunchmaster.api;
 
-public class Response <T> {
+import com.lunchmaster.api.lunch.dto.Lunch;
+import com.lunchmaster.api.lunch.dto.Order;
+import com.sun.org.apache.regexp.internal.RE;
 
-    public static final String SUCCESS = "success";
-    public static final String FAILURE = "failure";
+import java.util.Date;
+
+
+public class Response<T> {
+
+    private static final String SUCCESS = "success";
+    private static final String FAILURE = "failure";
 
     private String status;
     private String details;
 
     private T content;
 
-    public Response(){}
+    public Response() {
+    }
 
     public Response(String status) {
         this.status = status;
+    }
+
+    public Response(T type) {
+        this.content=type;
     }
 
     public String getStatus() {
@@ -40,5 +52,29 @@ public class Response <T> {
         this.details = details;
     }
 
+
+    public Response success() {
+        this.setStatus(SUCCESS);
+        this.setDetails("Operation successful.");
+        return this;
+    }
+
+    public Response error() {
+        this.setStatus(FAILURE);
+        this.setDetails("There was an unexpected error.");
+        this.setContent(null);
+        return this;
+    }
+
+    public Response forbidden(){
+        this.setStatus(FAILURE);
+        this.setDetails("Forbidden operation.");
+        this.setContent(null);
+        return this;
+    }
+
+    public boolean isSuccess(){
+        return this.status.equals(SUCCESS);
+    }
 
 }

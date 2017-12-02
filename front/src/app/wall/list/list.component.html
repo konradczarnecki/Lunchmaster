@@ -1,0 +1,30 @@
+<div class="frame" id="frame" [ngStyle]="{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }">
+
+  <div id="close" (click)="clickClose()">&#x25BC;</div>
+
+  <div id="header">{{lunch.restaurant.name}}</div>
+
+  <div id="sortBy">
+    <div id="sortLabel">Sort by:</div>
+    <div id="sortByName" class="sorting" [ngStyle]="{ border : borders.name }" (click)="setSorting('name')">Name</div>
+    <div id="sortByDish" class="sorting" [ngStyle]="{ border : borders.dish }" (click)="setSorting('dish')">Dish</div>
+  </div>
+
+  <div id="list">
+
+    <div class="section" *ngFor="let section of sections">
+
+      <div class="header">
+        <div class="positionLeft">{{section.header.textLeft}}</div>
+        <div class="positionRight">{{section.header.textRight}}</div>
+      </div>
+
+      <div class="row" *ngFor="let item of section.items">
+        <div class="positionLeft">{{item.textLeft}}</div>
+        <div class="positionRight">{{item.textRight}}</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

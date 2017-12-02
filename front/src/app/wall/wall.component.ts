@@ -4,22 +4,31 @@ import { WallService } from './service/wall.service';
 import { ThemeService} from '../theme/theme.service';
 import { Lunch } from '../model';
 
-import { fadeAnimation, slideAnimation } from './animations';
+import { fadeAnimation, slideAnimation, slideUpAnimation } from './animations';
 
 @Component({
   selector: 'app-wall',
   templateUrl: './wall.component.html',
   styleUrls: ['./wall.component.scss'],
-  animations : [ slideAnimation, fadeAnimation ],
+  animations : [ slideAnimation, slideUpAnimation, fadeAnimation ],
 })
 export class WallComponent implements OnInit {
 
   lunches: Lunch[];
   selected: number;
 
-  constructor(private service: WallService,
-              private changeDet: ChangeDetectorRef,
-              public theme: ThemeService) { }
+  newLunchOpened: boolean;
+  lunchToEdit: Lunch;
+  lunchForList: Lunch;
+
+  constructor(public theme: ThemeService,
+              private service: WallService,
+              private changeDet: ChangeDetectorRef) { }
+
+  get tilesInactive(): boolean {
+
+    return this.selected !== -1 || this.newLunchOpened === true;
+  }
 
   ngOnInit() {
 
@@ -27,20 +36,6 @@ export class WallComponent implements OnInit {
     this.selected = -1;
 
     window.onresize = this.adjustGrid.bind(this);
-  }
-
-  get detailsState(): string {
-
-    return this.selected === -1 ? 'hidden' : 'shown';
-  }
-
-  fetchLunches() {
-
-    this.service.getLunches().then(lunches => {
-
-      this.lunches = lunches;
-      this.adjustGrid();
-    });
   }
 
   adjustGrid() {
@@ -55,4 +50,61 @@ export class WallComponent implements OnInit {
     this.changeDet.detectChanges();
   }
 
+  fetchLunches() {
+
+    this.service.getLunches().then(lunches => {
+
+      this.lunches = lunches;
+      this.adjustGrid();
+    });
+  }
+
+  openDetails(index: number){
+
+    this.newLunchOpened = false;
+    this.selected = index;
+  }
+
+  onDetailsClosed(){
+
+    this.selected = -1;
+    this.lunchToEdit = undefined;
+  }
+
+  openNewLunch(){
+
+    this.selected = -1;
+    this.newLunchOpened = true;
+  }
+
+  onNewLunchClosed(){
+
+    this.newLunchOpened = false;
+    this.lunchToEdit = undefined;
+  }
+
+  openEditLunch(lunch: Lunch){
+
+    this.selected = -1;
+    this.lunchToEdit = lunch;
+    this.newLunchOpened = true;
+  }
+
+  openList(lunch: Lunch){
+
+    this.lunchForList = lunch;
+  }
+
+  onListClosed(){
+
+    this.lunchForList = undefined;
+  }
+
+  onLunchesModified(){
+
+    this.newLunchOpened = false;
+    this.lunchToEdit = undefined;
+    this.selected = -1;
+    this.fetchLunches();
+  }
 }

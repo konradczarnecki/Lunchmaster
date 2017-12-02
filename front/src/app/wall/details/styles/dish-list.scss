@@ -1,0 +1,62 @@
+@import "../../../common";
+
+#dishList {
+  width: 80%;
+  grid-column: 1;
+  grid-row: 1;
+  margin-top: 20px;
+
+  transform: translateY(90px);
+
+  display: grid;
+  grid-auto-rows: 20px;
+  grid-row-gap: 8px;
+}
+
+.orderPosition {
+  width: 100%;
+}
+
+.orderPosition:hover {
+  cursor: pointer;
+}
+
+.dishName {
+  float: left;
+}
+
+.dishPrice {
+  float: right;
+}
+
+#lastRow {
+  width: 100%;
+  grid-row: span 6;
+  position: relative;
+  margin-top: 20px;
+}
+
+#total {
+  width: 100%;
+  height: 20px;
+  font-weight: 700;
+}
+
+#placeOrder {
+  width: 100%;
+  height: 30px;
+  margin-top: 15px;
+  position: absolute;
+  right: 0;
+  bottom: 65px;
+  border-radius: 3px;
+
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+#placeOrder:hover {
+  cursor: pointer;
+  background-color: $hover-clr;
+}

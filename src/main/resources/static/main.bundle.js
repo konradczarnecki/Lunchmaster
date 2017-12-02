@@ -16,7 +16,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\" [ngStyle]=\"{\r\n    backgroundImage : 'url(\\'/assets/images/' + theme.name + '/back' + theme.background + '.png\\')'}\">\r\n\r\n  <app-topbar></app-topbar>\r\n\r\n  <div class=\"main\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ backgroundImage : 'url(\\'/assets/images/' + theme.name + '/back' + theme.background + '.png\\')' }\">\r\n\r\n  <app-topbar></app-topbar>\r\n\r\n  <div class=\"main\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -28,7 +28,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".wrapper {\n  width: 100%;\n  min-height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 40px 1fr;\n      grid-template-rows: 40px 1fr;\n  overflow: hidden;\n  background-size: cover; }\n\napp-topbar {\n  z-index: 2; }\n", ""]);
+exports.push([module.i, ".wrapper {\n  width: 100%;\n  min-height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  overflow: hidden;\n  background-size: cover;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 40px 1fr;\n      grid-template-rows: 40px 1fr; }\n\napp-topbar {\n  z-index: 2; }\n", ""]);
 
 // exports
 
@@ -44,8 +44,7 @@ module.exports = module.exports.toString();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -57,10 +56,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
 var AppComponent = (function () {
-    function AppComponent(router, theme) {
-        this.router = router;
+    function AppComponent(theme) {
         this.theme = theme;
     }
     AppComponent.prototype.ngOnInit = function () {
@@ -74,10 +71,10 @@ AppComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../src/app/app.component.scss")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__theme_theme_service__["a" /* ThemeService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _a || Object])
 ], AppComponent);
 
-var _a, _b;
+var _a;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -161,7 +158,7 @@ AppModule = __decorate([
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background: theme.secColor }\">\r\n  <div id=\"loginBox\">\r\n\r\n    <input id=\"username\" class=\"round\" placeholder=\"username\"\r\n           [(ngModel)]=\"mail\" [ngClass]=\"{ 'invalid' : invalidCredentials }\"\r\n           [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor}\" (keyup.enter)=\"login()\">\r\n\r\n    <input id=\"password\" class=\"round\" placeholder=\"password\"\r\n           [(ngModel)]=\"password\" [ngClass]=\"{ 'invalid' : invalidCredentials }\"\r\n           [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor }\" (keyup.enter)=\"login()\">\r\n\r\n    <div id=\"buttons\">\r\n      <div id=\"login\" class=\"round\" (click)=\"login()\"\r\n           [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor  }\">login</div>\r\n      <div id=\"register\" class=\"round\"\r\n           [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor }\">register</div>\r\n    </div>\r\n\r\n  </div>\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background: theme.secColor }\">\r\n\r\n  <div id=\"loginBox\">\r\n\r\n    <input id=\"username\" class=\"round\" placeholder=\"username\"\r\n           [ngClass]=\"{ 'invalid' : invalidCredentials }\" [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor}\"\r\n           [(ngModel)]=\"mail\"  (keyup.enter)=\"login()\">\r\n\r\n    <input id=\"password\" class=\"round\" placeholder=\"password\"\r\n           [ngClass]=\"{ 'invalid' : invalidCredentials }\" [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor }\"\r\n           [(ngModel)]=\"password\" (keyup.enter)=\"login()\">\r\n\r\n    <div id=\"buttons\">\r\n\r\n      <div id=\"login\" class=\"round\" [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor }\" (click)=\"login()\">login</div>\r\n      <div id=\"register\" class=\"round\" [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor }\">register</div>\r\n\r\n    </div>\r\n\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -317,7 +314,7 @@ var _a, _b;
 /***/ "../../../../../src/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n  <span id=\"logout\" (click)=\"logout()\" [ngStyle]=\"{ color : theme.fontColor }\" >LOGOUT</span>\n</div>\n"
+module.exports = "<div class=\"wrapper\">\r\n  <span id=\"logout\" (click)=\"logout()\" [ngStyle]=\"{ color : theme.fontColor }\" >LOGOUT</span>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -474,6 +471,13 @@ var ThemeService = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ThemeService.prototype, "border2px", {
+        get: function () {
+            return 'solid 2px ' + this.themes[this.current].highlightColor;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ThemeService.prototype, "name", {
         get: function () {
             return this.themes[this.current].name;
@@ -533,7 +537,7 @@ var themes = [defaultTheme, pinkrazeTheme];
 /***/ "../../../../../src/app/topbar/topbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background : theme.mainColor, color : theme.fontColor }\">\r\n\r\n  <div id=\"logo\" [ngStyle]=\"{ color : theme.fontColor }\">\r\n    <span id=\"lunchWord\">LUNCH</span><span id=\"masterWord\">master</span>\r\n  </div>\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div class=\"menuLink\" routerLink=\"/wall\"\r\n       [ngClass]=\"{'inactive' : !loginService.logged}\">wall</div>\r\n\r\n  <div class=\"menuLink\" routerLink=\"/wall\"\r\n       [ngClass]=\"{'inactive' : !loginService.logged}\">billing</div>\r\n\r\n  <div class=\"menuLink\" routerLink=\"/wall\"\r\n       [ngClass]=\"{'inactive' : !loginService.logged}\">restaurants</div>\r\n\r\n  <div class=\"menuLink\" routerLink=\"/profile\"\r\n       [ngClass]=\"{'inactive' : !loginService.logged}\">profile</div>\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div id=\"userInfo\" *ngIf=\"loginService.logged\">\r\n    Hello, {{loginService.user.firstName}}\r\n  </div>\r\n  <div id=\"substitute\" *ngIf=\"!loginService.logged\"></div>\r\n\r\n  <div id=\"themes\">\r\n\r\n    <div class=\"theme\"\r\n         *ngFor=\"let th of themes; let i = index;\"\r\n         [ngClass]=\"{'selected' : theme.current == i}\"\r\n         [ngStyle]=\"{background : th.secColor}\"\r\n         (click)=\"theme.setTheme(i)\">\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background : theme.mainColor, color : theme.fontColor }\">\r\n\r\n  <div id=\"logo\" [ngStyle]=\"{ color : theme.fontColor }\">\r\n    <span id=\"lunchWord\">LUNCH</span><span id=\"masterWord\">master</span>\r\n  </div>\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div class=\"menuLink\" routerLink=\"/wall\" [ngClass]=\"{'inactive' : !loginService.logged}\">wall</div>\r\n  <div class=\"menuLink\" routerLink=\"/wall\" [ngClass]=\"{'inactive' : !loginService.logged}\">billing</div>\r\n  <div class=\"menuLink\" routerLink=\"/wall\" [ngClass]=\"{'inactive' : !loginService.logged}\">restaurants</div>\r\n  <div class=\"menuLink\" routerLink=\"/profile\" [ngClass]=\"{'inactive' : !loginService.logged}\">profile</div>\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div id=\"userInfo\" *ngIf=\"loginService.logged\">\r\n    Hello, {{loginService.user.firstName}}\r\n  </div>\r\n\r\n  <div id=\"substitute\" *ngIf=\"!loginService.logged\"></div>\r\n\r\n  <div id=\"themes\">\r\n\r\n    <div class=\"theme\" *ngFor=\"let th of themes; let i = index;\"\r\n         [ngClass]=\"{'selected' : theme.current == i}\" [ngStyle]=\"{background : th.secColor}\" (click)=\"theme.setTheme(i)\">\r\n    </div>\r\n\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -545,7 +549,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  background: rgba(221, 174, 230, 0.97);\n  box-shadow: 0 4px 8px rgba(60, 60, 60, 0.17);\n  font-family: \"Lato\";\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 150px 30px 50px (100px)[3] 1fr 150px 150px 20px;\n      grid-template-columns: 150px 30px 50px repeat(3, 100px) 1fr 150px 150px 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch;\n  position: -webkit-sticky;\n  position: sticky; }\n\n.menuLink {\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.menuLink:hover {\n  cursor: pointer; }\n\n#themes {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  grid-auto-columns: 25px;\n  grid-auto-flow: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.theme {\n  width: 20px;\n  height: 20px;\n  border: solid 1px rgba(138, 138, 138, 0.36); }\n\n.theme:hover {\n  cursor: pointer; }\n\n.selected {\n  border: solid rgba(22, 21, 23, 0.61) 2px; }\n\n#lunchWord {\n  font-weight: 800; }\n\n#lunchWord:hover, #masterWord:hover {\n  cursor: default; }\n\n#logo {\n  padding-left: 20px;\n  font-family: \"Lato\";\n  display: inline-block;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n#userInfo {\n  width: 150px;\n  font: \"Lato\";\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.inactive {\n  opacity: 0.2; }\n\n.inactive:hover {\n  cursor: default; }\n", ""]);
+exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  box-shadow: 0 4px 8px rgba(60, 60, 60, 0.17);\n  font-family: \"Lato\";\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 150px 30px 50px (100px)[3] 1fr 150px 150px 20px;\n      grid-template-columns: 150px 30px 50px repeat(3, 100px) 1fr 150px 150px 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch;\n  position: -webkit-sticky;\n  position: sticky; }\n\n.menuLink {\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  user-focus: none; }\n\n.menuLink:hover {\n  cursor: pointer; }\n\n#themes {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  grid-auto-columns: 25px;\n  grid-auto-flow: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.theme {\n  width: 20px;\n  height: 20px;\n  border: solid 1px rgba(138, 138, 138, 0.36); }\n\n.theme:hover {\n  cursor: pointer; }\n\n.selected {\n  border: solid rgba(22, 21, 23, 0.61) 2px; }\n\n#lunchWord {\n  font-weight: 800; }\n\n#lunchWord:hover, #masterWord:hover {\n  cursor: default; }\n\n#logo {\n  padding-left: 20px;\n  font-family: \"Lato\";\n  display: inline-block;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n#userInfo {\n  width: 150px;\n  font: \"Lato\";\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.inactive {\n  opacity: 0.2; }\n\n.inactive:hover {\n  cursor: default; }\n", ""]);
 
 // exports
 
@@ -606,6 +610,7 @@ var _a, _b;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return slideAnimation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return slideUpAnimation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return fadeAnimation; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_animations__ = __webpack_require__("../../../animations/@angular/animations.es5.js");
 
@@ -618,9 +623,18 @@ var slideAnimation = Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["j
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["e" /* animate */])('300ms cubic-bezier(.58,.7,.46,1.02)', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ transform: 'translate(0, -100%)' }))
     ])
 ]);
+var slideUpAnimation = Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["j" /* trigger */])('slideUp', [
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["i" /* transition */])('void => *', [
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ transform: 'translate(0, 100%)' }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["e" /* animate */])('300ms cubic-bezier(.58,.7,.46,1.02)')
+    ]),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["i" /* transition */])('* => void', [
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["e" /* animate */])('300ms cubic-bezier(.58,.7,.46,1.02)', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ transform: 'translate(0, 100%)' }))
+    ])
+]);
 var fadeAnimation = Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["j" /* trigger */])('fade', [
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["g" /* state */])('hidden', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ opacity: 1 })),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["g" /* state */])('shown', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ opacity: 0.25 })),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["g" /* state */])('shown', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ opacity: 1 })),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["g" /* state */])('hidden', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["h" /* style */])({ opacity: 0.25 })),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["i" /* transition */])('shown <=> hidden', Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["e" /* animate */])('300ms ease-out'))
 ]);
 //# sourceMappingURL=animations.js.map
@@ -630,7 +644,7 @@ var fadeAnimation = Object(__WEBPACK_IMPORTED_MODULE_0__angular_animations__["j"
 /***/ "../../../../../src/app/wall/details/details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"frame\" [ngStyle]=\"{\r\n     'border' : theme.border1px,\r\n     'background' : theme.tetrColor,\r\n     'color' : theme.secFontColor\r\n}\">\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div id=\"info\" [ngStyle]=\"{ color : theme.secFontColor }\">\r\n\r\n    <div id=\"restaurant\" class=\"verticalSection\" [ngStyle]=\"{ 'border-right' : theme.border1px }\">\r\n\r\n      <div id=\"restaurantName\" class=\"infoHeader\">{{lunch.restaurant.name}}</div>\r\n\r\n      <div id=\"restaurantDetails\" class=\"infoDetails\">\r\n\r\n        tel:&nbsp; {{lunch.restaurant.phone}}<br>\r\n        avg:&nbsp; {{lunch.restaurant.avgDeliveryTime}} min<br>\r\n\r\n        <a target=\"_blank\" [href]=\"'http://' + lunch.restaurant.link\" [ngStyle]=\"{color : theme.secFontColor}\">\r\n          website\r\n        </a>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"lunchmaster\" class=\"verticalSection\" [ngStyle]=\"{ 'border-right' : theme.border1px }\">\r\n\r\n      <div id=\"lunchmasterName\" class=\"infoHeader\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\r\n\r\n      <div id=\"lunchmasterDetails\" class=\"infoDetails\">\r\n        {{lunch.lunchMaster.part}}, {{lunch.lunchMaster.group}}, {{lunch.lunchMaster.floor}} floor<br>\r\n        bank:&nbsp; {{lunch.lunchMaster.bankAccount}}<br>\r\n        tel:&nbsp; {{lunch.lunchMaster.mobile}}\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"delivery\" class=\"verticalSection\">\r\n      <div id=\"deadlineLabel\" class=\"labels\">Deadline</div>\r\n      <div id=\"deadlineHours\" class=\"hours\">{{lunch.deadline | date: 'HH:mm'}}</div>\r\n      <div id=\"expectedLabel\" class=\"labels\">Expected</div>\r\n      <div id=\"expectedHours\" class=\"hours\">{{lunch.expectedDelivery | date: 'HH:mm'}}</div>\r\n    </div>\r\n\r\n  </div>\r\n\r\n  <div id=\"orders\" [ngStyle]=\"{color : theme.secFontColor}\">\r\n\r\n    <div id=\"participants\">\r\n\r\n      <div class=\"header\">Participants</div>\r\n\r\n      <div class=\"order\" *ngFor=\"let order of lunch.orders\" [ngStyle]=\"{ border : theme.border1px }\">\r\n        {{order.user.firstName}} {{order.user.lastName}}\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"join\">\r\n\r\n      <div class=\"orderHeader\">Order</div>\r\n\r\n      <div id=\"addDish\">\r\n\r\n        <input type=\"text\" list=\"dishes\" [(ngModel)]=\"orderInput\" (keyup.enter)=\"addDish()\"\r\n               [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\"/>\r\n\r\n        <datalist id=\"dishes\">\r\n          <option *ngFor=\"let dish of lunch.restaurant.dishes\" [value]=\"dish.name\">{{dish.name}}</option>\r\n        </datalist>\r\n\r\n        <div id=\"addButton\" (click)=\"addDish()\" [ngStyle]=\"{ border : theme.border1px }\">+</div>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"dishList\">\r\n\r\n      <div class=\"orderPosition\" *ngFor=\"let dish of dishList; let i = index;\" (click)=\"removeDish(i)\">\r\n        <span class=\"dishName\">{{dish.name}}</span>\r\n        <span class=\"dishPrice\">{{dish.price}}</span>\r\n      </div>\r\n\r\n      <div id=\"lastRow\" *ngIf=\"dishList.length != 0\">\r\n\r\n        <div id=\"total\">\r\n          <span class=\"dishName\">Total</span>\r\n          <span class=\"dishPrice\">{{total}}</span>\r\n        </div>\r\n\r\n        <div id=\"placeOrder\" [ngStyle]=\"{ border : theme.border1px }\">ORDER</div>\r\n\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n  <div style=\"height: 5px\"></div>\r\n\r\n  <div id=\"close\" (click)=\"clickClose()\" [ngStyle]=\"{ border: theme.border1px, borderTop : 'none'}\">&#x25B2;</div>\r\n\r\n</div>\r\n"
+module.exports = "<div id=\"frame\" [ngStyle]=\"{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }\">\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div id=\"info\" [ngStyle]=\"{ color : theme.secFontColor }\">\r\n\r\n    <div id=\"restaurant\" class=\"verticalSection\" [ngStyle]=\"{ 'border-right' : theme.border1px }\">\r\n\r\n      <div id=\"restaurantName\" class=\"infoHeader\">{{lunch.restaurant.name}}</div>\r\n\r\n      <div id=\"restaurantDetails\" class=\"infoDetails\">\r\n\r\n        tel:&nbsp; {{lunch.restaurant.phone}}<br>\r\n        avg:&nbsp; {{lunch.restaurant.avgDeliveryTime}} min<br>\r\n\r\n        <a target=\"_blank\" [ngStyle]=\"{color : theme.secFontColor}\" [href]=\"'http://' + lunch.restaurant.link\">\r\n          website\r\n        </a>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"lunchmaster\" class=\"verticalSection\" [ngStyle]=\"{ 'border-right' : theme.border1px }\">\r\n\r\n      <div id=\"lunchmasterName\" class=\"infoHeader\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\r\n\r\n      <div id=\"lunchmasterDetails\" class=\"infoDetails\">\r\n        {{lunch.lunchMaster.part}}, {{lunch.lunchMaster.group}}, {{lunch.lunchMaster.floor}} floor<br>\r\n        bank:&nbsp; {{lunch.lunchMaster.bankAccount}}<br>\r\n        tel:&nbsp; {{lunch.lunchMaster.mobile}}\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"delivery\" class=\"verticalSection\">\r\n      <div id=\"deadlineLabel\" class=\"labels\">Deadline</div>\r\n      <div id=\"deadlineHours\" class=\"hours\">{{lunch.deadline | date: 'HH:mm'}}</div>\r\n      <div id=\"expectedLabel\" class=\"labels\">Expected</div>\r\n      <div id=\"expectedHours\" class=\"hours\">{{lunch.deadline + lunch.expectedDelivery * 60000 | date: 'HH:mm'}}</div>\r\n    </div>\r\n\r\n  </div>\r\n\r\n  <div id=\"orders\" [ngStyle]=\"{color : theme.secFontColor}\">\r\n\r\n    <div id=\"addOrder\">\r\n\r\n      <div id=\"addOrderHeader\">Order</div>\r\n\r\n      <div id=\"addDish\">\r\n\r\n        <input type=\"text\" list=\"dishes\"\r\n               [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\"\r\n               [(ngModel)]=\"orderInput\" (keyup.enter)=\"addDish()\"/>\r\n\r\n        <datalist id=\"dishes\">\r\n          <option *ngFor=\"let dish of lunch.restaurant.dishes\" [value]=\"dish.name\">{{dish.name}}</option>\r\n        </datalist>\r\n\r\n        <div id=\"addOrderButton\" [ngStyle]=\"{ border : theme.border1px }\" (click)=\"addDish()\">+</div>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n\r\n    <div id=\"participants\">\r\n\r\n      <div id=\"participantsHeader\">Participants</div>\r\n\r\n      <div class=\"order\" *ngFor=\"let order of lunch.orders; let i = index;\"\r\n           [ngClass]=\"{'pointer' : orderBelongsToUser(i)}\" [ngStyle]=\"{ border : theme.border1px }\" [id]=\"'order' + i\"\r\n           (mouseover)=\"showOrderDetails(i)\" (mouseleave)=\"hideOrderDetails()\" (click)=\"deleteOrder(i)\" >\r\n\r\n        {{order.user.firstName}} {{order.user.lastName}}\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"dishList\">\r\n\r\n      <div class=\"orderPosition\" *ngFor=\"let dish of dishList; let i = index;\" (click)=\"removeDish(i)\">\r\n        <span class=\"dishName\">{{dish.name}}</span>\r\n        <span class=\"dishPrice\">{{dish.price}}</span>\r\n      </div>\r\n\r\n      <div id=\"lastRow\" *ngIf=\"dishList.length != 0\">\r\n\r\n        <div id=\"total\">\r\n          <span class=\"dishName\">Total</span>\r\n          <span class=\"dishPrice\">{{total()}}</span>\r\n        </div>\r\n\r\n        <div id=\"placeOrder\" [ngStyle]=\"{ border : theme.border1px }\" (click)=\"placeOrder()\" >ORDER</div>\r\n\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"lunchmasterButtons\" *ngIf=\"userIsLunchmaster()\">\r\n\r\n    <div id=\"list\" class=\"lunchmasterButton\" title=\"Shows list of all orders from this lunch\"\r\n         [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor }\" (click)=\"showList()\">LIST</div>\r\n\r\n    <div id=\"delete\" class=\"lunchmasterButton\" title=\"Delete lunch\"\r\n         [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor }\" (click)=\"deleteLunch()\" >DELETE</div>\r\n\r\n    <div id=\"edit\" class=\"lunchmasterButton\" title=\"Edit lunch\"\r\n         [ngStyle]=\"{ border : theme.border1px, color : theme.secFontColor }\" (click)=\"editLunch()\" >EDIT</div>\r\n\r\n    <div id=\"closeLunch\" class=\"lunchmasterButton\" title=\"Close lunch\"\r\n         [ngStyle]=\"{border : theme.border1px, color : theme.secFontColor}\" >CLOSE</div>\r\n\r\n  </div>\r\n\r\n  <div style=\"height: 5px\"></div>\r\n\r\n  <div id=\"close\" [ngStyle]=\"{ border: theme.border1px, borderTop : 'none'}\" (click)=\"clickClose()\" >&#x25B2;</div>\r\n\r\n</div>\r\n\r\n<div id=\"orderDetails\" *ngIf=\"orderDetailsIndex != -1\"\r\n     [ngStyle]=\"{ background : theme.tetrColor, border : theme.border1px, color : theme.secFontColor }\" #orderDetails>\r\n\r\n  <div *ngFor=\"let dish of activeOrder().dishes\">\r\n    <span class=\"dishName\">{{dish.name}}</span>\r\n    <span class=\"dishPrice\">{{dish.price}}</span>\r\n  </div>\r\n\r\n  <div id=\"orderDetailTotal\">\r\n    <span class=\"dishName\">Total</span>\r\n    <span class=\"dishPrice\">{{orderDetailsTotal()}}</span>\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -642,7 +656,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".frame {\n  width: 700px;\n  position: relative;\n  margin: auto;\n  padding-bottom: 15px;\n  border-radius: 5px;\n  font-family: \"Lato\";\n  font-size: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 50px 100px 1fr;\n      grid-template-rows: 50px 100px 1fr;\n  grid-row-gap: 20px;\n  overflow: hidden; }\n  @media screen and (max-width: 850px) {\n    .frame {\n      width: 95vw; } }\n\n#close {\n  width: 105%;\n  height: 20px;\n  position: absolute;\n  left: -10px;\n  right: 0;\n  margin: 10px auto;\n  bottom: -13px;\n  border-top: none;\n  border-radius: 3px;\n  font-size: 14px;\n  text-align: center; }\n\n#close:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n#info {\n  width: 90%;\n  height: 100%;\n  margin: auto;\n  -webkit-transform: translate(3%, 0);\n          transform: translate(3%, 0);\n  font-size: 15px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 23% 1fr 23%;\n      grid-template-columns: 23% 1fr 23%;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n  #info br {\n    line-height: 150%; }\n\n#delivery {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr;\n      grid-template-columns: 1fr;\n  -ms-grid-rows: 20px 1fr 20px 1fr;\n      grid-template-rows: 20px 1fr 20px 1fr;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch;\n  text-align: left; }\n\n#restaurant {\n  padding-right: 30px;\n  text-align: right; }\n\n#lunchmaster {\n  padding-left: 30px;\n  text-align: left; }\n\n.labels {\n  font-size: 15px; }\n\n.hours {\n  font-size: 22px; }\n\n.labels, .hours {\n  padding-left: 30px;\n  text-align: left; }\n\n.infoDetails {\n  margin-top: 10px;\n  font-size: 15px; }\n\n.infoHeader {\n  font-size: 20px; }\n\n#orders {\n  width: 90%;\n  margin: 10px auto;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 35% 70%;\n      grid-template-columns: 35% 70%;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n#participants, #join {\n  width: 100%;\n  display: -ms-grid;\n  display: grid;\n  grid-auto-rows: 40px;\n  grid-row-gap: 10px;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n.orderHeader {\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center;\n  justify-self: center; }\n\n.order {\n  width: 100%;\n  height: 100%;\n  border-radius: 3px;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.order:hover {\n  cursor: default;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n#join {\n  width: 80%;\n  -ms-grid-row: 1;\n      grid-row: 1;\n  -ms-grid-column: 2;\n      grid-column: 2; }\n\n#addDish input {\n  width: 85%;\n  height: 100%;\n  float: left;\n  padding-left: 10px;\n  box-sizing: border-box;\n  background: transparent;\n  border-radius: 3px;\n  font-size: 17px; }\n\n#addDish div {\n  width: 12%;\n  height: 100%;\n  float: right;\n  box-sizing: border-box;\n  border-radius: 3px;\n  font-size: 30px;\n  font-weight: 600;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n#addDish div:hover {\n  cursor: pointer;\n  background-color: rgba(168, 168, 168, 0.14); }\n\n.orderPosition {\n  width: 100%; }\n\n.orderPosition:hover {\n  cursor: pointer; }\n\n#dishList {\n  width: 80%;\n  -ms-grid-column: 2;\n      grid-column: 2;\n  -ms-grid-row: 1;\n      grid-row: 1;\n  margin-top: 20px;\n  -webkit-transform: translateY(90px);\n          transform: translateY(90px);\n  display: -ms-grid;\n  display: grid;\n  grid-auto-rows: 20px;\n  grid-row-gap: 8px; }\n\n.dishName {\n  float: left; }\n\n.dishPrice {\n  float: right; }\n\n#lastRow {\n  width: 100%;\n  -ms-grid-row: span 6;\n      grid-row: span 6;\n  position: relative;\n  margin-top: 20px; }\n\n#total {\n  width: 100%;\n  height: 20px;\n  font-weight: 700; }\n\n#placeOrder {\n  width: 150px;\n  height: 30px;\n  margin-top: 15px;\n  position: absolute;\n  right: 0;\n  bottom: 65px;\n  border-radius: 3px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n#placeOrder:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n", ""]);
+exports.push([module.i, "#info {\n  width: 90%;\n  height: 100%;\n  margin: auto;\n  -webkit-transform: translate(3%, 0);\n          transform: translate(3%, 0);\n  font-size: 15px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 23% 1fr 23%;\n      grid-template-columns: 23% 1fr 23%;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n  #info br {\n    line-height: 150%; }\n\n#delivery {\n  text-align: left;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr;\n      grid-template-columns: 1fr;\n  -ms-grid-rows: 20px 1fr 20px 1fr;\n      grid-template-rows: 20px 1fr 20px 1fr;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n#restaurant {\n  padding-right: 30px;\n  text-align: right; }\n\n#lunchmaster {\n  padding-left: 30px;\n  text-align: left; }\n\n.labels {\n  font-size: 15px; }\n\n.hours {\n  font-size: 22px; }\n\n.labels, .hours {\n  padding-left: 30px;\n  text-align: left; }\n\n.infoDetails {\n  margin-top: 10px;\n  font-size: 15px; }\n\n.infoHeader {\n  font-size: 20px; }\n\n#orders {\n  width: 100%;\n  margin: 20px auto;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 60% 35%;\n      grid-template-columns: 60% 35%;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n#participants, #addOrder {\n  width: 100%;\n  display: -ms-grid;\n  display: grid;\n  grid-auto-rows: 40px;\n  grid-row-gap: 10px;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n#addOrder {\n  width: 80%;\n  -ms-grid-row: 1;\n      grid-row: 1;\n  -ms-grid-column: 1;\n      grid-column: 1; }\n\n#participants {\n  -ms-grid-column: 2;\n      grid-column: 2; }\n\n#addOrderHeader, #participantsHeader {\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center;\n  justify-self: center; }\n\n#addDish input {\n  width: 84%;\n  height: 100%;\n  float: left;\n  padding-left: 10px;\n  box-sizing: border-box;\n  background: transparent;\n  border-radius: 3px;\n  font-size: 17px; }\n\n#addDish div {\n  width: 13%;\n  height: 100%;\n  float: right;\n  box-sizing: border-box;\n  border-radius: 3px;\n  font-size: 30px;\n  font-weight: 600;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n#addDish div:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n.order {\n  width: 100%;\n  height: 100%;\n  border-radius: 3px;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.order:hover {\n  cursor: default;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n#orderDetails {\n  width: 200px;\n  padding: 10px;\n  position: absolute;\n  top: 0;\n  left: 0;\n  border-radius: 3px;\n  font-family: \"Lato\";\n  display: -ms-grid;\n  display: grid;\n  grid-auto-rows: 20px;\n  z-index: 3; }\n\n#orderDetailTotal {\n  margin-top: 5px; }\n\n#dishList {\n  width: 80%;\n  -ms-grid-column: 1;\n      grid-column: 1;\n  -ms-grid-row: 1;\n      grid-row: 1;\n  margin-top: 20px;\n  -webkit-transform: translateY(90px);\n          transform: translateY(90px);\n  display: -ms-grid;\n  display: grid;\n  grid-auto-rows: 20px;\n  grid-row-gap: 8px; }\n\n.orderPosition {\n  width: 100%; }\n\n.orderPosition:hover {\n  cursor: pointer; }\n\n.dishName {\n  float: left; }\n\n.dishPrice {\n  float: right; }\n\n#lastRow {\n  width: 100%;\n  -ms-grid-row: span 6;\n      grid-row: span 6;\n  position: relative;\n  margin-top: 20px; }\n\n#total {\n  width: 100%;\n  height: 20px;\n  font-weight: 700; }\n\n#placeOrder {\n  width: 100%;\n  height: 30px;\n  margin-top: 15px;\n  position: absolute;\n  right: 0;\n  bottom: 65px;\n  border-radius: 3px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n#placeOrder:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n#frame {\n  width: 700px;\n  position: relative;\n  margin: auto;\n  padding-bottom: 15px;\n  border-radius: 5px;\n  font-family: \"Lato\";\n  font-size: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 60px 100px 1fr 50px;\n      grid-template-rows: 60px 100px 1fr 50px;\n  grid-row-gap: 10px;\n  overflow: hidden; }\n  @media screen and (max-width: 850px) {\n    #frame {\n      width: 95vw; } }\n\n.pointer:hover {\n  cursor: pointer; }\n\n#lunchmasterButtons {\n  width: 89%;\n  margin: 10px auto;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (78px)[4];\n      grid-template-columns: repeat(4, 78px);\n  grid-column-gap: 8px;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n.lunchmasterButton {\n  width: 100%;\n  height: 30px;\n  font: \"Lato\";\n  font-size: 15px;\n  border-radius: 3px;\n  text-align: center;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  z-index: 2; }\n\n.lunchmasterButton:hover {\n  cursor: pointer;\n  background: rgba(180, 180, 180, 0.1); }\n\n#close {\n  width: 105%;\n  height: 20px;\n  position: absolute;\n  left: -10px;\n  right: 0;\n  margin: 10px auto;\n  bottom: -13px;\n  border-top: none;\n  border-radius: 3px;\n  font-size: 14px;\n  text-align: center; }\n\n#close:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n", ""]);
 
 // exports
 
@@ -660,6 +674,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_wall_service__ = __webpack_require__("../../../../../src/app/wall/service/wall.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login_service__ = __webpack_require__("../../../../../src/app/login/login.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -672,29 +687,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var DetailsComponent = (function () {
-    function DetailsComponent(theme, service) {
+    function DetailsComponent(theme, service, loginService, changeDetector) {
         this.theme = theme;
         this.service = service;
+        this.loginService = loginService;
+        this.changeDetector = changeDetector;
         this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.refresh = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.edit = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.list = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
     }
     DetailsComponent.prototype.ngOnInit = function () {
         this.dishList = [];
+        this.orderDetailsIndex = -1;
     };
-    Object.defineProperty(DetailsComponent.prototype, "total", {
-        get: function () {
-            var total = 0;
-            for (var _i = 0, _a = this.dishList; _i < _a.length; _i++) {
-                var dish = _a[_i];
-                total += dish.price;
+    DetailsComponent.prototype.placeOrder = function () {
+        var _this = this;
+        var order = this.lunch.orders.find(function (ord) { return _this.loginService.user.id === ord.user.id; });
+        if (order)
+            (_a = order.dishes).push.apply(_a, this.dishList);
+        else {
+            order = {
+                id: null,
+                user: {
+                    id: this.loginService.user.id
+                },
+                dishes: this.dishList,
+                lunchId: this.lunch.id
+            };
+        }
+        this.service.placeOrder(order).then(function (result) {
+            if (result) {
+                _this.refresh.emit(true);
+                _this.dishList = [];
             }
-            return total;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    DetailsComponent.prototype.clickClose = function () {
-        this.close.emit(true);
+        });
+        var _a;
+    };
+    DetailsComponent.prototype.deleteOrder = function (index) {
+        var _this = this;
+        if (this.orderBelongsToUser(index))
+            this.service.deleteOrder(this.lunch.orders[index].id).then(function (result) {
+                if (result) {
+                    _this.hideOrderDetails();
+                    _this.changeDetector.detectChanges();
+                    _this.refresh.emit(true);
+                }
+            });
     };
     DetailsComponent.prototype.addDish = function () {
         var _this = this;
@@ -706,6 +747,67 @@ var DetailsComponent = (function () {
     DetailsComponent.prototype.removeDish = function (index) {
         this.dishList.splice(index, 1);
     };
+    DetailsComponent.prototype.total = function () {
+        var total = 0;
+        for (var _i = 0, _a = this.dishList; _i < _a.length; _i++) {
+            var dish = _a[_i];
+            total += dish.price;
+        }
+        return total;
+    };
+    DetailsComponent.prototype.activeOrder = function () {
+        if (this.orderDetailsIndex < 0)
+            return null;
+        else
+            return this.lunch.orders[this.orderDetailsIndex];
+    };
+    DetailsComponent.prototype.userIsLunchmaster = function () {
+        if (this.lunch === undefined)
+            return false;
+        return this.loginService.user.id === this.lunch.lunchMaster.id;
+    };
+    DetailsComponent.prototype.deleteLunch = function () {
+        var _this = this;
+        this.service.deleteLunch(this.lunch.id).then(function (result) {
+            if (result) {
+                _this.close.emit(true);
+                _this.refresh.emit(true);
+            }
+        });
+    };
+    DetailsComponent.prototype.editLunch = function () {
+        this.edit.emit(this.lunch);
+    };
+    DetailsComponent.prototype.showList = function () {
+        this.list.emit(this.lunch);
+    };
+    DetailsComponent.prototype.clickClose = function () {
+        this.close.emit(true);
+    };
+    DetailsComponent.prototype.showOrderDetails = function (index) {
+        this.orderDetailsIndex = index;
+        this.changeDetector.detectChanges();
+        var buttonRect = document.getElementById('order' + index).getBoundingClientRect();
+        var absoluteX = buttonRect.left - 230;
+        var detailsLeftEdge = document.getElementById('frame').getBoundingClientRect().left;
+        var xOffset = absoluteX - detailsLeftEdge;
+        this.orderDetails.nativeElement.style.top = buttonRect.top + 'px';
+        this.orderDetails.nativeElement.style.left = xOffset + 'px';
+    };
+    DetailsComponent.prototype.hideOrderDetails = function () {
+        this.orderDetailsIndex = -1;
+    };
+    DetailsComponent.prototype.orderDetailsTotal = function () {
+        var sum = 0;
+        for (var _i = 0, _a = this.lunch.orders[this.orderDetailsIndex].dishes; _i < _a.length; _i++) {
+            var dish = _a[_i];
+            sum += dish.price;
+        }
+        return sum;
+    };
+    DetailsComponent.prototype.orderBelongsToUser = function (index) {
+        return this.lunch.orders[index].user.id === this.loginService.user.id;
+    };
     return DetailsComponent;
 }());
 __decorate([
@@ -716,17 +818,345 @@ __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
     __metadata("design:type", Object)
 ], DetailsComponent.prototype, "close", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], DetailsComponent.prototype, "refresh", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], DetailsComponent.prototype, "edit", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], DetailsComponent.prototype, "list", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('orderDetails'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _a || Object)
+], DetailsComponent.prototype, "orderDetails", void 0);
 DetailsComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-details',
         template: __webpack_require__("../../../../../src/app/wall/details/details.component.html"),
         styles: [__webpack_require__("../../../../../src/app/wall/details/details.component.scss")],
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__service_wall_service__["a" /* WallService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_wall_service__["a" /* WallService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__service_wall_service__["a" /* WallService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_wall_service__["a" /* WallService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__login_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__login_login_service__["a" /* LoginService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */]) === "function" && _e || Object])
 ], DetailsComponent);
 
-var _c, _d, _a, _b;
+var _f, _g, _a, _b, _c, _d, _e;
 //# sourceMappingURL=details.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/wall/edit-lunch/edit-lunch.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"frame\" [ngStyle]=\"{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }\">\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div class=\"title\" *ngIf=\"!lunch\">NEW LUNCH</div>\r\n  <div class=\"title\" *ngIf=\"lunch\">EDIT LUNCH</div>\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <div class=\"row\">\r\n\r\n    <span class=\"left\">Restaurant</span>\r\n\r\n    <input class=\"right\" type=\"text\" list=\"restaurants\" [attr.disabled]=\"lunch\" [ngClass]=\"{ 'disabled' : lunch }\"\r\n           [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"chosenRestaurant\" />\r\n\r\n    <datalist id=\"restaurants\">\r\n      <option *ngFor=\"let restaurant of restaurants\">{{restaurant.name}}</option>\r\n    </datalist>\r\n\r\n  </div>\r\n\r\n\r\n  <div class=\"row\">\r\n\r\n    <span class=\"left\">Deadline</span>\r\n\r\n    <input class=\"right\" type=\"text\" placeholder=\"hh:mm\"\r\n           [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"deadline\" />\r\n\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n\r\n    <span class=\"left\">Expected</span>\r\n\r\n    <input class=\"right\" type=\"text\" placeholder=\"min\"\r\n           [ngStyle]=\"{ border : 'solid 1px ' + theme.highlightColor, color : theme.secFontColor }\" [(ngModel)]=\"expected\" />\r\n\r\n  </div>\r\n\r\n  <div class=\"createLunch\" *ngIf=\"!lunch\" [ngStyle]=\"{ border : theme.border1px }\" (click)=\"submit()\" >CREATE LUNCH</div>\r\n  <div class=\"createLunch\" *ngIf=\"lunch\" [ngStyle]=\"{ border : theme.border1px }\" (click)=\"submit()\">SAVE CHANGES</div>\r\n\r\n  <div style=\"height: 5px\"></div>\r\n\r\n  <div id=\"close\" [ngStyle]=\"{ border: theme.border1px, borderTop : 'none'}\" (click)=\"clickClose()\" >&#x25B2;</div>\r\n\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/wall/edit-lunch/edit-lunch.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
+
+// module
+exports.push([module.i, ".frame {\n  width: 400px;\n  height: 350px;\n  position: relative;\n  margin: auto;\n  padding-bottom: 15px;\n  border-radius: 5px;\n  font-family: \"Lato\";\n  font-size: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 40px 40px 15px (35px)[3] 65px 1fr;\n      grid-template-rows: 40px 40px 15px repeat(3, 35px) 65px 1fr;\n  grid-row-gap: 10px;\n  overflow: hidden; }\n  @media screen and (max-width: 850px) {\n    .frame {\n      width: 95vw; } }\n\n#close {\n  width: 105%;\n  height: 20px;\n  position: absolute;\n  left: -10px;\n  right: 0;\n  margin: 10px auto;\n  bottom: -13px;\n  border-top: none;\n  border-radius: 3px;\n  font-size: 14px;\n  text-align: center; }\n\n#close:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n.title {\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  font-size: 25px; }\n\n.row {\n  width: 100%;\n  height: 100%;\n  line-height: 35px; }\n\n.left {\n  float: left;\n  margin-left: 25px; }\n\n.right {\n  float: right;\n  margin-right: 30px; }\n\ninput {\n  width: 45%;\n  height: 100%;\n  float: left;\n  padding-left: 10px;\n  box-sizing: border-box;\n  background: transparent;\n  border-radius: 3px;\n  font-size: 17px; }\n\n.createLunch {\n  width: 60%;\n  height: 35px;\n  line-height: 35px;\n  border-radius: 3px;\n  text-align: center;\n  justify-self: center;\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center; }\n\n.createLunch:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n.disabled {\n  background: rgba(118, 118, 118, 0.27); }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/wall/edit-lunch/edit-lunch.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditLunchComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_wall_service__ = __webpack_require__("../../../../../src/app/wall/service/wall.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login_service__ = __webpack_require__("../../../../../src/app/login/login.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var EditLunchComponent = (function () {
+    function EditLunchComponent(theme, service, loginService) {
+        this.theme = theme;
+        this.service = service;
+        this.loginService = loginService;
+        this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+        this.refresh = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+    }
+    Object.defineProperty(EditLunchComponent.prototype, "chosenRestaurant", {
+        get: function () {
+            return this._chosenRestaurant;
+        },
+        set: function (value) {
+            this._chosenRestaurant = value;
+            var res = this.restaurants.find(function (restaurant) { return restaurant.name === value; });
+            if (res)
+                this.expected = res.avgDeliveryTime + '';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    EditLunchComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.service.getRestaurants().then(function (restaurants) {
+            _this.restaurants = restaurants;
+        });
+        if (this.lunch) {
+            this._chosenRestaurant = this.lunch.restaurant.name;
+            var hours = new Date(this.lunch.deadline).getHours();
+            if (hours < 10)
+                hours = '' + 0 + hours;
+            var minutes = new Date(this.lunch.deadline).getMinutes();
+            if (minutes < 10)
+                minutes = '' + 0 + minutes;
+            this.deadline = hours + ':' + minutes;
+            this.expected = this.lunch.expectedDelivery + '';
+        }
+    };
+    EditLunchComponent.prototype.submit = function () {
+        var _this = this;
+        var hourRegex = /[0-2][0-9]:[0-5][0-9]/;
+        var expectedRegex = /[0-9]*/;
+        var restaurant = this.restaurants.find(function (res) { return res.name === _this._chosenRestaurant; });
+        if (restaurant == null || !hourRegex.test(this.deadline) || !expectedRegex.test(this.expected))
+            return;
+        var deadlineDate = new Date();
+        deadlineDate.setHours(0, 0, 0, 0);
+        var hours = Number(this.deadline.substring(0, 2));
+        var minutes = Number(this.deadline.substring(3, 5));
+        deadlineDate.setHours(hours, minutes);
+        var id = this.lunch ? this.lunch.id : null;
+        var lunch = {
+            id: id,
+            status: 'OPEN',
+            restaurant: {
+                id: restaurant.id
+            },
+            lunchMaster: {
+                id: this.loginService.user.id
+            },
+            deadline: deadlineDate.getTime(),
+            expectedDelivery: this.expected
+        };
+        this.service.newLunch(lunch).then(function (result) {
+            if (result)
+                _this.refresh.emit(true);
+        });
+    };
+    EditLunchComponent.prototype.clickClose = function () {
+        this.close.emit(true);
+    };
+    return EditLunchComponent;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+    __metadata("design:type", Object)
+], EditLunchComponent.prototype, "lunch", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], EditLunchComponent.prototype, "close", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], EditLunchComponent.prototype, "refresh", void 0);
+EditLunchComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-edit-lunch',
+        template: __webpack_require__("../../../../../src/app/wall/edit-lunch/edit-lunch.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/wall/edit-lunch/edit-lunch.component.scss")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__service_wall_service__["a" /* WallService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_wall_service__["a" /* WallService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__login_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__login_login_service__["a" /* LoginService */]) === "function" && _c || Object])
+], EditLunchComponent);
+
+var _d, _e, _a, _b, _c;
+//# sourceMappingURL=edit-lunch.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/wall/list/list.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"frame\" id=\"frame\" [ngStyle]=\"{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }\">\r\n\r\n  <div id=\"close\" (click)=\"clickClose()\">&#x25BC;</div>\r\n\r\n  <div id=\"header\">{{lunch.restaurant.name}}</div>\r\n\r\n  <div id=\"sortBy\">\r\n    <div id=\"sortLabel\">Sort by:</div>\r\n    <div id=\"sortByName\" class=\"sorting\" [ngStyle]=\"{ border : borders.name }\" (click)=\"setSorting('name')\">Name</div>\r\n    <div id=\"sortByDish\" class=\"sorting\" [ngStyle]=\"{ border : borders.dish }\" (click)=\"setSorting('dish')\">Dish</div>\r\n  </div>\r\n\r\n  <div id=\"list\">\r\n\r\n    <div class=\"section\" *ngFor=\"let section of sections\">\r\n\r\n      <div class=\"header\">\r\n        <div class=\"positionLeft\">{{section.header.textLeft}}</div>\r\n        <div class=\"positionRight\">{{section.header.textRight}}</div>\r\n      </div>\r\n\r\n      <div class=\"row\" *ngFor=\"let item of section.items\">\r\n        <div class=\"positionLeft\">{{item.textLeft}}</div>\r\n        <div class=\"positionRight\">{{item.textRight}}</div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/wall/list/list.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
+
+// module
+exports.push([module.i, ".frame {\n  width: 400px;\n  position: relative;\n  border-radius: 5px;\n  font-family: \"Lato\";\n  font-size: 20px;\n  padding-bottom: 70px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 20px 50px 30px 1fr;\n      grid-template-rows: 20px 50px 30px 1fr;\n  grid-row-gap: 10px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  overflow: hidden; }\n  @media screen and (max-width: 850px) {\n    .frame {\n      width: 95vw; } }\n\n#close {\n  width: 100%;\n  height: 20px;\n  font-size: 14px;\n  text-align: center; }\n\n#close:hover {\n  cursor: pointer;\n  background-color: rgba(180, 180, 180, 0.1); }\n\n#header {\n  font-size: 25px;\n  text-align: center; }\n\n#sortBy {\n  width: 70%;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[3];\n      grid-template-columns: repeat(3, 1fr);\n  grid-column-gap: 10px;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n#sortLabel {\n  justify-self: center;\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center; }\n\n.sorting {\n  border-radius: 3px;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.sorting:hover {\n  cursor: pointer;\n  background: rgba(180, 180, 180, 0.1); }\n\n#list {\n  width: 70%; }\n\n.section {\n  width: 100%;\n  margin-top: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 30px;\n      grid-template-rows: 30px;\n  grid-auto-rows: 20px;\n  grid-row-gap: 5px;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n.positionLeft {\n  float: left; }\n\n.positionRight {\n  float: right; }\n\n.row {\n  font-size: 17px; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/wall/list/list.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ListComponent = (function () {
+    function ListComponent(theme) {
+        this.theme = theme;
+        this.close = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
+    }
+    ListComponent.prototype.ngOnInit = function () {
+        this.borders = {
+            name: '',
+            dish: ''
+        };
+        this.setSorting('name');
+    };
+    ListComponent.prototype.clickClose = function () {
+        this.close.emit(true);
+    };
+    ListComponent.prototype.setSorting = function (sort) {
+        this.sections = [];
+        this.borders.name = sort === 'name' ? this.theme.border1px : 'none';
+        this.borders.dish = sort === 'dish' ? this.theme.border1px : 'none';
+        if (sort === 'name')
+            this.sortByName();
+        else if (sort === 'dish')
+            this.sortByDish();
+        var lunchTotal = 0;
+        for (var _i = 0, _a = this.lunch.orders; _i < _a.length; _i++) {
+            var order = _a[_i];
+            for (var _b = 0, _c = order.dishes; _b < _c.length; _b++) {
+                var dish = _c[_b];
+                lunchTotal += dish.price;
+            }
+        }
+        var lastLine = {
+            textLeft: 'Total',
+            textRight: lunchTotal + ' PLN'
+        };
+        var total = {
+            header: lastLine,
+            items: []
+        };
+        this.sections.push(total);
+    };
+    ListComponent.prototype.sortByName = function () {
+        for (var _i = 0, _a = this.lunch.orders; _i < _a.length; _i++) {
+            var order = _a[_i];
+            var items = [];
+            var total = 0;
+            for (var _b = 0, _c = order.dishes; _b < _c.length; _b++) {
+                var dish = _c[_b];
+                var item = {
+                    textLeft: dish.name,
+                    textRight: dish.price + ''
+                };
+                items.push(item);
+                total += dish.price;
+            }
+            var section = {
+                header: {
+                    textLeft: order.user.firstName + ' ' + order.user.lastName,
+                    textRight: total + ''
+                },
+                items: items
+            };
+            this.sections.push(section);
+        }
+    };
+    ListComponent.prototype.sortByDish = function () {
+        var sections = [];
+        for (var _i = 0, _a = this.lunch.orders; _i < _a.length; _i++) {
+            var order = _a[_i];
+            var _loop_1 = function (dish) {
+                var item = {
+                    textLeft: order.user.firstName + ' ' + order.user.lastName,
+                    textRight: ''
+                };
+                var section = sections.find(function (sec) { return sec.header.textLeft === dish.name; });
+                if (section)
+                    section.items.push(item);
+                else {
+                    var newSection = {
+                        header: {
+                            textLeft: dish.name,
+                            textRight: ''
+                        },
+                        items: [item]
+                    };
+                    sections.push(newSection);
+                }
+            };
+            for (var _b = 0, _c = order.dishes; _b < _c.length; _b++) {
+                var dish = _c[_b];
+                _loop_1(dish);
+            }
+        }
+        for (var _d = 0, sections_1 = sections; _d < sections_1.length; _d++) {
+            var section = sections_1[_d];
+            section.header.textRight = 'x' + section.items.length;
+        }
+        this.sections = sections;
+    };
+    return ListComponent;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+    __metadata("design:type", Object)
+], ListComponent.prototype, "lunch", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */])(),
+    __metadata("design:type", Object)
+], ListComponent.prototype, "close", void 0);
+ListComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-list',
+        template: __webpack_require__("../../../../../src/app/wall/list/list.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/wall/list/list.component.scss")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _a || Object])
+], ListComponent);
+
+var _b, _c, _a;
+//# sourceMappingURL=list.component.js.map
 
 /***/ }),
 
@@ -757,8 +1187,45 @@ var WallService = (function () {
     WallService.prototype.getLunches = function () {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.get(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/list")
-                .toPromise().then(function (response) { return resolve(response.json()); });
+            _this.http.get(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/list").subscribe(function (response) { return resolve(response.json()); });
+        });
+    };
+    WallService.prototype.getRestaurants = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.http.get(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/restaurant/list").subscribe(function (response) { return resolve(response.json()); });
+        });
+    };
+    WallService.prototype.newLunch = function (lunch) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.http.put(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/save", lunch).subscribe(function (response) {
+                resolve(response.json().status === 'success');
+            });
+        });
+    };
+    WallService.prototype.deleteLunch = function (id) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.http.delete(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/delete?id=" + id).subscribe(function (response) {
+                resolve(response.json().status === 'success');
+            });
+        });
+    };
+    WallService.prototype.placeOrder = function (order) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.http.put(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/order/save", order).subscribe(function (response) {
+                resolve(response.json().status === 'success');
+            });
+        });
+    };
+    WallService.prototype.deleteOrder = function (id) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.http.delete(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/order/delete?id=" + id).subscribe(function (response) {
+                resolve(response.json().status === 'success');
+            });
         });
     };
     return WallService;
@@ -776,7 +1243,7 @@ var _a;
 /***/ "../../../../../src/app/wall/tile/tile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"tile\" #tile\r\n     (mouseover)=\"mouseOver()\"\r\n     (mouseout)=\"mouseLeave()\"\r\n     (mousedown)=\"mouseDown()\"\r\n     (mouseup)=\"mouseUp()\">\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <img [src]=\"lunch.restaurant.logo\"/>\r\n\r\n  <div id=\"details\">\r\n\r\n    <div id=\"restaurant\">{{lunch.restaurant.name}}</div>\r\n    <div id=\"lunchmaster\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\r\n\r\n    <div id=\"hours\">\r\n      <div class=\"hourLabel\" id=\"deadlineLabel\">DL</div>\r\n      <div class=\"hour\" id=\"deadlineHour\">{{lunch.deadline | date:'hh:mm' }}</div>\r\n      <div class=\"hourLabel\" id=\"expectedLable\">EX</div>\r\n      <div class=\"hour\" id=\"expectedHour\">{{lunch.deadline | date:'hh:mm' }}</div>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"tile\" [ngStyle]=\"{ color : theme.fontColor }\"\r\n     (mouseover)=\"mouseOver()\" (mouseout)=\"mouseLeave()\" (mousedown)=\"mouseDown()\" (mouseup)=\"mouseUp()\" #tile>\r\n\r\n  <div class=\"filler\"></div>\r\n\r\n  <img [src]=\"lunch.restaurant.logo\"/>\r\n\r\n  <div id=\"details\">\r\n\r\n    <div id=\"restaurant\">{{lunch.restaurant.name}}</div>\r\n    <div id=\"lunchmaster\">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>\r\n\r\n    <div id=\"hours\">\r\n      <div class=\"hourLabel\" id=\"deadlineLabel\">DL</div>\r\n      <div class=\"hour\" id=\"deadlineHour\">{{lunch.deadline | date:'HH:mm' }}</div>\r\n      <div class=\"hourLabel\" id=\"expectedLable\">EX</div>\r\n      <div class=\"hour\" id=\"expectedHour\">{{lunch.deadline + lunch.expectedDelivery * 60000 | date:'HH:mm' }}</div>\r\n    </div>\r\n\r\n  </div>\r\n\r\n  <div id=\"participants\">\r\n    <img src=\"/assets/person_icon.png\">\r\n    <span>{{lunch.orders.length}}</span>\r\n  </div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -788,7 +1255,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".tile {\n  width: 400px;\n  height: 120px;\n  border: solid 1px rgba(174, 174, 174, 0.45);\n  border-radius: 2px;\n  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 5px 30% 1fr;\n      grid-template-columns: 5px 30% 1fr;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  font-family: \"Lato\";\n  color: rgba(43, 43, 43, 0.81); }\n\n.tile:hover {\n  cursor: pointer; }\n\n.tile:active {\n  box-shadow: inset 1px 1px 2px black; }\n\nimg {\n  width: 100px;\n  height: 100px; }\n\n#details {\n  -ms-flex-item-align: stretch;\n      -ms-grid-row-align: stretch;\n      align-self: stretch;\n  justify-self: stretch;\n  padding: 5px; }\n\n#restaurant {\n  width: 90%;\n  margin: auto;\n  font-size: 21px;\n  font-weight: 600;\n  padding: 10px; }\n\n#lunchmaster {\n  width: 90%;\n  margin: auto;\n  font-size: 19px;\n  padding: 0 10px; }\n\n#hours {\n  width: 90%;\n  margin: auto;\n  font-size: 16px;\n  padding: 10px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[4];\n      grid-template-columns: repeat(4, 1fr);\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: left;\n      justify-items: left; }\n\n.hour {\n  justify-self: left;\n  -webkit-transform: translateX(-30px);\n          transform: translateX(-30px);\n  font-size: 21px; }\n", ""]);
+exports.push([module.i, ".tile {\n  width: 400px;\n  height: 120px;\n  position: relative;\n  border: solid 1px rgba(174, 174, 174, 0.45);\n  border-radius: 2px;\n  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));\n  font-family: \"Lato\";\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 5px 30% 1fr;\n      grid-template-columns: 5px 30% 1fr;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n.tile:hover {\n  cursor: pointer; }\n\nimg {\n  width: 100px;\n  height: 100px; }\n\n#details {\n  -ms-flex-item-align: stretch;\n      -ms-grid-row-align: stretch;\n      align-self: stretch;\n  justify-self: stretch;\n  padding: 5px; }\n\n#restaurant {\n  width: 90%;\n  margin: auto;\n  padding: 10px;\n  font-size: 21px;\n  font-weight: 600; }\n\n#lunchmaster {\n  width: 90%;\n  margin: auto;\n  padding: 0 10px;\n  font-size: 19px; }\n\n#hours {\n  width: 90%;\n  margin: auto;\n  padding: 10px;\n  font-size: 16px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[4];\n      grid-template-columns: repeat(4, 1fr);\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: left;\n      justify-items: left; }\n\n.hour {\n  justify-self: left;\n  -webkit-transform: translateX(-30px);\n          transform: translateX(-30px);\n  font-size: 21px; }\n\n#participants {\n  width: 40px;\n  height: 20px;\n  position: absolute;\n  right: 25px;\n  top: 13px;\n  font-size: 25px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n  #participants img {\n    width: 15px;\n    height: 22px;\n    opacity: 0.6; }\n", ""]);
 
 // exports
 
@@ -861,7 +1328,7 @@ var _c, _d, _a, _b;
 /***/ "../../../../../src/app/wall/wall.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background: theme.secColor }\">\r\n\r\n  <div id=\"grid\" [ngClass]=\"{ 'inactive' : selected != -1 }\" [@fade]=\"detailsState\">\r\n\r\n    <app-tile *ngFor=\"let lunch of lunches; let i = index;\"\r\n              [lunch]=\"lunch\" (click)=\"selected = i\"></app-tile>\r\n\r\n  </div>\r\n\r\n  <app-details *ngIf=\"selected != -1\" [lunch]=\"lunches[selected]\" (close)=\"selected = -1\" [@slide]></app-details>\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"wrapper\" [ngStyle]=\"{ background: theme.secColor }\">\r\n\r\n  <div id=\"grid\" [ngClass]=\"{ 'inactive' : tilesInactive }\" [@fade]=\"tilesInactive ? 'hidden' : 'shown'\">\r\n\r\n    <app-tile *ngFor=\"let lunch of lunches; let i = index;\" [lunch]=\"lunch\" (click)=\"openDetails(i)\"></app-tile>\r\n\r\n  </div>\r\n\r\n  <app-details *ngIf=\"selected != -1\" [lunch]=\"lunches[selected]\"\r\n               (close)=\"onDetailsClosed()\" (refresh)=\"fetchLunches()\"\r\n               (edit)=\"openEditLunch($event)\" (list)=\"openList($event)\" [@slide]>\r\n\r\n  </app-details>\r\n\r\n  <app-edit-lunch *ngIf=\"newLunchOpened\" [lunch]=\"lunchToEdit\"\r\n                 (close)=\"onNewLunchClosed()\" (refresh)=\"onLunchesModified()\" [@slide]>\r\n\r\n  </app-edit-lunch>\r\n\r\n  <app-list *ngIf=\"lunchForList\" [lunch]=\"lunchForList\" (close)=\"onListClosed()\" [@slideUp]></app-list>\r\n\r\n  <div id=\"newLunchButton\" [ngStyle]=\"{ border : theme.border2px, color : theme.secFontColor, background: theme.secColor }\" (click)=\"openNewLunch()\" >+</div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -873,7 +1340,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  background: rgba(88, 113, 238, 0.95);\n  padding-top: 50px; }\n\n#grid {\n  margin: auto;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (minmax(400px, 1fr))[auto-fill];\n      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));\n  grid-auto-rows: 130px;\n  grid-gap: 10px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\napp-details {\n  position: absolute;\n  top: 0;\n  right: -10px; }\n\n.inactive {\n  pointer-events: none; }\n", ""]);
+exports.push([module.i, ".wrapper {\n  width: 100%;\n  height: 100%;\n  padding-top: 50px; }\n\n#grid {\n  margin: auto;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (minmax(400px, 1fr))[auto-fill];\n      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));\n  grid-auto-rows: 130px;\n  grid-gap: 10px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\napp-details, app-edit-lunch {\n  position: absolute;\n  top: 0;\n  right: -10px; }\n\napp-list {\n  position: absolute;\n  bottom: -10px;\n  left: -20px; }\n\n.inactive {\n  pointer-events: none; }\n\n#newLunchButton {\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  bottom: 100px;\n  right: 100px;\n  font-size: 75px;\n  font-weight: 700;\n  border-radius: 100%;\n  box-shadow: 2px 2px 3px 0 rgba(81, 81, 81, 0.23);\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center; }\n\n#newLunchButton:hover {\n  cursor: pointer; }\n\n#newLunchButton:active {\n  box-shadow: inset 0.5px 0.5px 5px 2px rgba(77, 77, 77, 0.27); }\n", ""]);
 
 // exports
 
@@ -906,29 +1373,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var WallComponent = (function () {
-    function WallComponent(service, changeDet, theme) {
+    function WallComponent(theme, service, changeDet) {
+        this.theme = theme;
         this.service = service;
         this.changeDet = changeDet;
-        this.theme = theme;
     }
-    WallComponent.prototype.ngOnInit = function () {
-        this.fetchLunches();
-        this.selected = -1;
-        window.onresize = this.adjustGrid.bind(this);
-    };
-    Object.defineProperty(WallComponent.prototype, "detailsState", {
+    Object.defineProperty(WallComponent.prototype, "tilesInactive", {
         get: function () {
-            return this.selected === -1 ? 'hidden' : 'shown';
+            return this.selected !== -1 || this.newLunchOpened === true;
         },
         enumerable: true,
         configurable: true
     });
-    WallComponent.prototype.fetchLunches = function () {
-        var _this = this;
-        this.service.getLunches().then(function (lunches) {
-            _this.lunches = lunches;
-            _this.adjustGrid();
-        });
+    WallComponent.prototype.ngOnInit = function () {
+        this.fetchLunches();
+        this.selected = -1;
+        window.onresize = this.adjustGrid.bind(this);
     };
     WallComponent.prototype.adjustGrid = function () {
         var tileWidth = 400;
@@ -939,6 +1399,46 @@ var WallComponent = (function () {
         document.getElementById('grid').style.width = gridWidth + 'px';
         this.changeDet.detectChanges();
     };
+    WallComponent.prototype.fetchLunches = function () {
+        var _this = this;
+        this.service.getLunches().then(function (lunches) {
+            _this.lunches = lunches;
+            _this.adjustGrid();
+        });
+    };
+    WallComponent.prototype.openDetails = function (index) {
+        this.newLunchOpened = false;
+        this.selected = index;
+    };
+    WallComponent.prototype.onDetailsClosed = function () {
+        this.selected = -1;
+        this.lunchToEdit = undefined;
+    };
+    WallComponent.prototype.openNewLunch = function () {
+        this.selected = -1;
+        this.newLunchOpened = true;
+    };
+    WallComponent.prototype.onNewLunchClosed = function () {
+        this.newLunchOpened = false;
+        this.lunchToEdit = undefined;
+    };
+    WallComponent.prototype.openEditLunch = function (lunch) {
+        this.selected = -1;
+        this.lunchToEdit = lunch;
+        this.newLunchOpened = true;
+    };
+    WallComponent.prototype.openList = function (lunch) {
+        this.lunchForList = lunch;
+    };
+    WallComponent.prototype.onListClosed = function () {
+        this.lunchForList = undefined;
+    };
+    WallComponent.prototype.onLunchesModified = function () {
+        this.newLunchOpened = false;
+        this.lunchToEdit = undefined;
+        this.selected = -1;
+        this.fetchLunches();
+    };
     return WallComponent;
 }());
 WallComponent = __decorate([
@@ -946,9 +1446,9 @@ WallComponent = __decorate([
         selector: 'app-wall',
         template: __webpack_require__("../../../../../src/app/wall/wall.component.html"),
         styles: [__webpack_require__("../../../../../src/app/wall/wall.component.scss")],
-        animations: [__WEBPACK_IMPORTED_MODULE_3__animations__["b" /* slideAnimation */], __WEBPACK_IMPORTED_MODULE_3__animations__["a" /* fadeAnimation */]],
+        animations: [__WEBPACK_IMPORTED_MODULE_3__animations__["b" /* slideAnimation */], __WEBPACK_IMPORTED_MODULE_3__animations__["c" /* slideUpAnimation */], __WEBPACK_IMPORTED_MODULE_3__animations__["a" /* fadeAnimation */]],
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__service_wall_service__["a" /* WallService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__service_wall_service__["a" /* WallService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__theme_theme_service__["a" /* ThemeService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__theme_theme_service__["a" /* ThemeService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__service_wall_service__["a" /* WallService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__service_wall_service__["a" /* WallService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */]) === "function" && _c || Object])
 ], WallComponent);
 
 var _a, _b, _c;
@@ -968,12 +1468,16 @@ var _a, _b, _c;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tile_tile_component__ = __webpack_require__("../../../../../src/app/wall/tile/tile.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__service_wall_service__ = __webpack_require__("../../../../../src/app/wall/service/wall.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__details_details_component__ = __webpack_require__("../../../../../src/app/wall/details/details.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__edit_lunch_edit_lunch_component__ = __webpack_require__("../../../../../src/app/wall/edit-lunch/edit-lunch.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__list_list_component__ = __webpack_require__("../../../../../src/app/wall/list/list.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -992,7 +1496,7 @@ WallModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */]
         ],
-        declarations: [__WEBPACK_IMPORTED_MODULE_3__wall_component__["a" /* WallComponent */], __WEBPACK_IMPORTED_MODULE_4__tile_tile_component__["a" /* TileComponent */], __WEBPACK_IMPORTED_MODULE_6__details_details_component__["a" /* DetailsComponent */]],
+        declarations: [__WEBPACK_IMPORTED_MODULE_3__wall_component__["a" /* WallComponent */], __WEBPACK_IMPORTED_MODULE_4__tile_tile_component__["a" /* TileComponent */], __WEBPACK_IMPORTED_MODULE_6__details_details_component__["a" /* DetailsComponent */], __WEBPACK_IMPORTED_MODULE_7__edit_lunch_edit_lunch_component__["a" /* EditLunchComponent */], __WEBPACK_IMPORTED_MODULE_8__list_list_component__["a" /* ListComponent */]],
         providers: [__WEBPACK_IMPORTED_MODULE_5__service_wall_service__["a" /* WallService */]]
     })
 ], WallModule);

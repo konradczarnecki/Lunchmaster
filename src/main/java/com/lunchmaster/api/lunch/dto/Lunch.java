@@ -1,15 +1,15 @@
 package com.lunchmaster.api.lunch.dto;
 
 
-import com.lunchmaster.api.Order.dto.Order;
 import com.lunchmaster.api.restaurant.dto.Restaurant;
 import com.lunchmaster.api.login.dto.User;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import java.util.Date;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,6 +49,7 @@ public class Lunch implements Serializable{
     private List<Order> orders;
 
     public Lunch(){
+        this.status=LunchStatus.OPEN.toString();
         this.orders = new LinkedList<>();
     }
 
@@ -76,14 +77,6 @@ public class Lunch implements Serializable{
         this.lunchMaster = lunchMaster;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Date getDeadline() {
         return deadline;
     }
@@ -108,16 +101,75 @@ public class Lunch implements Serializable{
         this.orders = orders;
     }
 
-    @Override
-    public String toString() {
-        return "Lunch{" +
-                "id=" + id +
-                ", status='" + status + '\'' +
-                ", deadline=" + deadline +
-                ", expectedDelivery=" + expectedDelivery +
-                ", restaurant=" + restaurant +
-                ", lunchMaster=" + lunchMaster +
-                ", orders=" + orders +
-                '}';
+    public String getStatus() {
+        return this.status;
     }
+
+    public void setStatus(String status) {
+        changeStatus(LunchStatus.valueOf(status));
+    }
+
+
+    /* Status checkers */
+
+
+    public boolean isOpen(){
+        return LunchStatus.valueOf(this.status).equals(LunchStatus.OPEN);
+    }
+
+    public boolean isClosed(){
+        return LunchStatus.valueOf(this.status).equals(LunchStatus.CLOSED);
+    }
+
+    public boolean isOrdered(){
+        return LunchStatus.valueOf(this.status).equals(LunchStatus.ORDERED);
+    }
+
+    public boolean isDelivered(){
+        return LunchStatus.valueOf(this.status).equals(LunchStatus.DELIVERED);
+    }
+
+    public boolean isArchived(){
+        return LunchStatus.valueOf(this.status).equals(LunchStatus.ARCHIVED);
+    }
+
+    /* State machine */
+    public boolean changeStatus(LunchStatus ls) {
+        if(checkStatus(ls)) {
+            this.status = ls.name();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkStatus(LunchStatus ls){
+        switch (LunchStatus.valueOf(this.status)){
+
+            case OPEN:
+                if(ls.equals(LunchStatus.CLOSED) || ls.equals(LunchStatus.OPEN)){
+                    return true;
+                }
+
+            case CLOSED:
+                if(ls.equals(LunchStatus.OPEN)){
+                    return true;
+                }
+                else if(ls.equals(LunchStatus.ORDERED) && this.orders.size()>0){
+                    return true;
+                }
+
+            case ORDERED:
+                if(ls.equals(LunchStatus.DELIVERED)){
+                    return true;
+                }
+
+            case DELIVERED:
+                //TODO and if all orders are settled
+                if(ls.equals(LunchStatus.ARCHIVED)){
+                    return  true;
+                }
+        }
+        return false;
+    }
+
 }

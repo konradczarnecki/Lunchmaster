@@ -1,6 +1,6 @@
-@import "../../common";
+@import "../../common", "styles/info", "styles/middle-row", "styles/dish-list";
 
-.frame {
+#frame {
   width: 700px;
   position: relative;
   margin: auto;
@@ -11,8 +11,8 @@
   font-size: 20px;
 
   display: grid;
-  grid-template-rows: 50px 100px 1fr;
-  grid-row-gap: 20px;
+  grid-template-rows: 60px 100px 1fr 50px;
+  grid-row-gap: 10px;
   overflow: hidden;
 
   @media screen and (max-width: 850px) {
@@ -20,6 +20,38 @@
   }
 }
 
+.pointer:hover {
+  cursor: pointer;
+}
+
+#lunchmasterButtons {
+
+  width: 89%;
+  margin: 10px auto;
+  display: grid;
+  grid-template-columns: repeat(4, 78px);
+  grid-column-gap: 8px;
+  align-items: stretch;
+  justify-items: stretch;
+}
+
+.lunchmasterButton {
+  width: 100%;
+  height: 30px;
+  font: $font;
+  font-size: 15px;
+  border-radius: 3px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  z-index: 2;
+}
+
+.lunchmasterButton:hover {
+  cursor: pointer;
+  background: $hover-clr;
+}
 
 #close {
   width: 105%;
@@ -38,208 +70,6 @@
 }
 
 #close:hover {
-  cursor: pointer;
-  background-color: $hover-clr;
-}
-
-#info {
-  width: 90%;
-  height: 100%;
-  margin: auto;
-
-  transform: translate(3%, 0);
-  font-size: 15px;
-
-  display: grid;
-  $side-column: 23%;
-  grid-template-columns: $side-column 1fr $side-column;
-  align-items: stretch;
-  justify-items: stretch;
-
-  br {
-    line-height: 150%;
-  }
-}
-
-#delivery {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 20px 1fr 20px 1fr;
-  align-items: center;
-  justify-items: stretch;
-
-  text-align: left;
-}
-
-#restaurant {
-  padding-right: 30px;
-  text-align: right;
-}
-
-#lunchmaster {
-  padding-left: 30px;
-  text-align: left;
-}
-
-.labels {
-  font-size: 15px;
-}
-
-.hours {
-  font-size: 22px;
-}
-
-.labels, .hours {
-  padding-left: 30px;
-  text-align: left;
-}
-
-.infoDetails {
-  margin-top: 10px;
-  font-size: 15px;
-}
-
-.infoHeader {
-  font-size: 20px;
-}
-
-#orders {
-  width: 90%;
-  margin: 10px auto;
-
-  display: grid;
-  grid-template-columns: 35% 70%;
-  justify-items: center;
-}
-
-#participants, #join {
-  width: 100%;
-
-  display: grid;
-  grid-auto-rows: 40px;
-  grid-row-gap: 10px;
-  align-items: stretch;
-  justify-items: stretch;
-}
-
-.orderHeader {
-  align-self: center;
-  justify-self: center;
-}
-
-.order {
-  width: 100%;
-  height: 100%;
-  border-radius: 3px;
-
-  display: grid;
-  align-items: center;
-  justify-items: center;
-
-}
-
-.order:hover {
-  cursor: default;
-  background-color: $hover-clr;
-}
-
-#join {
-  width: 80%;
-
-  grid-row: 1;
-  grid-column: 2;
-}
-
-#addDish {
-
-  input {
-    width: 85%;
-    height: 100%;
-    float: left;
-    padding-left: 10px;
-    box-sizing: border-box;
-    background: transparent;
-    border-radius: 3px;
-    font-size: 17px;
-  }
-
-  div {
-    width: 12%;
-    height: 100%;
-    float: right;
-    box-sizing: border-box;
-    border-radius: 3px;
-    font-size: 30px;
-    font-weight: 600;
-
-    display: grid;
-    align-items: center;
-    justify-items: center;
-  }
-
-  div:hover {
-    cursor: pointer;
-    background-color: rgba(168, 168, 168, 0.14);
-  }
-}
-
-.orderPosition {
-  width: 100%;
-}
-
-.orderPosition:hover {
-  cursor: pointer;
-}
-
-#dishList {
-  width: 80%;
-  grid-column: 2;
-  grid-row: 1;
-  margin-top: 20px;
-
-  transform: translateY(90px);
-
-  display: grid;
-  grid-auto-rows: 20px;
-  grid-row-gap: 8px;
-}
-
-.dishName {
-  float: left;
-}
-
-.dishPrice {
-  float: right;
-}
-
-#lastRow {
-  width: 100%;
-  grid-row: span 6;
-  position: relative;
-  margin-top: 20px;
-}
-
-#total {
-  width: 100%;
-  height: 20px;
-  font-weight: 700;
-}
-
-#placeOrder {
-  width: 150px;
-  height: 30px;
-  margin-top: 15px;
-  position: absolute;
-  right: 0;
-  bottom: 65px;
-  border-radius: 3px;
-
-  display: grid;
-  justify-items: center;
-  align-items: center;
-}
-
-#placeOrder:hover {
   cursor: pointer;
   background-color: $hover-clr;
 }

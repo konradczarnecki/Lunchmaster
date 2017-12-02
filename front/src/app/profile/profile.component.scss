@@ -1,13 +1,10 @@
 @import '../common';
 
 .wrapper {
-  width: 100%;
-  height: 100%;
+  @include size100p;
+  @include grid-center;
 
   font-size: 40px;
-  display: grid;
-  align-items: center;
-  justify-items: center;
   font-family: $font;
 }
 

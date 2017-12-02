@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import { ThemeService} from '../../theme/theme.service';
 import { LoginService} from '../../login/login.service';
-import { Lunch, Restaurant } from '../../model';
-import {RestaurantService} from '../service/restaurant.service';
+import { Restaurant } from '../../model';
+import { RestaurantService} from '../service/restaurant.service';
 
 @Component({
   selector: 'app-edit-restaurant',
@@ -21,7 +21,6 @@ export class EditRestaurantComponent implements OnInit {
               public service: RestaurantService,
               public loginService: LoginService) { }
 
-
   ngOnInit() {
 
     this.restaurant = {
@@ -34,7 +33,6 @@ export class EditRestaurantComponent implements OnInit {
       link : '',
       avgDeliveryTime : null
     };
-
   }
 
   submit(){

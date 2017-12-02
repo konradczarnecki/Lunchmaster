@@ -1,16 +1,14 @@
 @import "common";
 
 .wrapper {
+  @include absolute(0, null, null, 0);
+  @include grid-rows(40px 1fr);
+
   width: 100%;
   min-height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
 
   overflow: hidden;
   background-size: cover;
-
-  @include grid-rows(40px 1fr);
 }
 
 app-topbar {

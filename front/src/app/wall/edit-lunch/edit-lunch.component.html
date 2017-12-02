@@ -1,4 +1,4 @@
-<div class="frame" [ngStyle]="{ background : theme.tetrColor, color : theme.secFontColor }">
+<div class="frame" [ngClass]="theme.typeC">
 
   <div class="filler"></div>
 
@@ -6,8 +6,10 @@
 
     <span class="left">Restaurant</span>
 
-    <input class="right" type="text" list="restaurants" [attr.disabled]="lunch" [ngClass]="{ 'disabled' : lunch }"
-           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="chosenRestaurant" />
+    <input class="right" type="text" list="restaurants"
+           [ngClass]="[lunch ? 'disabled' : '', theme.borderB, theme.fontB]"
+           [(ngModel)]="chosenRestaurant"
+           [attr.disabled]="lunch"/>
 
     <datalist id="restaurants">
       <option *ngFor="let restaurant of restaurants">{{restaurant.name}}</option>
@@ -21,7 +23,8 @@
     <span class="left">Deadline</span>
 
     <input class="right" type="text" placeholder="hh:mm"
-           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="deadline" />
+           [ngClass]="[theme.borderB, theme.fontB]"
+           [(ngModel)]="deadline" />
 
   </div>
 
@@ -30,15 +33,24 @@
     <span class="left">Expected</span>
 
     <input class="right" type="text" placeholder="min"
-           [ngStyle]="{ border : theme.border1pxFontClr, color : theme.secFontColor }" [(ngModel)]="expected" />
+           [ngClass]="[theme.borderB, theme.fontB]"
+           [(ngModel)]="expected" />
 
   </div>
 
-  <div class="createLunch" *ngIf="!lunch" [ngStyle]="{ border : theme.border1pxFontClr }" (click)="submit()" >CREATE LUNCH</div>
-  <div class="createLunch" *ngIf="lunch" [ngStyle]="{ border : theme.border1pxFontClr }" (click)="submit()">SAVE CHANGES</div>
+  <div class="submitButton" *ngIf="!lunch"
+       [ngClass]="[theme.borderB]"
+       (click)="submit()" >CREATE LUNCH</div>
+
+  <div class="submitButton" *ngIf="lunch"
+       [ngClass]="[theme.borderB, theme.fontB]"
+       (click)="submit()">SAVE CHANGES</div>
 
   <div style="height: 5px"></div>
 
-  <div id="close" [ngStyle]="{ border: theme.border1px, borderTop : 'none'}" (click)="clickClose()" >&#x25B2;</div>
+  <div id="close"
+       [ngClass]="theme.borderB"
+       [ngStyle]="{ borderTop : 'none'}"
+       (click)="clickClose()" >&#x25B2;</div>
 
 </div>

@@ -5,42 +5,10 @@
   padding-top: 50px;
 }
 
-#grid {
-  margin: auto;
-
-  @include grid-columns(repeat(auto-fill, minmax($tile-width, 1fr)));
-  @include grid-center;
-  grid-auto-rows: $tile-height + $gap;
-  grid-gap: $gap;
-}
-
-app-details, app-edit-lunch {
-  @include absolute(0, -10px, null, null);
-}
-
 app-list {
   @include absolute(null, null, -10px, -20px);
 }
 
 .inactive {
   pointer-events: none;
-}
-
-#newLunchButton {
-  @include size(80px);
-  @include absolute(null, 5vw, 5vh, null);
-
-  font-size: 65px;
-  border-radius: 100%;
-  user-select: none;
-
-  @include grid-center;
-}
-
-#newLunchButton:hover {
-  cursor: pointer;
-}
-
-#newLunchButton:active {
-  box-shadow: inset 0.5px 0.5px 5px 2px rgba(77, 77, 77, 0.27);
 }

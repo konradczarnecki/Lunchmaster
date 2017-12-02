@@ -18,24 +18,4 @@ export class RestaurantTileComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  mouseOver(){
-
-    this.tile.nativeElement.style.boxShadow = '0 0 6px 1px ' + this.theme.highlightColor;
-  }
-
-  mouseLeave(){
-
-    this.tile.nativeElement.style.boxShadow = 'none';
-  }
-
-  mouseDown(){
-
-    this.tile.nativeElement.style.boxShadow = 'inset 0 0 3px 1px ' + this.theme.highlightColor;
-  }
-
-  mouseUp(){
-
-    this.tile.nativeElement.style.boxShadow = '0 0 6px 1px ' + this.theme.highlightColor;
-  }
 }

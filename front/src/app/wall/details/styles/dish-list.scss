@@ -1,16 +1,16 @@
 @import "../../../common";
 
 #dishList {
-  width: 80%;
-  grid-column: 1;
-  grid-row: 1;
-  margin-top: 20px;
+  @include grid-pos(1, 1);
 
+  width: 80%;
+  margin-top: 20px;
   transform: translateY(90px);
 
   display: grid;
   grid-auto-rows: 20px;
   grid-row-gap: 8px;
+
 }
 
 .orderPosition {
@@ -37,23 +37,17 @@
 }
 
 #total {
-  width: 100%;
-  height: 20px;
+  @include size(100%, 20px);
   font-weight: 700;
 }
 
 #placeOrder {
-  width: 100%;
-  height: 30px;
-  margin-top: 15px;
-  position: absolute;
-  right: 0;
-  bottom: 65px;
-  border-radius: 3px;
+  @include size(100%, 30px);
+  @include absolute(null, 0, 65px, null);
+  @include grid-center;
 
-  display: grid;
-  justify-items: center;
-  align-items: center;
+  margin-top: 15px;
+  border-radius: 3px;
 }
 
 #placeOrder:hover {

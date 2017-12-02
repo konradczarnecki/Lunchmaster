@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
   invalidCredentials: boolean;
 
   constructor(public theme: ThemeService,
-              private service: LoginService,
-              private router: Router) { }
+              public service: LoginService,
+              public router: Router) { }
 
   ngOnInit() {
 

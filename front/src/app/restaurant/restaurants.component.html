@@ -1,20 +1,34 @@
-<div class="wrapper" [ngStyle]="{ background: theme.secColor }">
+<div class="wrapper" [ngClass]="theme.typeB">
 
-  <div id="grid" [ngClass]="{ 'inactive' : tilesInactive }" [@fade]="tilesInactive ? 'hidden' : 'shown'">
+  <div class="grid" #grid
+       [ngClass]="{ 'inactive' : tilesInactive }"
+       [@fade]="tilesInactive ? 'hidden' : 'shown'">
 
-    <app-restaurant-tile *ngFor="let restaurant of restaurants; let i = index;" [restaurant]="restaurant" (click)="openDetails(i)"></app-restaurant-tile>
+    <app-restaurant-tile *ngFor="let restaurant of restaurants; let i = index;"
+                         [restaurant]="restaurant"
+                         (click)="openDetails(i)">
+    </app-restaurant-tile>
 
   </div>
 
-  <app-restaurant-details *ngIf="selected != -1" [restaurant]="restaurants[selected]"
-               (close)="onDetailsClosed()" (refresh)="fetchRestaurants()" [@slide]>
-
+  <app-restaurant-details class="slide-topright"
+                          *ngIf="selected != -1"
+                          [restaurant]="restaurants[selected]"
+                          (close)="onDetailsClosed()"
+                          (refresh)="fetchRestaurants()"
+                          [@slide]>
   </app-restaurant-details>
 
-  <app-edit-restaurant *ngIf="newRestaurantOpened" (close)="onNewRestaurantClosed()" (refresh)="onRestaurantsModified()" [@slide]>
-
+  <app-edit-restaurant class="slide-topright"
+                       *ngIf="newRestaurantOpened"
+                       (close)="onNewRestaurantClosed()"
+                       (refresh)="onRestaurantsModified()"
+                       [@slide]>
   </app-edit-restaurant>
 
-  <div id="newLunchButton" [ngStyle]="{ color : theme.secFontColor, background: theme.tetrColor }" (click)="openNewRestaurant()" >+</div>
+  <div class="newElementButton"
+       [ngClass]="theme.typeC"
+       (click)="openNewRestaurant()">+
+  </div>
 
 </div>

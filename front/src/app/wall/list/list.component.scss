@@ -1,30 +1,20 @@
 @import '../../common';
 
 .frame {
+  @include grid-center(20px 50px 30px 1fr, null, 10px);
+
   width: 400px;
   position: relative;
 
+  padding-bottom: 70px;
   border-radius: 5px;
   font-family: $font;
   font-size: 20px;
-  padding-bottom: 70px;
-
-  display: grid;
-  grid-template-rows: 20px 50px 30px 1fr;
-  grid-row-gap: 10px;
-  align-items: center;
-  justify-items: center;
   overflow: hidden;
-
-  @media screen and (max-width: 850px) {
-    width: 95vw;
-  }
 }
 
 #close {
-  width: 100%;
-  height: 20px;
-
+  @include size(100%, 20px);
   font-size: 14px;
   text-align: center;
 }
@@ -40,26 +30,17 @@
 }
 
 #sortBy {
+  @include grid-stretch(null, repeat(3, 1fr), 10px);
   width: 70%;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 10px;
-  align-items: stretch;
-  justify-items: stretch;
 }
 
 #sortLabel {
-  justify-self: center;
-  align-self: center;
+  @include self-center;
 }
 
 .sorting {
+  @include grid-center;
   border-radius: 3px;
-
-  display: grid;
-  align-items: center;
-  justify-items: center;
 }
 
 .sorting:hover {
@@ -72,15 +53,10 @@
 }
 
 .section {
+  @include grid-stretch(30px, null, 5px);
+  grid-auto-rows: 20px;
   width: 100%;
   margin-top: 20px;
-
-  display: grid;
-  grid-template-rows: 30px;
-  grid-auto-rows: 20px;
-  grid-row-gap: 5px;
-  align-items: stretch;
-  justify-items: stretch;
 }
 
 .positionLeft {

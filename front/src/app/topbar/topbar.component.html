@@ -1,15 +1,15 @@
-<div class="wrapper" [ngStyle]="{ background : theme.mainColor, color : theme.fontColor }">
+<div class="wrapper" [ngClass]="theme.typeA">
 
-  <div id="logo" [ngStyle]="{ color : theme.fontColor }">
-    <span id="lunchWord">LUNCH</span><span id="masterWord">master</span>
+  <div id="logo" [ngClass]="theme.typeA">
+    <span id="lunchWord">LUNCH</span>
+    <span id="masterWord">master</span>
   </div>
 
   <div class="filler"></div>
 
-  <div class="menuLink" routerLink="/wall" [ngClass]="{'inactive' : !loginService.logged}">wall</div>
-  <div class="menuLink" routerLink="/wall" [ngClass]="{'inactive' : !loginService.logged}">billing</div>
-  <div class="menuLink" routerLink="/restaurants" [ngClass]="{'inactive' : !loginService.logged}">restaurants</div>
-  <div class="menuLink" routerLink="/profile" [ngClass]="{'inactive' : !loginService.logged}">profile</div>
+  <div class="menuLink" *ngFor="let page of pages"
+       [ngClass]="{ 'inactive' : !loginService.logged }"
+       [routerLink]="'/' + page" >{{page}}</div>
 
   <div class="filler"></div>
 
@@ -21,8 +21,9 @@
 
   <div id="themes">
 
-    <div class="theme" *ngFor="let th of themes; let i = index;"
-         [ngClass]="{'selected' : theme.current == i}" [ngStyle]="{background : th.mainColor}" (click)="theme.setTheme(i)">
+    <div class="theme" *ngFor="let thm of themes"
+         [ngClass]="[theme.current == thm ? 'selected' : '', thm + '-a']"
+         (click)="theme.setTheme(thm)">
     </div>
 
   </div>

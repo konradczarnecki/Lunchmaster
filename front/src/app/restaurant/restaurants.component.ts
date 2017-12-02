@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 
 
 import { ThemeService} from '../theme/theme.service';
-import {Lunch, Restaurant} from '../model';
+import { Restaurant} from '../model';
 
 import { fadeAnimation, slideAnimation, slideUpAnimation } from './animations';
 import {RestaurantService} from './service/restaurant.service';
@@ -15,14 +15,17 @@ import {RestaurantService} from './service/restaurant.service';
 })
 export class RestaurantsComponent implements OnInit {
 
+  @ViewChild('grid') grid: ElementRef;
+
   restaurants: Restaurant[];
   selected: number;
 
   newRestaurantOpened: boolean;
 
   constructor(public theme: ThemeService,
-              private service: RestaurantService,
-              private changeDet: ChangeDetectorRef) { }
+              public service: RestaurantService,
+              public changeDet: ChangeDetectorRef,
+              public renderer: Renderer2) { }
 
   get tilesInactive(): boolean {
 
@@ -34,19 +37,7 @@ export class RestaurantsComponent implements OnInit {
     this.fetchRestaurants();
     this.selected = -1;
 
-    window.onresize = this.adjustGrid.bind(this);
-  }
-
-  adjustGrid() {
-
-    const tileWidth = 400;
-    const tilesInWindow = 0.8 * window.innerWidth / tileWidth;
-    const extraGap = tilesInWindow - Math.floor(tilesInWindow);
-    const multiplier = extraGap > 0.3 ? Math.floor(tilesInWindow + 0.3) : tilesInWindow;
-    const gridWidth =  multiplier  * (tileWidth + 15);
-
-    document.getElementById('grid').style.width = gridWidth + 'px';
-    this.changeDet.detectChanges();
+    window.onresize = () => ThemeService.adjustGrid(this);
   }
 
   fetchRestaurants() {
@@ -54,7 +45,7 @@ export class RestaurantsComponent implements OnInit {
     this.service.getRestaurants().then(restaurants => {
 
       this.restaurants = restaurants;
-      this.adjustGrid();
+      ThemeService.adjustGrid(this);
     });
   }
 

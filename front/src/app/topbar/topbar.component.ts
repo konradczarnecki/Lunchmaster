@@ -22,5 +22,4 @@ export class TopbarComponent implements OnInit {
     this.themes = themes;
     this.pages = ['wall', 'billing', 'restaurants', 'profile'];
   }
-
 }

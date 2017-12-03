@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
-import { ThemeService} from '../../theme/theme.service';
-import { LoginService} from '../../login/login.service';
+import { ThemeService } from '../../theme/theme.service';
+import { LoginService } from '../../login/login.service';
+import { RestaurantService } from '../service/restaurant.service';
 import { Restaurant } from '../../model';
-import { RestaurantService} from '../service/restaurant.service';
 
 @Component({
   selector: 'app-edit-restaurant',
@@ -16,6 +16,7 @@ export class EditRestaurantComponent implements OnInit {
   @Output() refresh = new EventEmitter<boolean>();
 
   restaurant: Restaurant;
+  fields: [{label: string, binding: string}] = fields;
 
   constructor(public theme: ThemeService,
               public service: RestaurantService,
@@ -50,3 +51,13 @@ export class EditRestaurantComponent implements OnInit {
     this.close.emit(true);
   }
 }
+
+const fields: [{label: string, binding: string}] = [
+  { label : 'Name', binding : 'name' },
+  { label : 'Description', binding : 'description' },
+  { label : 'Phone', binding : 'phone' },
+  { label : 'Address', binding : 'address' },
+  { label : 'Avg. delivery', binding : 'avgDeliveryTime' },
+  { label : 'Link', binding : 'link' },
+  { label : 'Logo link', binding : 'logo' },
+];

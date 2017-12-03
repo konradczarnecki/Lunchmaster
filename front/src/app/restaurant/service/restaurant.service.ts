@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Restaurant} from "../../model";
-import {Http} from "@angular/http";
-import {environment} from "../../../environments/environment";
+import { Restaurant } from '../../model';
+import { Http } from '@angular/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class RestaurantService {

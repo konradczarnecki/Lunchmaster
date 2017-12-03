@@ -13,8 +13,10 @@
         tel:&nbsp; {{lunch.restaurant.phone}}<br>
         avg:&nbsp; {{lunch.restaurant.avgDeliveryTime}} min<br>
 
-        <a target="_blank" [ngClass]="theme.fontB"
-           [href]="'http://' + lunch.restaurant.link">website</a>
+        <a target="_blank"
+           [ngClass]="theme.fontB"
+           [href]="'http://' + lunch.restaurant.link">website
+        </a>
 
       </div>
 
@@ -58,35 +60,34 @@
       <div id="addDish">
 
         <input type="text" list="dishes"
-               [ngClass]="[theme.borderB, theme.fontB]"
-               [(ngModel)]="orderInput"
-               (keyup.enter)="addDish()"/>
+          [ngClass]="[theme.borderB, theme.fontB]"
+          [(ngModel)]="orderInput"
+          (keyup.enter)="addDish()"/>
 
         <datalist id="dishes">
-
-          <option *ngFor="let dish of lunch.restaurant.dishes"
-                  [value]="dish.name">{{dish.name}}</option>
+          <option *ngFor="let dish of lunch.restaurant.dishes" [value]="dish.name">{{dish.name}}</option>
         </datalist>
 
         <div id="addOrderButton"
-             [ngClass]="[theme.borderB, theme.fontB]"
-             (click)="addDish()">+</div>
+          [ngClass]="[theme.borderB, theme.fontB]"
+          (click)="addDish()">+
+        </div>
 
       </div>
 
     </div>
 
-
     <div id="participants">
 
       <div id="participantsHeader">Participants</div>
 
-      <div class="order" *ngFor="let order of lunch.orders; let i = index;"
-           [ngClass]="[orderBelongsToUser(i) ? 'pointer' : '', theme.borderB]"
-           [id]="'order' + i"
-           (mouseover)="showOrderDetails(i)"
-           (mouseleave)="hideOrderDetails()"
-           (click)="deleteOrder(i)" >{{order.user.firstName}} {{order.user.lastName}}
+      <div class="order"
+        *ngFor="let order of lunch.orders; let i = index;"
+        [id]="'order' + i"
+        [ngClass]="[orderBelongsToUser(i) ? 'pointer' : '', theme.borderB]"
+        (mouseover)="showOrderDetails(i)"
+        (mouseleave)="hideOrderDetails()"
+        (click)="deleteOrder(i)" >{{order.user.firstName}} {{order.user.lastName}}
       </div>
 
     </div>

@@ -2,7 +2,7 @@
 
 
 .frame {
-  @include size(350px, 485px);
+  @include size(350px, 490px);
   @include grid-rows(50px repeat(7, 35px) 10px 35px 35px 1fr, 10px);
 
   position: relative;

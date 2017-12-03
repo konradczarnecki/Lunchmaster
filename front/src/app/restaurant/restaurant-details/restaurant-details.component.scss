@@ -44,6 +44,7 @@ $width: 90%;
 }
 
 #menu {
+  @include self-center(true, false);
   @include grid-rows(50px 20px);
   grid-auto-rows: 30px;
   width: $width;
@@ -109,7 +110,7 @@ $width: 90%;
   @include absolute(null, 0, -13px, 0);
   margin: 10px auto;
 
-  border-top: none;
+  border: none;
   border-radius: 3px;
   font-size: 14px;
   text-align: center;

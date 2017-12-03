@@ -2,8 +2,9 @@
 
 .frame {
   @include grid-center(20px 50px 30px 1fr, null, 10px);
+  justify-items: center;
 
-  width: 400px;
+  width: 360px;
   position: relative;
 
   padding-bottom: 70px;

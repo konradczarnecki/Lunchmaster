@@ -2,16 +2,16 @@ import {ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild} 
 
 
 import { ThemeService} from '../theme/theme.service';
+import { RestaurantService} from './service/restaurant.service';
 import { Restaurant} from '../model';
 
 import { fadeAnimation, slideAnimation, slideUpAnimation } from './animations';
-import {RestaurantService} from './service/restaurant.service';
 
 @Component({
   selector: 'app-restaurants',
   templateUrl: './restaurants.component.html',
   styleUrls: ['./restaurants.component.scss'],
-  animations : [ slideAnimation, slideUpAnimation, fadeAnimation ],
+  animations : [slideAnimation, slideUpAnimation, fadeAnimation],
 })
 export class RestaurantsComponent implements OnInit {
 

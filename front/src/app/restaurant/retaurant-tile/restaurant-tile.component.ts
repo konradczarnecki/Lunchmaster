@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
-import {Lunch, Restaurant} from '../../model';
+import { Restaurant } from '../../model';
 import { ThemeService } from '../../theme/theme.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class RestaurantTileComponent implements OnInit {
 
   @ViewChild('tile') tile: ElementRef;
 
-  constructor(private theme: ThemeService) { }
+  constructor(public theme: ThemeService) { }
 
   ngOnInit() {
   }

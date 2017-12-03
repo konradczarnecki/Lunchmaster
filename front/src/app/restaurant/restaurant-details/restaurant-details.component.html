@@ -33,16 +33,16 @@
       <div id="addDish">
 
         <input type="text" placeholder="New dish"
-               [ngClass]="[theme.fontB, theme.borderB]"
-               [(ngModel)]="dishInput"/>
+          [ngClass]="[theme.fontB, theme.borderB]"
+          [(ngModel)]="dishInput"/>
 
         <input type="text" placeholder="PLN"
-               [ngClass]="[theme.fontB, theme.borderB]"
-               [(ngModel)]="dishPriceInput"/>
+          [ngClass]="[theme.fontB, theme.borderB]"
+          [(ngModel)]="dishPriceInput"/>
 
         <div id="addOrderButton"
-             [ngClass]="theme.borderB"
-             (click)="addDish()">+
+          [ngClass]="theme.borderB"
+          (click)="addDish()">+
         </div>
 
       </div>
@@ -55,14 +55,16 @@
 
       <div class="dishName">{{dish.name}}</div>
       <div class="dishPrice">{{dish.price}} PLN</div>
+
     </div>
 
   </div>
 
   <div id="close"
-       [ngClass]="theme.borderB"
-       [ngStyle]="{ borderTop : 'none'}"
-       (click)="clickClose()" >&#x25B2;</div>
+    [ngClass]="theme.borderB"
+    [ngStyle]="{ borderTop : 'none'}"
+    (click)="clickClose()" >&#x25B2;
+  </div>
 
 </div>
 

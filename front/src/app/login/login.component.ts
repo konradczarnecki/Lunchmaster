@@ -33,4 +33,8 @@ export class LoginComponent implements OnInit {
       else this.invalidCredentials = true;
     });
   }
+
+  register(): void {
+
+  }
 }

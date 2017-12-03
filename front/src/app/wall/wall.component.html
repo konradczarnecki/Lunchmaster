@@ -4,40 +4,46 @@
        [ngClass]="{ 'inactive' : tilesInactive }"
        [@fade]="tilesInactive ? 'hidden' : 'shown'">
 
-    <app-tile *ngFor="let lunch of lunches; let i = index;"
-              [lunch]="lunch"
-              (click)="openDetails(i)">
+    <app-tile
+      *ngFor="let lunch of lunches; let i = index;"
+      [lunch]="lunch"
+      (click)="openDetails(i)">
     </app-tile>
 
   </div>
 
-  <app-details class="slide-topright"
-               *ngIf="selected != -1"
-               [lunch]="lunches[selected]"
-               (close)="onDetailsClosed()"
-               (refresh)="fetchLunches()"
-               (edit)="openEditLunch($event)"
-               (list)="openList($event)"
-               [@slide]>
+  <app-details
+    class="slide-topright"
+    *ngIf="selected != -1"
+    [lunch]="lunches[selected]"
+    (close)="onDetailsClosed()"
+    (refresh)="fetchLunches()"
+    (edit)="openEditLunch($event)"
+    (list)="openList($event)"
+    [@slide]>
   </app-details>
 
-  <app-edit-lunch class="slide-topright"
-                  *ngIf="newLunchOpened"
-                  [lunch]="lunchToEdit"
-                  (close)="onNewLunchClosed()"
-                  (refresh)="onLunchesModified()"
-                  [@slide]>
+  <app-edit-lunch
+    class="slide-topright"
+    *ngIf="newLunchOpened"
+    [lunch]="lunchToEdit"
+    (close)="onNewLunchClosed()"
+    (refresh)="onLunchesModified()"
+    [@slide]>
   </app-edit-lunch>
 
-  <app-list *ngIf="lunchForList"
-            [lunch]="lunchForList"
-            (close)="onListClosed()"
-            [@slideUp]>
+  <app-list
+    *ngIf="lunchForList"
+    [lunch]="lunchForList"
+    (close)="onListClosed()"
+    [@slideUp]>
   </app-list>
 
-  <div class="newElementButton"
-       [ngClass]="theme.typeC"
-       (click)="openNewLunch()">+
+  <div
+    class="newElementButton"
+    [ngClass]="[tilesInactive ? 'inactive' : '', theme.typeC]"
+    (click)="openNewLunch()"
+    [@fade]="tilesInactive ? 'hidden' : 'shown'">+
   </div>
 
 </div>

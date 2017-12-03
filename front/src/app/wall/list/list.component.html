@@ -9,12 +9,14 @@
     <div id="sortLabel">Sort by:</div>
 
     <div id="sortByName" class="sorting"
-         [ngClass]="[borders.name ? theme.border : '']"
-         (click)="setSorting('name')">Name</div>
+      [ngClass]="[borders.name ? theme.borderB : '']"
+      (click)="setSorting('name')">Name
+    </div>
 
     <div id="sortByDish" class="sorting"
-         [ngClass]="[borders.dish ? theme.border : '']"
-         (click)="setSorting('dish')">Dish</div>
+      [ngClass]="[borders.dish ? theme.borderB : '']"
+      (click)="setSorting('dish')">Dish
+    </div>
 
   </div>
 

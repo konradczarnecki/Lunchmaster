@@ -7,23 +7,23 @@
 
   <div class="filler"></div>
 
-  <div class="menuLink" *ngFor="let page of pages"
-       [ngClass]="{ 'inactive' : !loginService.logged }"
-       [routerLink]="'/' + page" >{{page}}</div>
+  <div class="menuLink"
+    *ngFor="let page of pages"
+    [ngClass]="{ 'inactive' : !loginService.logged }"
+    [routerLink]="'/' + page" >{{page}}
+  </div>
 
   <div class="filler"></div>
 
-  <div id="userInfo" *ngIf="loginService.logged">
-    Hello, {{loginService.user.firstName}}
-  </div>
-
+  <div id="userInfo" *ngIf="loginService.logged">Hello, {{loginService.user.firstName}}</div>
   <div id="substitute" *ngIf="!loginService.logged"></div>
 
   <div id="themes">
 
-    <div class="theme" *ngFor="let thm of themes"
-         [ngClass]="[theme.current == thm ? 'selected' : '', thm + '-a']"
-         (click)="theme.setTheme(thm)">
+    <div class="theme"
+      *ngFor="let thm of themes"
+      [ngClass]="[theme.current == thm ? 'selected' : '', thm + '-a']"
+      (click)="theme.setTheme(thm)">
     </div>
 
   </div>

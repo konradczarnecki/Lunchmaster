@@ -3,23 +3,26 @@
   <div id="loginBox">
 
     <input id="username" class="round" placeholder="username"
-           [ngClass]="[invalidCredentials ? 'invalid' : '', theme.borderB, theme.fontB]"
-           [(ngModel)]="mail"
-           (keyup.enter)="login()">
+      [ngClass]="[invalidCredentials ? 'invalid' : '', theme.borderB, theme.fontB]"
+      [(ngModel)]="mail"
+      (keyup.enter)="login()"/>
 
     <input id="password" class="round" placeholder="password"
-           [ngClass]="[invalidCredentials ? 'invalid' : '', theme.borderB, theme.fontB]"
-           [(ngModel)]="password"
-           (keyup.enter)="login()">
+      [ngClass]="[invalidCredentials ? 'invalid' : '', theme.borderB, theme.fontB]"
+      [(ngModel)]="password"
+      (keyup.enter)="login()"/>
 
     <div id="buttons">
 
       <div id="login" class="round"
-           [ngClass]="[theme.borderB, theme.fontB]"
-           (click)="login()">login</div>
+        [ngClass]="[theme.borderB, theme.fontB]"
+        (click)="login()">login
+      </div>
 
       <div id="register" class="round"
-           [ngClass]="[theme.borderB, theme.fontB]">register</div>
+        [ngClass]="[theme.borderB, theme.fontB]"
+        (click)="register()">register
+      </div>
 
     </div>
 

@@ -2,81 +2,20 @@
 
   <div class="filler"></div>
 
-  <div class="row">
+  <div class="row" *ngFor="let field of fields">
 
-    <span class="left">Name</span>
-
-    <input class="right" type="text"
-           [ngClass]="[theme.fontB, theme.borderB]"
-           [(ngModel)]="restaurant.name" />
-
-  </div>
-
-  <div class="row">
-
-    <span class="left">Description</span>
+    <span class="left">{{field.label}}</span>
 
     <input class="right" type="text"
-           [ngClass]="[theme.fontB, theme.borderB]"
-           [(ngModel)]="restaurant.description" />
-
-  </div>
-
-  <div class="row">
-
-    <span class="left">Phone</span>
-
-    <input class="right" type="text"
-           [ngClass]="[theme.fontB, theme.borderB]"
-           [(ngModel)]="restaurant.phone" />
-
-  </div>
-
-  <div class="row">
-
-    <span class="left">Address</span>
-
-    <input class="right" type="text"
-           [ngClass]="[theme.fontB, theme.borderB]"
-           [(ngModel)]="restaurant.address" />
-
-  </div>
-
-  <div class="row">
-
-    <span class="left">Avg. delivery</span>
-
-    <input class="right" type="text" placeholder="min"
-           [ngClass]="[theme.fontB, theme.borderB]"
-           [(ngModel)]="restaurant.avgDeliveryTime" />
-
-  </div>
-
-  <div class="row">
-
-    <span class="left">Link</span>
-
-    <input class="right" type="text"
-           [ngClass]="[theme.fontB, theme.borderB]"
-           [(ngModel)]="restaurant.link" />
-
-  </div>
-
-  <div class="row">
-
-    <span class="left">Logo link</span>
-
-    <input class="right" type="text"
-           [ngClass]="[theme.fontB, theme.borderB]"
-           [(ngModel)]="restaurant.logo" />
+      [ngClass]="[theme.fontB, theme.borderB]"
+      [(ngModel)]="restaurant[field.binding]"/>
 
   </div>
 
   <div class="filler"></div>
 
-  <div class="createLunch" [ngClass]="theme.borderB" (click)="submit()">PYSZNE.PL IMPORT</div>
-  <div class="createLunch" [ngClass]="theme.borderB" (click)="submit()" >ADD RESTAURANT</div>
-
+  <div class="submitButton" [ngClass]="theme.borderB" (click)="submit()">PYSZNE.PL IMPORT</div>
+  <div class="submitButton" [ngClass]="theme.borderB" (click)="submit()" >ADD RESTAURANT</div>
 
   <div style="height: 5px"></div>
 

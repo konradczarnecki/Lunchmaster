@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  * to prevent all price changes on orders. After successful transfer lunch is being
  * removed from MySQL.
  * Now (or after lunch :) is the time for all billing operations. Everything except
- * billing options and status change (for lunchmaster) are disabled.
+ * billing options and lunch status change are disabled.
  *
  * @DELIVERED
  * Food is here! Lunchmaster marks lunch as 'delivered' and participants are

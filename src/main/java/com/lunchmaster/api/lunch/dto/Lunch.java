@@ -53,6 +53,8 @@ public class Lunch implements Serializable {
         this.orders = new LinkedList<>();
     }
 
+
+    /* GETTERS/SETTERS */
     public int getId() {
         return id;
     }
@@ -132,7 +134,7 @@ public class Lunch implements Serializable {
     }
 
     /* State machine */
-    public boolean changeStatus(LunchStatus ls) {
+    private boolean changeStatus(LunchStatus ls) {
         if (checkStatus(ls)) {
             this.status = ls;
             return true;
@@ -140,7 +142,7 @@ public class Lunch implements Serializable {
         return false;
     }
 
-    public boolean checkStatus(LunchStatus ls) {
+    private boolean checkStatus(LunchStatus ls) {
         switch (this.status) {
             case OPEN:
                 if (ls.equals(LunchStatus.CLOSED) || ls.equals(LunchStatus.OPEN)) {
@@ -149,7 +151,7 @@ public class Lunch implements Serializable {
             case CLOSED:
                 if (ls.equals(LunchStatus.OPEN)) {
                     return true;
-                } else if (ls.equals(LunchStatus.ORDERED) && this.orders.size() > 0) {
+                } else if (ls.equals(LunchStatus.ORDERED) && this.hasOrders()) {
                     return true;
                 }
             case ORDERED:
@@ -163,6 +165,44 @@ public class Lunch implements Serializable {
                 }
         }
         return false;
+    }
+
+    public boolean hasOrders() {
+        return this.orders.size() > 0;
+    }
+
+
+    public boolean open() {
+        return changeStatus(LunchStatus.OPEN);
+    }
+
+    public boolean close() {
+        return changeStatus(LunchStatus.CLOSED);
+    }
+
+    public boolean order() {
+        return changeStatus(LunchStatus.ORDERED);
+    }
+
+    public boolean deliver() {
+        return changeStatus(LunchStatus.DELIVERED);
+    }
+
+    public boolean archive() {
+        return changeStatus(LunchStatus.ARCHIVED);
+    }
+
+    public boolean isAfterDeadline() {
+        return this.deadline.getTime() < new Date().getTime();
+    }
+
+    public boolean canBeDeleted() {
+        return !this.hasOrders();
+    }
+
+    /* utils */
+    public void prolongDeadline(int minutes){
+        this.deadline.setTime(this.deadline.getTime()+minutes*60*1000);
     }
 
 }

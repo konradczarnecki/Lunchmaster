@@ -296,7 +296,7 @@ public class LunchServiceImpl implements LunchService {
     private boolean isNewLunchOK(Lunch lunch) {
         return isNewDeadlineOK(lunch.getDeadline())
                 && lunch.isOpen()
-                && lunch.getStatus().equals(LunchStatus.OPEN.name())
+                && lunch.getStatus().equals(LunchStatus.OPEN)
                 && lunch.getRestaurant() != null
                 && lunch.getLunchMaster() != null;
     }

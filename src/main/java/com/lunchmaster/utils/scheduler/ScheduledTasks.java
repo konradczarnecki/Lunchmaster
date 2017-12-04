@@ -39,13 +39,13 @@ public class ScheduledTasks {
     @Scheduled(fixedDelay = CLOSE_LUNCHES_MILI)
     private void closeLunchesAfterDeadline() {
         //fetch all open lunches:
-        List<Lunch> openLunches = this.lunchDao.getByStatus(LunchStatus.OPEN.name());
+        List<Lunch> openLunches = this.lunchDao.getByStatus(LunchStatus.OPEN);
         List<Lunch> closedLunches = new ArrayList<>();
         long now = new Date().getTime();
 
         //for all open lunches:
         for (Lunch lunch : openLunches) {
-            if (lunch.getStatus().equals(LunchStatus.OPEN.toString())) {
+            if (lunch.getStatus().equals(LunchStatus.OPEN)) {
                 //close if deadline has passed or deadline is now
                 if (lunch.getDeadline().getTime() <= now) {
                     lunch.changeStatus(LunchStatus.CLOSED);

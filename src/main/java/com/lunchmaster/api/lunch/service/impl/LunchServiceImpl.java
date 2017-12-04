@@ -116,7 +116,7 @@ public class LunchServiceImpl implements LunchService {
         else{
             try{
                 lunch.setDeadline(deadlineDate);
-                lunch.setStatus(LunchStatus.OPEN.name());
+                lunch.setStatus(LunchStatus.OPEN);
                 saveLunch(lunch);
                 return resp.success();
             }catch(Exception exc){
@@ -163,7 +163,7 @@ public class LunchServiceImpl implements LunchService {
         else{
             //prolong deadline by 10 minutes
             lunch.getDeadline().setTime(lunch.getDeadline().getTime()+600_000);
-            lunch.setStatus(LunchStatus.OPEN.name());
+            lunch.setStatus(LunchStatus.OPEN);
             try{
                 saveLunch(lunch);
                 return resp.success();

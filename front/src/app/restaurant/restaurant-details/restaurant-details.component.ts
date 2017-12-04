@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 
 import { ThemeService } from '../../theme/theme.service';
 import { LoginService } from '../../login/login.service';
-import {Dish, Lunch, Order, Restaurant} from '../../model';
-import {RestaurantService} from "../service/restaurant.service";
+import { RestaurantService } from '../service/restaurant.service';
+import { Restaurant } from '../../model';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -31,5 +31,9 @@ export class RestaurantDetailsComponent implements OnInit {
   clickClose(): void {
 
     this.close.emit(true);
+  }
+
+  addDish(): void {
+
   }
 }

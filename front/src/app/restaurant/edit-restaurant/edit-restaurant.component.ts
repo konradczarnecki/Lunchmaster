@@ -38,7 +38,8 @@ export class EditRestaurantComponent implements OnInit {
 
   submit(){
 
-    for(const field in this.restaurant) if(this.restaurant.hasOwnProperty(field) && !this.restaurant[field]) return;
+    for(const field in this.restaurant)
+      if(this.restaurant.hasOwnProperty(field) && !this.restaurant[field] && field !== 'id' && field !== 'address') return;
 
     this.service.addRestaurant(this.restaurant).then(result => {
 

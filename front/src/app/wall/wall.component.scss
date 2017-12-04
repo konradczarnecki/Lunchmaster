@@ -8,7 +8,3 @@
 app-list {
   @include absolute(null, null, -10px, -20px);
 }
-
-.inactive {
-  pointer-events: none;
-}

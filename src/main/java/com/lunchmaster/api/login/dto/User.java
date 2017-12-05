@@ -1,6 +1,7 @@
 package com.lunchmaster.api.login.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lunchmaster.api.registration.dto.RegistrationDto;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
@@ -55,6 +56,18 @@ public class User implements UserDetails {
     @Column(name="bank_account")
     private String bankAccount;
 
+    @Column(name = "account_expired")
+    private boolean accountExpired;
+
+    @Column(name = "account_locked")
+    private boolean accountLocked;
+
+    @Column(name = "credentials_expired")
+    private boolean credentialsExpired;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinTable(
@@ -65,14 +78,35 @@ public class User implements UserDetails {
 
     public User(){
         this.roles = new ArrayList<>();
+        this.enabled = true;
+        this.part = "";
+        this.group = "";
+        this.team = "";
+        this.floor = 1;
     }
 
     public User(String email, String password, List<Role> roles){
         this.email=email;
         this.password=password;
         this.roles=roles;
+        this.enabled = true;
+        this.part = "";
+        this.group = "";
+        this.team = "";
+        this.floor = 1;
     }
 
+    public User(RegistrationDto dto) {
+        this.firstName = dto.getFirstName();
+        this.lastName = dto.getLastName();
+        this.email = dto.getEmail();
+        this.enabled = true;
+        this.roles = new ArrayList<>();
+        this.part = "";
+        this.group = "";
+        this.team = "";
+        this.floor = 1;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -91,22 +125,50 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return !accountExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !accountLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return !credentialsExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
+    }
+
+    public boolean isAccountExpired() {
+        return accountExpired;
+    }
+
+    public void setAccountExpired(boolean accountExpired) {
+        this.accountExpired = accountExpired;
+    }
+
+    public boolean isAccountLocked() {
+        return accountLocked;
+    }
+
+    public void setAccountLocked(boolean accountLocked) {
+        this.accountLocked = accountLocked;
+    }
+
+    public boolean isCredentialsExpired() {
+        return credentialsExpired;
+    }
+
+    public void setCredentialsExpired(boolean credentialsExpired) {
+        this.credentialsExpired = credentialsExpired;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public int getId() {

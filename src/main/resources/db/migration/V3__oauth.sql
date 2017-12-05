@@ -59,11 +59,11 @@ ALTER TABLE `user`
   ADD COLUMN `enabled` bit(1);
 
 UPDATE `user`
-SET `credentials_expired`= 1,
-  `grp`= 1,
-  `account_expired`= 1,
-  `account_locked`= 1,
-  `enabled`= 1;
+SET `credentials_expired` = 0,
+  `account_expired` = 0,
+  `account_locked` = 0,
+  `enabled` = 1,
+  `grp` = ``;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

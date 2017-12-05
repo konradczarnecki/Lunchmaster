@@ -133,6 +133,7 @@ public class Lunch implements Serializable {
         return this.status.equals(LunchStatus.ARCHIVED);
     }
 
+
     /* State machine */
     private boolean changeStatus(LunchStatus ls) {
         if (checkStatus(ls)) {
@@ -159,7 +160,7 @@ public class Lunch implements Serializable {
                     return true;
                 }
             case DELIVERED:
-                //TODO and if all orders are settled
+                //TODO: add '&& if all orders are settled'
                 if (ls.equals(LunchStatus.ARCHIVED)) {
                     return true;
                 }
@@ -192,12 +193,17 @@ public class Lunch implements Serializable {
         return changeStatus(LunchStatus.ARCHIVED);
     }
 
+
     public boolean isAfterDeadline() {
         return this.deadline.getTime() < new Date().getTime();
     }
 
     public boolean canBeDeleted() {
-        return !this.hasOrders();
+        return !this.hasOrders() && (isOpen() || isClosed());
+    }
+
+    public boolean isInBillingPhase(){
+        return isOrdered() || isDelivered() || isArchived();
     }
 
     /* utils */

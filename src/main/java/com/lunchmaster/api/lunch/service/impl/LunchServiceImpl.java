@@ -61,9 +61,11 @@ public class LunchServiceImpl implements LunchService {
         Lunch lunch = fetchLunch(lunchId);
         Restaurant restaurant = restaurantDao.getById(restaurantId);
 
+        //if lunch or restaurant not found
         if (lunch == null || restaurant == null) {
             return resp.error();
         }
+        //if lunch is open and have no orders
         if (lunch.isOpen() && !lunch.hasOrders()) {
             try {
                 lunch.setRestaurant(restaurant);
@@ -129,12 +131,15 @@ public class LunchServiceImpl implements LunchService {
         Response<String> resp = new Response<>();
         Lunch lunch = fetchLunch(lunchId);
 
+        //lunch not found
         if(lunch==null){
             return resp.error();
         }
-        else if(lunch.isDelivered() || lunch.isArchived()){
+        //found, but in billing phase
+        else if(lunch.isInBillingPhase()){
             return resp.forbidden();
         }
+        //found and can edit delivery
         else{
             lunch.setExpectedDelivery(expectedDelivery);
             try {
@@ -152,11 +157,12 @@ public class LunchServiceImpl implements LunchService {
         Response<String> resp = new Response<>();
         Lunch lunch = fetchLunch(lunchId);
 
+        //lunch not found
         if(lunch==null){
             return resp.error();
         }
+        //can be reopened
         else if(lunch.open()){
-            //prolong deadline by 10 minutes
             lunch.prolongDeadline(10);
             try {
                 saveLunch(lunch);
@@ -165,6 +171,7 @@ public class LunchServiceImpl implements LunchService {
                 return resp.error();
             }
         }
+        //cant be reopened
         return resp.forbidden();
     }
 
@@ -187,31 +194,20 @@ public class LunchServiceImpl implements LunchService {
         if (lunch == null) {
             return resp.error();
         }
+        //can be deleted
         if (lunch.canBeDeleted()) {
             try {
                 this.lunchDao.deleteById(lunchId);
                 return resp.success();
             } catch (Exception exc) {
-                //error during delete
                 return resp.error();
             }
         }
+        //can't be deleted
         return resp.forbidden();
     }
 
-    /* LUNCH PRIVATE METHODS */
-    private Response<Lunch> createNewLunch(Lunch lunch) {
-        Response<Lunch> resp = new Response<>(lunch);
-        try {
-            if (isNewLunchOK(lunch)) {
-                lunch = lunchDao.save(lunch);
-                return resp.success();
-            }
-            return resp.forbidden();
-        } catch (Exception exc) {
-            return resp.error();
-        }
-    }
+
 
 
     /* ORDER */
@@ -266,6 +262,20 @@ public class LunchServiceImpl implements LunchService {
     }
 
 
+    /* PRIVATE METHODS */
+    private Response<Lunch> createNewLunch(Lunch lunch) {
+        Response<Lunch> resp = new Response<>(lunch);
+        try {
+            if (isNewLunchOK(lunch)) {
+                lunch = lunchDao.save(lunch);
+                return resp.success();
+            }
+            return resp.forbidden();
+        } catch (Exception exc) {
+            return resp.error();
+        }
+    }
+
     private boolean isAfterDeadline(int lunchId) {
         try {
             return (this.lunchDao.getById(lunchId).isAfterDeadline());
@@ -300,16 +310,6 @@ public class LunchServiceImpl implements LunchService {
                 && order.getUser() != null;
     }
 
-
-    //TODO move private methods as public static to lunch and order classes
-
-    //TODO check if user can delete order/lunch
-
-    //TODO closed lunches without orders should not be archieved
-
-    //TODO lunch cannot be 'ordered' if it has no orders
-
-    //TODO - we can only delete lunch if is OPEN/CLOSE
 
     //TODO - lunch without orders after deadline should be automaticaly deleted
 

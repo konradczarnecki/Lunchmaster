@@ -66,7 +66,7 @@ public class LunchServiceImpl implements LunchService {
             return resp.error();
         }
         //if lunch is open and have no orders
-        if (lunch.isOpen() && !lunch.hasOrders()) {
+        if (lunch.canChangeRestaurant()) {
             try {
                 lunch.setRestaurant(restaurant);
                 return resp.success();
@@ -101,19 +101,14 @@ public class LunchServiceImpl implements LunchService {
     public Response<String> changeDeadline(int lunchId, long deadline) {
         Response<String> resp = new Response<>();
         Lunch lunch = fetchLunch(lunchId);
-        Date deadlineDate = new Date();
-        deadlineDate.setTime(deadline);
+        Date deadlineDate = new Date(deadline);
 
         //check if not null
         if(lunch==null) {
             return resp.error();
         }
-        //check if deadline is ok and lunch is open
-        else if(!isNewDeadlineOK(deadlineDate) || !lunch.isOpen()){
-            return resp.forbidden();
-        }
         //not null and correct deadlineDate
-        else{
+        else if(isNewDeadlineOK(deadlineDate) && lunch.isOpen() || lunch.isClosed()){
             try{
                 lunch.setDeadline(deadlineDate);
                 lunch.open();
@@ -123,6 +118,7 @@ public class LunchServiceImpl implements LunchService {
                 return resp.error();
             }
         }
+        return resp.forbidden();
     }
 
     /* Change expected delivery */
@@ -262,7 +258,9 @@ public class LunchServiceImpl implements LunchService {
     }
 
 
+
     /* PRIVATE METHODS */
+    //TODO move them to Order/Lunch dto
     private Response<Lunch> createNewLunch(Lunch lunch) {
         Response<Lunch> resp = new Response<>(lunch);
         try {
@@ -309,8 +307,5 @@ public class LunchServiceImpl implements LunchService {
                 && order.getDishes().size() > 0
                 && order.getUser() != null;
     }
-
-
-    //TODO - lunch without orders after deadline should be automaticaly deleted
 
 }

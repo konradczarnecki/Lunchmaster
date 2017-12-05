@@ -22,7 +22,7 @@ public class ScheduledTasks {
 
     private LunchDao lunchDao;
 
-    private static final int CLOSE_LUNCHES_MILLI = 10_000;
+    private static final int CLOSE_AND_DELETE_LUNCHES_MILLI = 10_000;
     private static final Logger LOGGER = LoggerFactory.getLogger(LunchServiceImpl.class);
 
     @Autowired
@@ -35,7 +35,7 @@ public class ScheduledTasks {
      * delete enpty lunches
      * (delay since last completion of this task)
      */
-    @Scheduled(fixedDelay = CLOSE_LUNCHES_MILLI)
+    @Scheduled(fixedDelay = CLOSE_AND_DELETE_LUNCHES_MILLI)
     private void schedule_cleanLunches(){
         closeLunchesAfterDeadline();
         deleteEmptyLunches();
@@ -45,7 +45,6 @@ public class ScheduledTasks {
         //fetch all open lunches:
         List<Lunch> openLunches = this.lunchDao.getByStatus(LunchStatus.OPEN);
         List<Lunch> closedLunches = new ArrayList<>();
-
         //for all open lunches:
         for (Lunch lunch : openLunches) {
             if (lunch.isOpen() && lunch.isAfterDeadline()) {
@@ -56,14 +55,16 @@ public class ScheduledTasks {
         }
         //update only changed lunches
         this.lunchDao.save(closedLunches);
+        if(closedLunches.size()>0){
+            LOGGER.info("SCHEDULER: closed "+closedLunches.size()+" lunches.");
+        }
     }
 
     private void deleteEmptyLunches() {
-        //fetch all open lunches:
+        //fetch all closed lunches
         List<Lunch> closedLunches = this.lunchDao.getByStatus(LunchStatus.CLOSED);
         List<Lunch> toDeletion = new ArrayList<>();
 
-        //for all closed lunches:
         for (Lunch lunch : closedLunches) {
             if (!lunch.hasOrders()) {
                 toDeletion.add(lunch);
@@ -71,6 +72,9 @@ public class ScheduledTasks {
         }
         //delete empty lunches
         this.lunchDao.delete(toDeletion);
+        if(toDeletion.size()>0){
+            LOGGER.info("SCHEDULER: deleted "+toDeletion.size()+" empty lunches.");
+        }
     }
 
 

@@ -202,6 +202,10 @@ public class Lunch implements Serializable {
         return !this.hasOrders() && (isOpen() || isClosed());
     }
 
+    public boolean canChangeRestaurant(){
+        return !this.hasOrders() && isOpen();
+    }
+
     public boolean isInBillingPhase(){
         return isOrdered() || isDelivered() || isArchived();
     }

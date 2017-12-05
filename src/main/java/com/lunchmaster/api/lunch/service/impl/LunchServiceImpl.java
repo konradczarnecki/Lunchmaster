@@ -116,7 +116,7 @@ public class LunchServiceImpl implements LunchService {
         else{
             try{
                 lunch.setDeadline(deadlineDate);
-                lunch.setStatus(LunchStatus.OPEN.name());
+                lunch.setStatus(LunchStatus.OPEN);
                 saveLunch(lunch);
                 return resp.success();
             }catch(Exception exc){
@@ -163,7 +163,7 @@ public class LunchServiceImpl implements LunchService {
         else{
             //prolong deadline by 10 minutes
             lunch.getDeadline().setTime(lunch.getDeadline().getTime()+600_000);
-            lunch.setStatus(LunchStatus.OPEN.name());
+            lunch.setStatus(LunchStatus.OPEN);
             try{
                 saveLunch(lunch);
                 return resp.success();
@@ -237,6 +237,7 @@ public class LunchServiceImpl implements LunchService {
         return resp.forbidden();
     }
 
+    /* Delete order */
     @Override
     public Response<String> deleteOrder(int orderId) {
         Response<String> resp = new Response<>();
@@ -259,11 +260,13 @@ public class LunchServiceImpl implements LunchService {
         }
     }
 
+    /* fetch order */
     @Override
     public Order fetchOrder(int id) {
         return this.orderDao.getById(id);
     }
 
+    /* fetch list of orders by lunch id */
     @Override
     public List<Order> fetchOrderByLunchId(int lunchId) {
         return this.orderDao.getByLunchId(lunchId);
@@ -293,7 +296,7 @@ public class LunchServiceImpl implements LunchService {
     private boolean isNewLunchOK(Lunch lunch) {
         return isNewDeadlineOK(lunch.getDeadline())
                 && lunch.isOpen()
-                && lunch.getStatus().equals(LunchStatus.OPEN.name())
+                && lunch.getStatus().equals(LunchStatus.OPEN)
                 && lunch.getRestaurant() != null
                 && lunch.getLunchMaster() != null;
     }

@@ -20,7 +20,7 @@ public interface LunchDao extends JpaRepository<Lunch, Integer> {
     Lunch getById(int id);
 
     @Transactional(readOnly = true)
-    List<Lunch> getByStatus(String status);
+    List<Lunch> getByStatus(LunchStatus status);
 
     @Transactional
     Lunch save(Lunch lunch);

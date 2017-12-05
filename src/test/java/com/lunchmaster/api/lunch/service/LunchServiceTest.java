@@ -59,7 +59,7 @@ public class LunchServiceTest {
         lunch.setRestaurant(new Restaurant());
         lunch.setOrders(new ArrayList<Order>());
         lunch.setLunchMaster(new User());
-        lunch.setStatus(LunchStatus.OPEN.name());
+        lunch.setStatus(LunchStatus.OPEN);
         lunch.setDeadline(new Date());
         lunch.setExpectedDelivery(1000);
 

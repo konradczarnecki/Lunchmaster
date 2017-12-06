@@ -22,6 +22,17 @@ public class RegistrationDto {
     @NotEmpty
     private String password;
 
+    private String bankAccount;
+
+    private String mobile;
+
+    private String part;
+
+    private String group;
+
+    private String team;
+
+    private int floor;
 
     public RegistrationDto() {}
 
@@ -57,6 +68,54 @@ public class RegistrationDto {
         this.password = password;
     }
 
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPart() {
+        return part;
+    }
+
+    public void setPart(String part) {
+        this.part = part;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
     @Override
     public String toString() {
         return "RegistrationDto{" +
@@ -64,7 +123,12 @@ public class RegistrationDto {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", bankAccount='" + bankAccount + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", part='" + part + '\'' +
+                ", group='" + group + '\'' +
+                ", team='" + team + '\'' +
+                ", floor='" + floor + '\'' +
                 '}';
     }
-
 }

@@ -97,16 +97,18 @@ public class User implements UserDetails {
     }
 
     public User(RegistrationDto dto) {
-        this.firstName = dto.getFirstName();
-        this.lastName = dto.getLastName();
         this.email = dto.getEmail();
         this.password = dto.getPassword();
+        this.firstName = dto.getFirstName();
+        this.lastName = dto.getLastName();
+        this.bankAccount = dto.getBankAccount();
+        this.mobile = dto.getMobile();
+        this.part = dto.getPart();
+        this.group = dto.getGroup();
+        this.team = dto.getTeam();
+        this.floor = dto.getFloor();
         this.enabled = true;
         this.roles = new ArrayList<>();
-        this.part = "";
-        this.group = "";
-        this.team = "";
-        this.floor = 1;
     }
 
     @Override

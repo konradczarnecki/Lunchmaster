@@ -269,39 +269,72 @@ var LoginService = (function () {
     function LoginService(http, router) {
         this.http = http;
         this.router = router;
-        var user = JSON.parse(sessionStorage.getItem('user'));
-        if (user) {
-            this.logged = true;
-            this.user = user;
-        }
-        else
-            this.logged = false;
+        this.checkCredentials();
     }
-    LoginService.prototype.login = function (mail, password) {
+    LoginService.prototype.login = function (email, password) {
         var _this = this;
-        var body = {
-            email: mail,
-            password: password
-        };
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
+        var params = new URLSearchParams();
+        params.append('username', email);
+        params.append('password', password);
+        params.append('grant_type', 'password');
+        params.append('client_id', __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].clientId);
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({
+            'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+            'Authorization': 'Basic ' + btoa(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].clientId + ":" + __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].clientSecret)
+        });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         return new Promise(function (resolve) {
-            _this.http.post(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].apiHost + "/api/user/login", body, options).subscribe(function (response) {
-                if (response.json().status === 'success') {
-                    _this.logged = true;
-                    _this.user = response.json().content;
-                    sessionStorage.setItem('user', JSON.stringify(_this.user));
-                }
-                resolve(_this.logged);
-            });
+            _this.http.post(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].authUrl, params.toString(), options).subscribe(function (data) {
+                _this.saveToken(data.json());
+                _this.getUser(email).then(function (result) { return resolve(result); });
+            }, function (err) { return resolve(false); });
         });
     };
     LoginService.prototype.logout = function () {
         this.logged = false;
         this.user = null;
-        sessionStorage.removeItem('user');
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        localStorage.removeItem('token_expires');
         this.router.navigate(['/login']);
+    };
+    LoginService.prototype.saveToken = function (token) {
+        var expireDate = new Date().getTime() + (1000 * token.expires_in);
+        localStorage.setItem('token', token.access_token);
+        localStorage.setItem('token_expires', String(expireDate));
+    };
+    LoginService.prototype.token = function () {
+        var expiry = Number(localStorage.getItem('token_expires'));
+        if (this.logged && new Date().getTime() < expiry)
+            return localStorage.getItem('token');
+        this.logout();
+        this.router.navigate(['/login']);
+        return null;
+    };
+    LoginService.prototype.getUser = function (email) {
+        var _this = this;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        return new Promise(function (resolve) {
+            _this.http.get(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].apiHost + '/api/user/me', options).subscribe(function (response) {
+                _this.user = response.json();
+                _this.logged = true;
+                localStorage.setItem('user', JSON.stringify(_this.user));
+                resolve(true);
+            }, function (err) { return resolve(false); });
+        });
+    };
+    LoginService.prototype.checkCredentials = function () {
+        var user = JSON.parse(localStorage.getItem('user'));
+        var expire = Number(localStorage.getItem('token_expires'));
+        if (user && expire < new Date().getTime()) {
+            this.logged = true;
+            this.user = user;
+        }
+        else
+            this.logged = false;
     };
     LoginService.prototype.canActivate = function () {
         return this.logged;
@@ -496,7 +529,7 @@ var EditRestaurantComponent = (function () {
     EditRestaurantComponent.prototype.submit = function () {
         var _this = this;
         for (var field in this.restaurant)
-            if (this.restaurant.hasOwnProperty(field) && !this.restaurant[field])
+            if (this.restaurant.hasOwnProperty(field) && !this.restaurant[field] && field !== 'id' && field !== 'address')
                 return;
         this.service.addRestaurant(this.restaurant).then(function (result) {
             if (result)
@@ -599,6 +632,8 @@ var RestaurantDetailsComponent = (function () {
     };
     RestaurantDetailsComponent.prototype.clickClose = function () {
         this.close.emit(true);
+    };
+    RestaurantDetailsComponent.prototype.addDish = function () {
     };
     return RestaurantDetailsComponent;
 }());
@@ -870,6 +905,7 @@ var _c, _d, _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login_service__ = __webpack_require__("../../../../../src/app/login/login.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -882,32 +918,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var RestaurantService = (function () {
-    function RestaurantService(http) {
+    function RestaurantService(http, loginService) {
         this.http = http;
+        this.loginService = loginService;
     }
     RestaurantService.prototype.getRestaurants = function () {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.get(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/restaurant/list").subscribe(function (response) { return resolve(response.json()); });
+            _this.http.get(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/restaurant/list", _this.requestOptions()).subscribe(function (response) {
+                return resolve(response.json());
+            });
         });
     };
     RestaurantService.prototype.addRestaurant = function (restaurant) {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.put(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/restaurant/save", restaurant).subscribe(function (response) {
+            _this.http.put(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/restaurant/save", restaurant, _this.requestOptions()).subscribe(function (response) {
                 resolve(response.json().status === 'success');
             });
         });
+    };
+    RestaurantService.prototype.requestOptions = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({
+            'Authorization': 'Bearer ' + this.loginService.token()
+        });
+        return new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
     };
     return RestaurantService;
 }());
 RestaurantService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__login_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__login_login_service__["a" /* LoginService */]) === "function" && _b || Object])
 ], RestaurantService);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=restaurant.service.js.map
 
 /***/ }),
@@ -1656,7 +1702,8 @@ var _b, _c, _a;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WallService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login_service__ = __webpack_require__("../../../../../src/app/login/login.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1669,26 +1716,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var WallService = (function () {
-    function WallService(http) {
+    function WallService(http, loginService) {
         this.http = http;
+        this.loginService = loginService;
     }
     WallService.prototype.getLunches = function () {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.get(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/list").subscribe(function (response) { return resolve(response.json()); });
+            _this.http.get(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].apiHost + "/api/lunch/list", _this.requestOptions()).subscribe(function (response) {
+                return resolve(response.json());
+            });
         });
     };
     WallService.prototype.getRestaurants = function () {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.get(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/restaurant/list").subscribe(function (response) { return resolve(response.json()); });
+            _this.http.get(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].apiHost + "/api/restaurant/list", _this.requestOptions()).subscribe(function (response) {
+                return resolve(response.json());
+            });
         });
     };
     WallService.prototype.newLunch = function (lunch) {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.put(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/save", lunch).subscribe(function (response) {
+            _this.http.put(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].apiHost + "/api/lunch/save", lunch, _this.requestOptions()).subscribe(function (response) {
                 resolve(response.json().status === 'success');
             });
         });
@@ -1696,7 +1749,7 @@ var WallService = (function () {
     WallService.prototype.deleteLunch = function (id) {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.delete(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/delete?id=" + id).subscribe(function (response) {
+            _this.http.delete(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].apiHost + "/api/lunch/delete?id=" + id, _this.requestOptions()).subscribe(function (response) {
                 resolve(response.json().status === 'success');
             });
         });
@@ -1704,7 +1757,7 @@ var WallService = (function () {
     WallService.prototype.placeOrder = function (order) {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.put(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/order/save", order).subscribe(function (response) {
+            _this.http.put(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].apiHost + "/api/lunch/order/save", order, _this.requestOptions()).subscribe(function (response) {
                 resolve(response.json().status === 'success');
             });
         });
@@ -1712,19 +1765,25 @@ var WallService = (function () {
     WallService.prototype.deleteOrder = function (id) {
         var _this = this;
         return new Promise(function (resolve) {
-            _this.http.delete(__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiHost + "/api/lunch/order/delete?id=" + id).subscribe(function (response) {
+            _this.http.delete(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].apiHost + "/api/lunch/order/delete?id=" + id, _this.requestOptions()).subscribe(function (response) {
                 resolve(response.json().status === 'success');
             });
         });
+    };
+    WallService.prototype.requestOptions = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({
+            'Authorization': 'Bearer ' + this.loginService.token()
+        });
+        return new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
     };
     return WallService;
 }());
 WallService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__login_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__login_login_service__["a" /* LoginService */]) === "function" && _b || Object])
 ], WallService);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=wall.service.js.map
 
 /***/ }),
@@ -1982,7 +2041,10 @@ WallModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
 var environment = {
     production: false,
-    apiHost: ''
+    apiHost: 'http://localhost:1337',
+    clientId: 'lunchClient',
+    clientSecret: 'lunchSecret',
+    authUrl: 'http://localhost:1337/oauth/token'
 };
 //# sourceMappingURL=environment.js.map
 

@@ -20,17 +20,16 @@ export class LoginComponent implements OnInit {
               public router: Router) { }
 
   ngOnInit() {
+
     this.invalidCredentials = false;
   }
 
   login(): void {
-    this.service.login(this.mail, this.password)
-      .then(result => {
-        if(result) {
-          this.router.navigate(['/wall']);
-        }else{
-          this.invalidCredentials = true;
-        }
+
+    this.service.login(this.mail, this.password).then(result => {
+
+        if(result) this.router.navigate(['/wall']);
+        else this.invalidCredentials = true;
     });
   }
 

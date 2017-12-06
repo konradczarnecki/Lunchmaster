@@ -100,6 +100,7 @@ public class User implements UserDetails {
         this.firstName = dto.getFirstName();
         this.lastName = dto.getLastName();
         this.email = dto.getEmail();
+        this.password = dto.getPassword();
         this.enabled = true;
         this.roles = new ArrayList<>();
         this.part = "";

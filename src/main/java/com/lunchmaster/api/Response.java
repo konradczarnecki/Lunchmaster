@@ -1,12 +1,5 @@
 package com.lunchmaster.api;
 
-import com.lunchmaster.api.lunch.dto.Lunch;
-import com.lunchmaster.api.lunch.dto.Order;
-import com.sun.org.apache.regexp.internal.RE;
-
-import java.util.Date;
-
-
 public class Response<T> {
 
     private static final String SUCCESS = "success";
@@ -25,7 +18,7 @@ public class Response<T> {
     }
 
     public Response(T type) {
-        this.content=type;
+        this.content = type;
     }
 
     public String getStatus() {
@@ -66,11 +59,15 @@ public class Response<T> {
         return this;
     }
 
-    public Response forbidden(){
+    public Response forbidden() {
         this.setStatus(FAILURE);
         this.setDetails("Forbidden operation.");
         this.setContent(null);
         return this;
+    }
+
+    public boolean isSuccess() {
+        return this.status.equals(SUCCESS);
     }
 
 }

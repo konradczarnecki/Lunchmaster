@@ -1,22 +1,22 @@
 package com.lunchmaster.api.login.controller;
 
-import com.lunchmaster.api.Response;
 import com.lunchmaster.api.login.dto.User;
 import com.lunchmaster.api.login.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/user")
 public class LoginController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
-
     private LoginService service;
 
     @Autowired
@@ -24,25 +24,16 @@ public class LoginController {
         this.service = service;
     }
 
-    @PostMapping(value = "/login", consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE, produces =  MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Response<User> login(@RequestBody User loggedUser, HttpSession session) {
+    @PreAuthorize("#oauth2.hasScope('read')")
+    @GetMapping(value = "/me")
+    public ResponseEntity<?> authenticatedUser(Principal principal){
+        User authenticatedUser = service.findUserByEmail(principal.getName());
+        LOGGER.debug("Attempt to retrieve an authenticated user");
 
-        boolean authorized = service.authorize(loggedUser);
-
-        Response<User> rsp = new Response<>();
-
-        if(authorized){
-
-            User usr = service.getUserByEmail(loggedUser.getEmail());
-            session.setAttribute("user", usr);
-            rsp.setStatus("success");
-            rsp.setContent(usr);
-
-        } else {
-
-            rsp.setStatus("failed");
+        if(authenticatedUser == null){
+            return new ResponseEntity<>("Are You authenticated ?", HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(authenticatedUser, HttpStatus.OK);
         }
-
-        return rsp;
     }
 }

@@ -1,15 +1,14 @@
 package com.lunchmaster.api.lunch.dto;
 
 
-import com.lunchmaster.api.restaurant.dto.Restaurant;
 import com.lunchmaster.api.login.dto.User;
+import com.lunchmaster.api.restaurant.dto.Restaurant;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import java.util.Date;
-
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,17 +18,18 @@ import java.util.List;
 
 @Entity
 @Table(name = "lunch")
-public class Lunch implements Serializable{
+public class Lunch implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="status")
-    private String status;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private LunchStatus status;
 
-    @Column(name="deadline")
+    @Column(name = "deadline")
     private Date deadline;
 
     @Column(name = "expected_delivery")
@@ -45,11 +45,11 @@ public class Lunch implements Serializable{
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany
-    @JoinColumn(name= "lunch_id")
+    @JoinColumn(name = "lunch_id")
     private List<Order> orders;
 
-    public Lunch(){
-        this.status=LunchStatus.OPEN.toString();
+    public Lunch() {
+        this.status = LunchStatus.OPEN;
         this.orders = new LinkedList<>();
     }
 
@@ -101,68 +101,65 @@ public class Lunch implements Serializable{
         this.orders = orders;
     }
 
-    public String getStatus() {
+    public LunchStatus getStatus() {
         return this.status;
     }
 
-    public void setStatus(String status) {
-        changeStatus(LunchStatus.valueOf(status));
+    public void setStatus(LunchStatus status) {
+        changeStatus(status);
     }
 
 
     /* Status checkers */
-
-
-    public boolean isOpen(){
-        return LunchStatus.valueOf(this.status).equals(LunchStatus.OPEN);
+    public boolean isOpen() {
+        return this.status.equals(LunchStatus.OPEN);
     }
 
-    public boolean isClosed(){
-        return LunchStatus.valueOf(this.status).equals(LunchStatus.CLOSED);
+    public boolean isClosed() {
+        return this.status.equals(LunchStatus.CLOSED);
     }
 
-    public boolean isOrdered(){
-        return LunchStatus.valueOf(this.status).equals(LunchStatus.ORDERED);
+    public boolean isOrdered() {
+        return this.status.equals(LunchStatus.ORDERED);
     }
 
-    public boolean isDelivered(){
-        return LunchStatus.valueOf(this.status).equals(LunchStatus.DELIVERED);
+    public boolean isDelivered() {
+        return this.status.equals(LunchStatus.DELIVERED);
     }
 
-    public boolean isArchived(){
-        return LunchStatus.valueOf(this.status).equals(LunchStatus.ARCHIVED);
+    public boolean isArchived() {
+        return this.status.equals(LunchStatus.ARCHIVED);
     }
 
     /* State machine */
-    public boolean changeStatus(LunchStatus ls){
-        switch (LunchStatus.valueOf(this.status)){
+    public boolean changeStatus(LunchStatus ls) {
+        if (checkStatus(ls)) {
+            this.status = ls;
+            return true;
+        }
+        return false;
+    }
 
+    public boolean checkStatus(LunchStatus ls) {
+        switch (this.status) {
             case OPEN:
-                if(ls.equals(LunchStatus.CLOSED)){
-                    this.status = ls.name();
+                if (ls.equals(LunchStatus.CLOSED) || ls.equals(LunchStatus.OPEN)) {
                     return true;
                 }
-
             case CLOSED:
-                if(ls.equals(LunchStatus.OPEN)){
-                    this.status = ls.name();
+                if (ls.equals(LunchStatus.OPEN)) {
+                    return true;
+                } else if (ls.equals(LunchStatus.ORDERED) && this.orders.size() > 0) {
                     return true;
                 }
-                else if(ls.equals(LunchStatus.ORDERED) && this.orders.size()>0){
-                    this.status = ls.name();
-                    return true;
-                }
-
             case ORDERED:
-                if(ls.equals(LunchStatus.DELIVERED)){
-                    this.status=ls.name();
+                if (ls.equals(LunchStatus.DELIVERED)) {
                     return true;
                 }
-
             case DELIVERED:
-                if(ls.equals(LunchStatus.ARCHIVED)){
-                    this.status=ls.name();
-                    return  true;
+                //TODO and if all orders are settled
+                if (ls.equals(LunchStatus.ARCHIVED)) {
+                    return true;
                 }
         }
         return false;

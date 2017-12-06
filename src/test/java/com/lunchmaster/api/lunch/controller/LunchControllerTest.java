@@ -1,6 +1,7 @@
 package com.lunchmaster.api.lunch.controller;
 
 import com.lunchmaster.api.lunch.dto.Lunch;
+import com.lunchmaster.api.lunch.dto.LunchStatus;
 import com.lunchmaster.api.lunch.service.LunchService;
 import com.lunchmaster.api.restaurant.dto.Restaurant;
 import com.lunchmaster.api.login.dto.User;
@@ -60,8 +61,8 @@ public class LunchControllerTest {
     public void getLunches_LunchesFound_ShouldReturnFoundLunches() throws Exception {
         Lunch lunch = new Lunch();
         lunch.setId(1);
-        lunch.setStatus("OPEN");
-        lunch.setDeadline(Instant.ofEpochMilli(MIDNIGHT_01_10_2017_EPOCH).atZone(ZoneId.systemDefault()).toLocalDateTime());
+        lunch.setStatus(LunchStatus.OPEN);
+        lunch.setDeadline(new Date(MIDNIGHT_01_10_2017_EPOCH));
         lunch.setExpectedDelivery(40);
         lunch.setRestaurant(new Restaurant());
         lunch.setLunchMaster(new User());

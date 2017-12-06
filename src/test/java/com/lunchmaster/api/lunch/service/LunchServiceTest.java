@@ -7,6 +7,7 @@ package com.lunchmaster.api.lunch.service;
 import com.lunchmaster.api.login.dto.User;
 import com.lunchmaster.api.lunch.dao.LunchDao;
 import com.lunchmaster.api.lunch.dto.Lunch;
+import com.lunchmaster.api.lunch.dto.LunchStatus;
 import com.lunchmaster.api.lunch.dto.Order;
 import com.lunchmaster.api.lunch.service.impl.LunchServiceImpl;
 import com.lunchmaster.api.restaurant.dto.Restaurant;
@@ -58,8 +59,8 @@ public class LunchServiceTest {
         lunch.setRestaurant(new Restaurant());
         lunch.setOrders(new ArrayList<Order>());
         lunch.setLunchMaster(new User());
-        lunch.setStatus(Lunch.LunchStatus.OPEN);
-        lunch.setDeadline(LocalDateTime.now());
+        lunch.setStatus(LunchStatus.OPEN);
+        lunch.setDeadline(new Date());
         lunch.setExpectedDelivery(1000);
 
         List<Lunch> lunches = Collections.singletonList(lunch);

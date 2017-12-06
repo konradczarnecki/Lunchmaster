@@ -8,6 +8,7 @@ import com.lunchmaster.api.lunch.dto.LunchStatus;
 import com.lunchmaster.api.lunch.dto.Order;
 import com.lunchmaster.api.lunch.service.LunchService;
 import com.lunchmaster.api.restaurant.dao.RestaurantDao;
+import com.lunchmaster.api.restaurant.dto.Restaurant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,14 @@ public class LunchServiceImpl implements LunchService {
 
     private LunchDao lunchDao;
     private OrderDao orderDao;
+    private RestaurantDao restaurantDao;
     private static final Logger LOGGER = LoggerFactory.getLogger(LunchServiceImpl.class);
 
     @Autowired
     public LunchServiceImpl(LunchDao lunchDao, OrderDao orderDao, RestaurantDao restaurantDao) {
         this.lunchDao = lunchDao;
         this.orderDao = orderDao;
+        this.restaurantDao = restaurantDao;
     }
 
     public LunchServiceImpl() {
@@ -51,6 +54,125 @@ public class LunchServiceImpl implements LunchService {
     public Lunch fetchLunch(int id) {
         return this.lunchDao.getById(id);
     }
+
+    /* Change restaurant */
+    @Override
+    public Response<String> changeRestaurant(int lunchId, int restaurantId) {
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+        Restaurant restaurant = restaurantDao.getById(restaurantId);
+
+        if (lunch == null || restaurant == null) {
+            return resp.error();
+        }
+        if (lunch.isOpen() && lunch.getOrders().size() == 0) {
+            try {
+                lunch.setRestaurant(restaurantDao.getById(restaurantId));
+                return resp.success();
+            } catch (Exception exc) {
+                return resp.error();
+            }
+        }
+        return resp.forbidden();
+    }
+
+    /* Close lunch */
+    @Override
+    public Response<String> closeLunch(int lunchId) {
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+        //is not null and is legal to change status
+        if (lunch != null && lunch.checkStatus(LunchStatus.CLOSED)) {
+            lunch.changeStatus(LunchStatus.CLOSED);
+            //user is forcing lunch close - set deadline to now
+            lunch.setDeadline(new Date());
+            try {
+                saveLunch(lunch);
+                return resp.success();
+            } catch (Exception exc) {
+                return resp.error();
+            }
+        }
+        return resp.forbidden();
+    }
+
+    /* Change deadline */
+    @Override
+    public Response<String> changeDeadline(int lunchId, long deadline) {
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+        Date deadlineDate = new Date();
+        deadlineDate.setTime(deadline);
+
+        //check if not null
+        if(lunch==null) {
+            return resp.error();
+        }
+        //check if not open or deadlineDate is wrong
+        else if(deadlineDate.getTime()<=new Date().getTime() || !lunch.isOpen()){
+            return resp.forbidden();
+        }
+        //not null and correct deadlineDate
+        else{
+            try{
+                lunch.setDeadline(deadlineDate);
+                lunch.setStatus(LunchStatus.OPEN);
+                saveLunch(lunch);
+                return resp.success();
+            }catch(Exception exc){
+                return resp.error();
+            }
+        }
+    }
+
+    /* Change expected delivery */
+    @Override
+    public Response<String> changeExpectedDelivery(int lunchId, int expectedDelivery){
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+
+        if(lunch==null){
+            return resp.error();
+        }
+        else if(lunch.isDelivered() || lunch.isArchived()){
+            return resp.forbidden();
+        }
+        else{
+            lunch.setExpectedDelivery(expectedDelivery);
+            try {
+                saveLunch(lunch);
+                return resp.success();
+            }catch (Exception exc){
+                return resp.error();
+            }
+        }
+    }
+
+    /* Reopen lunch */
+    @Override
+    public Response<String> reopenLunch(int lunchId){
+        Response<String> resp = new Response<>();
+        Lunch lunch = fetchLunch(lunchId);
+
+        if(lunch==null){
+            return resp.error();
+        }
+        else if(!lunch.isClosed()){
+            return resp.forbidden();
+        }
+        else{
+            //prolong deadline by 10 minutes
+            lunch.getDeadline().setTime(lunch.getDeadline().getTime()+600_000);
+            lunch.setStatus(LunchStatus.OPEN);
+            try{
+                saveLunch(lunch);
+                return resp.success();
+            }catch(Exception exc){
+                return resp.error();
+            }
+        }
+    }
+
 
     /* save new lunch */
     @Override
@@ -71,7 +193,7 @@ public class LunchServiceImpl implements LunchService {
         if (lunch == null) {
             return resp.error();
         }
-        if (canBeDeleted(lunch)){
+        if (canBeDeleted(lunch)) {
             try {
                 this.orderDao.deleteByLunchId(lunchId);
                 this.lunchDao.deleteById(lunchId);
@@ -115,6 +237,7 @@ public class LunchServiceImpl implements LunchService {
         return resp.forbidden();
     }
 
+    /* Delete order */
     @Override
     public Response<String> deleteOrder(int orderId) {
         Response<String> resp = new Response<>();
@@ -137,11 +260,13 @@ public class LunchServiceImpl implements LunchService {
         }
     }
 
+    /* fetch order */
     @Override
     public Order fetchOrder(int id) {
         return this.orderDao.getById(id);
     }
 
+    /* fetch list of orders by lunch id */
     @Override
     public List<Order> fetchOrderByLunchId(int lunchId) {
         return this.orderDao.getByLunchId(lunchId);
@@ -171,7 +296,7 @@ public class LunchServiceImpl implements LunchService {
     private boolean isNewLunchOK(Lunch lunch) {
         return isNewDeadlineOK(lunch.getDeadline())
                 && lunch.isOpen()
-                && lunch.getStatus().equals(LunchStatus.OPEN.name())
+                && lunch.getStatus().equals(LunchStatus.OPEN)
                 && lunch.getRestaurant() != null
                 && lunch.getLunchMaster() != null;
     }
@@ -182,10 +307,10 @@ public class LunchServiceImpl implements LunchService {
                 && order.getUser() != null;
     }
 
-    private boolean canBeDeleted(Lunch lunch){
+    private boolean canBeDeleted(Lunch lunch) {
         try {
             return (lunch.isOpen() || lunch.isClosed());
-        }catch(Exception exc){
+        } catch (Exception exc) {
             //bad practice lol :)
             return false;
         }

@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n\r\ninput::-webkit-input-placeholder {\r\n  color: rgba(180, 180, 180, 0.72);\r\n}\r\n\r\ninput:-ms-input-placeholder {\r\n  color: rgba(180, 180, 180, 0.72);\r\n}\r\n\r\ninput::placeholder {\r\n  color: rgba(180, 180, 180, 0.72);\r\n}\r\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n", ""]);
 
 // exports
 

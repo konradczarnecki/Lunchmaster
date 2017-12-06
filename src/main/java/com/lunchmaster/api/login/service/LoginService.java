@@ -4,6 +4,5 @@ import com.lunchmaster.api.login.dto.User;
 
 public interface LoginService {
 
-    boolean authorize(User loggedUser);
-    User getUserByEmail(String email);
+    User findUserByEmail(String email);
 }

@@ -1,5 +1,7 @@
 package com.lunchmaster.api.login.dto;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 
 /**
@@ -8,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="role")
-public class Role {
+public class Role implements GrantedAuthority{
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -19,6 +21,11 @@ public class Role {
     private String rolename;
 
     public Role(){}
+
+    @Override
+    public String getAuthority() {
+        return this.rolename;
+    }
 
     public int getId() {
         return id;

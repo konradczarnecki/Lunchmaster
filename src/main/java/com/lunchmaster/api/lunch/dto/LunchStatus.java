@@ -3,6 +3,10 @@ package com.lunchmaster.api.lunch.dto;
 /**
  * Created by m.slefarski on 2017-11-23.
  */
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * LUNCH STATUS
  * NOTE: BELOW DESCRIPTION IS NOT FINAL BY ANY MEANS! IT SHOULD BE DISCUSSED IN DETAIL)
@@ -32,10 +36,25 @@ package com.lunchmaster.api.lunch.dto;
  * receiving email/sms. (This status is for users convenience only, nothing
  * changes in workflow).
  *
- * @ARCHIEVED
+ * @ARCHIVED
  * All payments are settled. Lunch becomes uneditable and
  * as a snapshot lands in the Mongo archive collection... FOREVER :)
  */
-public enum LunchStatus { OPEN, CLOSED, ORDERED, DELIVERED, ARCHIVED;
+public enum LunchStatus {
+
+    @JsonProperty("OPEN")
+    OPEN,
+
+    @JsonProperty("CLOSED")
+    CLOSED,
+
+    @JsonProperty("ORDERED")
+    ORDERED,
+
+    @JsonProperty("DELIVERED")
+    DELIVERED,
+
+    @JsonProperty("ARCHIVED")
+    ARCHIVED;
 
 }

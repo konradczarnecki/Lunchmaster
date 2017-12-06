@@ -13,13 +13,24 @@ import java.util.Date;
 public interface LunchService {
 
     /* LUNCH */
+    Lunch fetchLunch(int id);
+
     List<Lunch> fetchLunches();
+
+    Response<String> reopenLunch(int lunchId);
 
     Response<Lunch> saveLunch(Lunch lunch);
 
     Response<String> deleteLunch(int lunchId);
 
-    Lunch fetchLunch(int id);
+    Response<String> changeRestaurant(int lunchId, int restaurantId);
+
+    Response<String> closeLunch(int lunchId);
+
+    Response<String> changeDeadline(int lunchId, long deadline);
+
+    Response<String> changeExpectedDelivery(int lunchId, int expectedDelivery);
+
 
 
     /* ORDER */

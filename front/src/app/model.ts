@@ -33,11 +33,12 @@ export interface Dish {
 
 export interface User {
 
-  id: number;
+  id?: number;
   firstName?: string;
   lastName?: string;
   bankAccount?: string;
   email?: string;
+  password?: string;
   mobile?: string;
   part?: string;
   group?: string;

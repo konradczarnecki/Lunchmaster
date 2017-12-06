@@ -31,6 +31,7 @@ public class LunchmasterApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 
 				registry.addMapping("/api/**").allowedOrigins(allowedOrigins).allowedMethods(allowedMethods);
+				registry.addMapping("/registration").allowedOrigins(allowedOrigins).allowedMethods(allowedMethods);
 			}
 		};
 	}

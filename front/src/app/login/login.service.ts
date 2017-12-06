@@ -54,6 +54,17 @@ export class LoginService implements CanActivate {
     this.router.navigate(['/login']);
   }
 
+  register(user: User){
+
+    this.http.post(environment.apiHost + '/registration', user).subscribe(response => {
+
+      if(response.json().email === user.email) this.login(user.email, user.password).then(result => {
+
+        if(result) this.router.navigate(['/wall']);
+      });
+    });
+  }
+
   saveToken(token): void {
 
     const expireDate = new Date().getTime() + (1000 * token.expires_in);

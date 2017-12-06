@@ -99,6 +99,7 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__profile_profile_component__ = __webpack_require__("../../../../../src/app/profile/profile.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__restaurant_restaurants_component__ = __webpack_require__("../../../../../src/app/restaurant/restaurants.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__restaurant_restaurant_module__ = __webpack_require__("../../../../../src/app/restaurant/restaurant.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__register_register_component__ = __webpack_require__("../../../../../src/app/register/register.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -121,12 +122,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'wall', component: __WEBPACK_IMPORTED_MODULE_9__wall_wall_component__["a" /* WallComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_11__login_login_service__["a" /* LoginService */]] },
     { path: 'profile', component: __WEBPACK_IMPORTED_MODULE_13__profile_profile_component__["a" /* ProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_11__login_login_service__["a" /* LoginService */]] },
+    { path: 'restaurants', component: __WEBPACK_IMPORTED_MODULE_14__restaurant_restaurants_component__["a" /* RestaurantsComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_11__login_login_service__["a" /* LoginService */]] },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_12__login_login_component__["a" /* LoginComponent */] },
-    { path: 'restaurants', component: __WEBPACK_IMPORTED_MODULE_14__restaurant_restaurants_component__["a" /* RestaurantsComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_11__login_login_service__["a" /* LoginService */]] }
+    { path: 'register', component: __WEBPACK_IMPORTED_MODULE_16__register_register_component__["a" /* RegisterComponent */] }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -139,7 +142,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_8__topbar_topbar_component__["a" /* TopbarComponent */],
             __WEBPACK_IMPORTED_MODULE_12__login_login_component__["a" /* LoginComponent */],
-            __WEBPACK_IMPORTED_MODULE_13__profile_profile_component__["a" /* ProfileComponent */]
+            __WEBPACK_IMPORTED_MODULE_13__profile_profile_component__["a" /* ProfileComponent */],
+            __WEBPACK_IMPORTED_MODULE_16__register_register_component__["a" /* RegisterComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["a" /* BrowserModule */],
@@ -226,6 +230,7 @@ var LoginComponent = (function () {
         });
     };
     LoginComponent.prototype.register = function () {
+        this.router.navigate(['/register']);
     };
     return LoginComponent;
 }());
@@ -297,6 +302,9 @@ var LoginService = (function () {
         localStorage.removeItem('token');
         localStorage.removeItem('token_expires');
         this.router.navigate(['/login']);
+    };
+    LoginService.prototype.register = function (user) {
+        this.http;
     };
     LoginService.prototype.saveToken = function (token) {
         var expireDate = new Date().getTime() + (1000 * token.expires_in);
@@ -419,6 +427,89 @@ ProfileComponent = __decorate([
 
 var _a, _b;
 //# sourceMappingURL=profile.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/register/register.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper\" [ngClass]=\"theme.typeB\">\n\n  <div id=\"box\" [ngClass]=\"[theme.typeC]\">\n\n    <div class=\"filler\"></div>\n    <div id=\"header\">Create account</div>\n\n    <div class=\"row\" *ngFor=\"let field of fields\">\n      <label>{{field.label}}<input type=\"text\" [placeholder]=\"field.required ? 'Required' : ''\" [ngClass]=\"[theme.borderB, theme.fontB]\" [(ngModel)]=\"user[field.binding]\"></label>\n    </div>\n\n    <div class=\"lastRow\" [ngClass]=\"[theme.borderB, theme.fontB]\" (click)=\"submit()\">SUBMIT</div>\n\n  </div>\n\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/register/register.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
+
+// module
+exports.push([module.i, ".pinkraze-a {\n  background: rgba(221, 174, 230, 0.97);\n  color: rgba(43, 43, 43, 0.81); }\n\n.pinkraze-b {\n  background: #5871ee;\n  color: rgba(43, 43, 43, 0.81); }\n\n.pinkraze-c {\n  background: #2d42c0;\n  color: rgba(210, 210, 210, 0.9); }\n\n.pinkraze-border1px {\n  border: solid 1px rgba(43, 43, 43, 0.81); }\n\n.pinkraze-border1pxB {\n  border: solid 1px rgba(210, 210, 210, 0.9); }\n\n.pinkraze-border1pxRight {\n  border-right: solid 1px rgba(43, 43, 43, 0.81); }\n\n.pinkraze-border1pxRightB {\n  border-right: solid 1px rgba(210, 210, 210, 0.9); }\n\n.pinkraze-font {\n  color: rgba(43, 43, 43, 0.81); }\n\n.pinkraze-fontB {\n  color: rgba(210, 210, 210, 0.9); }\n\n.grass-a {\n  background: rgba(145, 235, 70, 0.99);\n  color: rgba(43, 43, 43, 0.81); }\n\n.grass-b {\n  background: rgba(240, 235, 242, 0.99);\n  color: rgba(43, 43, 43, 0.81); }\n\n.grass-c {\n  background: rgba(120, 215, 60, 0.99);\n  color: rgba(43, 43, 43, 0.7); }\n\n.grass-border1px {\n  border: solid 1px rgba(43, 43, 43, 0.81); }\n\n.grass-border1pxB {\n  border: solid 1px rgba(43, 43, 43, 0.7); }\n\n.grass-border1pxRight {\n  border-right: solid 1px rgba(43, 43, 43, 0.81); }\n\n.grass-border1pxRightB {\n  border-right: solid 1px rgba(43, 43, 43, 0.7); }\n\n.grass-font {\n  color: rgba(43, 43, 43, 0.81); }\n\n.grass-fontB {\n  color: rgba(43, 43, 43, 0.7); }\n\n.grid {\n  display: -ms-grid;\n  display: grid;\n  display: grid;\n  -ms-grid-columns: (minmax(400px, 1fr))[auto-fill];\n      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));\n  grid-column-gap: 10px;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  grid-auto-rows: 130px;\n  margin: auto; }\n\n.slide-topright {\n  position: absolute;\n  top: 0;\n  right: -10px;\n  z-index: 2; }\n\n.newElementButton {\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  right: 5vw;\n  bottom: 7vh;\n  display: -ms-grid;\n  display: grid;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  font-size: 70px;\n  border-radius: 100%;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none; }\n\n.newElementButton:hover {\n  cursor: pointer; }\n\n.newElementButton:active {\n  -webkit-transform: scale(0.97);\n          transform: scale(0.97); }\n\n.left {\n  float: left; }\n\n.right {\n  float: right; }\n\n.tile {\n  width: 400px;\n  height: 120px;\n  display: -ms-grid;\n  display: grid;\n  display: grid;\n  -ms-grid-columns: 5px 30% 1fr;\n      grid-template-columns: 5px 30% 1fr;\n  grid-column-gap: 0;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  position: relative;\n  border: solid 1px rgba(174, 174, 174, 0.45);\n  border-radius: 3px;\n  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03));\n  font-family: \"Lato\"; }\n  .tile img {\n    width: 100px;\n    height: 100px;\n    justify-self: center;\n    -ms-flex-item-align: center;\n        -ms-grid-row-align: center;\n        align-self: center; }\n  .tile #details {\n    justify-self: stretch;\n    -ms-flex-item-align: stretch;\n        -ms-grid-row-align: stretch;\n        align-self: stretch;\n    padding: 5px; }\n  .tile #restaurant {\n    margin: auto;\n    padding: 10px;\n    font-size: 21px;\n    font-weight: 600; }\n  .tile .element {\n    width: 90%; }\n\n.tile:hover {\n  cursor: pointer; }\n\n.tile:active {\n  box-shadow: inset 0 0 2px 1px rgba(200, 200, 200, 0.5);\n  -webkit-transform: scale(0.99);\n          transform: scale(0.99); }\n\n.inactive {\n  pointer-events: none; }\n\n.wrapper {\n  width: 100%;\n  height: 100%; }\n\n#box {\n  width: 400px;\n  height: 780px;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  margin: auto;\n  display: -ms-grid;\n  display: grid;\n  display: grid;\n  -ms-grid-columns: 1fr;\n      grid-template-columns: 1fr;\n  grid-column-gap: 10px;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  display: grid;\n  -ms-grid-rows: 5px 60px;\n      grid-template-rows: 5px 60px;\n  grid-row-gap: 10px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  font-family: \"Lato\";\n  grid-auto-rows: 50px;\n  border-radius: 5px; }\n\n#header {\n  width: 85%;\n  font-size: 25px;\n  text-align: left; }\n\n.row {\n  width: 85%; }\n  .row label {\n    font-size: 14px; }\n  .row input {\n    width: 100%;\n    height: 35px;\n    background: transparent;\n    border-radius: 3px;\n    font-size: 110%;\n    padding-left: 10px;\n    box-sizing: border-box; }\n\n.lastRow {\n  width: 85%;\n  height: 35px;\n  line-height: 35px;\n  text-align: center;\n  border-radius: 3px;\n  -webkit-transform: translateY(15px);\n          transform: translateY(15px); }\n\n.lastRow:hover {\n  background: rgba(224, 224, 224, 0.1);\n  cursor: pointer; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/register/register.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__ = __webpack_require__("../../../../../src/app/theme/theme.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login_service__ = __webpack_require__("../../../../../src/app/login/login.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var RegisterComponent = (function () {
+    function RegisterComponent(theme, loginService) {
+        this.theme = theme;
+    }
+    RegisterComponent.prototype.ngOnInit = function () {
+        this.fields = fields;
+        this.user = {};
+    };
+    RegisterComponent.prototype.submit = function () {
+    };
+    return RegisterComponent;
+}());
+RegisterComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-register',
+        template: __webpack_require__("../../../../../src/app/register/register.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/register/register.component.scss")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__theme_theme_service__["a" /* ThemeService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__login_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__login_login_service__["a" /* LoginService */]) === "function" && _b || Object])
+], RegisterComponent);
+
+var fields = [
+    { label: 'Email', binding: 'email', required: true },
+    { label: 'Password', binding: 'password', required: true },
+    { label: 'First Name', binding: 'firstName', required: true },
+    { label: 'Last Name', binding: 'lastName', required: true },
+    { label: 'Phone', binding: 'mobile', required: false },
+    { label: 'Bank account', binding: 'bankAccount', required: false },
+    { label: 'Part', binding: 'part', required: false },
+    { label: 'Group', binding: 'group', required: false },
+    { label: 'Team', binding: 'team', required: false },
+    { label: 'Floor', binding: 'floor', required: false }
+];
+var _a, _b;
+//# sourceMappingURL=register.component.js.map
 
 /***/ }),
 

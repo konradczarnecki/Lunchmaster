@@ -1,0 +1,16 @@
+<div class="wrapper" [ngClass]="theme.typeB">
+
+  <div id="box" [ngClass]="[theme.typeC]">
+
+    <div class="filler"></div>
+    <div id="header">Create account</div>
+
+    <div class="row" *ngFor="let field of fields">
+      <label>{{field.label}}<input type="text" [placeholder]="field.required ? 'Required' : ''" [ngClass]="[theme.borderB, theme.fontB]" [(ngModel)]="user[field.binding]"></label>
+    </div>
+
+    <div class="lastRow" [ngClass]="[theme.borderB, theme.fontB]" (click)="submit()">SUBMIT</div>
+
+  </div>
+
+</div>

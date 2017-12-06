@@ -14,14 +14,16 @@ import { LoginService } from './login/login.service';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RestaurantsComponent } from './restaurant/restaurants.component';
-import {RestaurantModule} from "./restaurant/restaurant.module";
+import { RestaurantModule } from './restaurant/restaurant.module';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path : '', redirectTo : '/login', pathMatch : 'full'},
   { path : 'wall', component : WallComponent, canActivate : [LoginService] },
   { path : 'profile', component : ProfileComponent, canActivate : [LoginService] },
+  { path : 'restaurants', component : RestaurantsComponent, canActivate : [LoginService]},
   { path : 'login', component : LoginComponent },
-  { path : 'restaurants', component : RestaurantsComponent, canActivate : [LoginService]}
+  { path : 'register', component : RegisterComponent }
 ];
 
 @NgModule({
@@ -29,7 +31,8 @@ const routes: Routes = [
     AppComponent,
     TopbarComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

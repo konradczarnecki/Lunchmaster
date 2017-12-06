@@ -1,7 +1,8 @@
-  import { Component, OnInit } from '@angular/core';
-import {ThemeService} from "../theme/theme.service";
-import {Theme, themes} from '../theme/themes'
-  import {LoginService} from "../login/login.service";
+import { Component, OnInit } from '@angular/core';
+
+import { ThemeService } from '../theme/theme.service';
+import { LoginService } from '../login/login.service';
+import { themes } from '../theme/theme.service';
 
 @Component({
   selector: 'app-topbar',
@@ -10,7 +11,8 @@ import {Theme, themes} from '../theme/themes'
 })
 export class TopbarComponent implements OnInit {
 
-  themes: Theme[];
+  themes: string[];
+  pages: string[];
 
   constructor(public theme: ThemeService,
               public loginService: LoginService) { }
@@ -18,6 +20,6 @@ export class TopbarComponent implements OnInit {
   ngOnInit() {
 
     this.themes = themes;
+    this.pages = ['wall', 'billing', 'restaurants', 'profile'];
   }
-
 }

@@ -1,0 +1,24 @@
+<div class="frame" [ngClass]="theme.typeC">
+
+  <div class="filler"></div>
+
+  <div class="row" *ngFor="let field of fields">
+
+    <span class="left">{{field.label}}</span>
+
+    <input class="right" type="text"
+      [ngClass]="[theme.fontB, theme.borderB]"
+      [(ngModel)]="restaurant[field.binding]"/>
+
+  </div>
+
+  <div class="filler"></div>
+
+  <div class="submitButton" [ngClass]="theme.borderB" (click)="submit()">PYSZNE.PL IMPORT</div>
+  <div class="submitButton" [ngClass]="theme.borderB" (click)="submit()" >ADD RESTAURANT</div>
+
+  <div style="height: 5px"></div>
+
+  <div id="close" (click)="clickClose()" >&#x25B2;</div>
+
+</div>

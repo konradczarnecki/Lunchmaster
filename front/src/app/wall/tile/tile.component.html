@@ -1,5 +1,4 @@
-<div class="tile" [ngStyle]="{ color : theme.fontColor }"
-     (mouseover)="mouseOver()" (mouseout)="mouseLeave()" (mousedown)="mouseDown()" (mouseup)="mouseUp()" #tile>
+<div class="tile" [ngClass]="theme.font" #tile>
 
   <div class="filler"></div>
 
@@ -7,14 +6,21 @@
 
   <div id="details">
 
-    <div id="restaurant">{{lunch.restaurant.name}}</div>
-    <div id="lunchmaster">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>
+    <div id="restaurant" class="element">{{lunch.restaurant.name}}</div>
+    <div id="lunchmaster" class="element">{{lunch.lunchMaster.firstName}} {{lunch.lunchMaster.lastName}}</div>
 
-    <div id="hours">
+    <div id="hours" class="element">
+
       <div class="hourLabel" id="deadlineLabel">DL</div>
-      <div class="hour" id="deadlineHour">{{lunch.deadline | date:'HH:mm' }}</div>
+      <div class="hour" id="deadlineHour">
+        {{lunch.deadline | date:'HH:mm' }}
+      </div>
+
       <div class="hourLabel" id="expectedLable">EX</div>
-      <div class="hour" id="expectedHour">{{lunch.deadline + lunch.expectedDelivery * 60000 | date:'HH:mm' }}</div>
+      <div class="hour" id="expectedHour">
+        {{lunch.deadline + lunch.expectedDelivery * 60000 | date:'HH:mm' }}
+      </div>
+
     </div>
 
   </div>

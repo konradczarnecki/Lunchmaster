@@ -12,23 +12,12 @@ export class WallService {
 
   getLunches(): Promise<Lunch[]> {
 
-    const headers = new Headers({
-      'Authorization': 'Bearer '+ this.loginService.token()
-    });
-
-    const options = new RequestOptions({ headers: headers });
-
-    /*
     return new Promise<Lunch[]>( resolve => {
 
-      this.http.get(`${environment.apiHost}/api/lunch/list`).subscribe(response => resolve(response.json()));
-    });
-    * */
+      this.http.get(`${environment.apiHost}/api/lunch/list`, this.requestOptions()).subscribe(response =>
 
-    return new Promise<Lunch[]>( resolve => {
-
-      this.http.get(`${environment.apiHost}/api/lunch/list`, options)
-        .toPromise().then(response => resolve(response.json()));
+        resolve(response.json())
+      );
     });
   }
 
@@ -36,7 +25,10 @@ export class WallService {
 
     return new Promise<Restaurant[]>( resolve => {
 
-      this.http.get(`${environment.apiHost}/api/restaurant/list`).subscribe(response => resolve(response.json()));
+      this.http.get(`${environment.apiHost}/api/restaurant/list`, this.requestOptions()).subscribe(response =>
+
+        resolve(response.json())
+      );
     });
   }
 
@@ -44,7 +36,7 @@ export class WallService {
 
     return new Promise<boolean>(resolve => {
 
-      this.http.put(`${environment.apiHost}/api/lunch/save`, lunch).subscribe(response => {
+      this.http.put(`${environment.apiHost}/api/lunch/save`, lunch, this.requestOptions()).subscribe(response => {
 
         resolve(response.json().status === 'success');
       });
@@ -55,7 +47,7 @@ export class WallService {
 
     return new Promise<boolean>(resolve => {
 
-      this.http.delete(`${environment.apiHost}/api/lunch/delete?id=` + id).subscribe(response => {
+      this.http.delete(`${environment.apiHost}/api/lunch/delete?id=` + id, this.requestOptions()).subscribe(response => {
 
         resolve(response.json().status === 'success');
       });
@@ -66,7 +58,7 @@ export class WallService {
 
     return new Promise<boolean>(resolve => {
 
-      this.http.put(`${environment.apiHost}/api/lunch/order/save`, order).subscribe(response => {
+      this.http.put(`${environment.apiHost}/api/lunch/order/save`, order, this.requestOptions()).subscribe(response => {
 
         resolve(response.json().status === 'success');
       });
@@ -77,11 +69,20 @@ export class WallService {
 
     return new Promise<boolean>(resolve => {
 
-      this.http.delete(`${environment.apiHost}/api/lunch/order/delete?id=` + id).subscribe(response => {
+      this.http.delete(`${environment.apiHost}/api/lunch/order/delete?id=` + id, this.requestOptions()).subscribe(response => {
 
         resolve(response.json().status === 'success');
       });
     });
+  }
+
+  requestOptions(): RequestOptions {
+
+    const headers = new Headers({
+      'Authorization': 'Bearer '+ this.loginService.token()
+    });
+
+    return new RequestOptions({ headers: headers });
   }
 
 }

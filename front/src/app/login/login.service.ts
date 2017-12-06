@@ -12,10 +12,12 @@ export class LoginService implements CanActivate {
   user: User;
 
   constructor(private http: Http, private router: Router) {
+
     this.checkCredentials();
   }
 
   login(email: string, password: string): Promise<boolean>{
+
     const params = new URLSearchParams();
     params.append('username', email);
     params.append('password', password);
@@ -30,18 +32,21 @@ export class LoginService implements CanActivate {
     const options = new RequestOptions({ headers: headers });
 
     return new Promise<boolean>(resolve => {
-      this.http.post(environment.authUrl, params.toString(), options)
-        .subscribe(data =>{
-          this.saveToken(data.json());
 
+      this.http.post(environment.authUrl, params.toString(), options).subscribe(data => {
+
+          this.saveToken(data.json());
           this.getUser(email).then(result => resolve(result));
+
       }, err => resolve(false));
     });
   }
 
   logout(): void {
+
     this.logged = false;
     this.user = null;
+
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('token_expires');
@@ -50,22 +55,21 @@ export class LoginService implements CanActivate {
   }
 
   saveToken(token): void {
+
     const expireDate = new Date().getTime() + (1000 * token.expires_in);
     localStorage.setItem('token', token.access_token);
     localStorage.setItem('token_expires', String(expireDate));
   }
 
   token(): string {
+
     const expiry = Number(localStorage.getItem('token_expires'));
 
-    if(this.logged && new Date().getTime() < expiry) {
-      return localStorage.getItem('token');
-    }
-    else {
-      this.logout();
-      this.router.navigate(['/login']);
-      return null;
-    }
+    if(this.logged && new Date().getTime() < expiry) return localStorage.getItem('token');
+
+    this.logout();
+    this.router.navigate(['/login']);
+    return null;
   }
 
   getUser(email: string): Promise<boolean> {
@@ -79,6 +83,7 @@ export class LoginService implements CanActivate {
     return new Promise<boolean>(resolve => {
 
       this.http.get(environment.apiHost + '/api/user/me' , options).subscribe(response => {
+
         this.user = response.json();
         this.logged = true;
         localStorage.setItem('user', JSON.stringify(this.user));

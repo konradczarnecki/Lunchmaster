@@ -14,16 +14,15 @@ export class ListComponent implements OnInit {
   @Output() close = new EventEmitter<boolean>();
 
   sections: Section[];
-
-  borders: {name: string, dish: string};
+  borders: {name: boolean, dish: boolean};
 
   constructor(public theme: ThemeService) { }
 
   ngOnInit() {
 
     this.borders = {
-      name : '',
-      dish : ''
+      name : true,
+      dish : false
     };
 
     this.setSorting('name');
@@ -39,8 +38,8 @@ export class ListComponent implements OnInit {
 
     this.sections = [];
 
-    this.borders.name = sort === 'name' ? this.theme.border1px : 'none';
-    this.borders.dish = sort === 'dish' ? this.theme.border1px : 'none';
+    this.borders.name = sort === 'name';
+    this.borders.dish = sort === 'dish';
 
     if(sort === 'name') this.sortByName();
     else if(sort === 'dish') this.sortByDish();

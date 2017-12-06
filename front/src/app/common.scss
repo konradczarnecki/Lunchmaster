@@ -1,4 +1,7 @@
-$hover-clr: rgba(180, 180, 180, 0.10);
+@import 'theme/themes';
+@import 'mixins';
+
+$hover-clr: rgba(224, 224, 224, 0.1);
 
 $tile-width: 400px;
 $tile-height: 120px;
@@ -7,3 +10,84 @@ $gap: 10px;
 $font: 'Lato';
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
+.grid {
+  @include grid-center(null, repeat(auto-fill, minmax($tile-width, 1fr)), $gap);
+  grid-auto-rows: $tile-height + $gap;
+  margin: auto;
+}
+
+.slide-topright {
+  @include absolute(0, -10px, null, null);
+  z-index: 2;
+}
+
+.newElementButton {
+  @include size(100px);
+  @include absolute(null, 5vw, 7vh, null);
+  @include grid-center;
+
+  font-size: 70px;
+  border-radius: 100%;
+  user-select: none;
+}
+
+.newElementButton:hover {
+  cursor: pointer;
+}
+
+.newElementButton:active {
+  transform: scale(0.97);
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.tile {
+  @include size($tile-width, $tile-height);
+  @include grid-center(null, 5px 30% 1fr);
+
+  position: relative;
+  border: solid 1px rgba(174, 174, 174, 0.45);
+  border-radius: 3px;
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03));
+  font-family: $font;
+
+  img {
+    @include size($tile-height - 20px);
+    @include self-center;
+  }
+
+  #details {
+    @include self-stretch;
+    padding: 5px;
+  }
+
+  #restaurant {
+    margin: auto;
+    padding: 10px;
+    font-size: 21px;
+    font-weight: 600;
+  }
+
+  .element {
+    width: 90%;
+  }
+}
+
+.tile:hover {
+  cursor: pointer;
+}
+
+.tile:active {
+  box-shadow: inset 0 0 2px 1px rgba(200, 200, 200, 0.5);
+  transform: scale(0.99);
+}
+
+.inactive {
+  pointer-events: none;
+}

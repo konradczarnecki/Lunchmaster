@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +22,7 @@ public class ScheduledTasks {
 
     private LunchDao lunchDao;
 
-    private static final int CLOSE_LUNCHES_MILI = 10000; //10 seconds
+    private static final int CLOSE_AND_DELETE_LUNCHES_MILLI = 10_000;
     private static final Logger LOGGER = LoggerFactory.getLogger(LunchServiceImpl.class);
 
     @Autowired
@@ -31,31 +30,53 @@ public class ScheduledTasks {
         this.lunchDao = lunchDao;
     }
 
-
     /**
-     * Close lunches with exceeded deadline
-     * with delay since last completion of this task in miliseconds.
+     * Close lunches with exceeded deadline.
+     * delete enpty lunches
+     * (delay since last completion of this task)
      */
-    @Scheduled(fixedDelay = CLOSE_LUNCHES_MILI)
+    @Scheduled(fixedDelay = CLOSE_AND_DELETE_LUNCHES_MILLI)
+    private void schedule_cleanLunches(){
+        closeLunchesAfterDeadline();
+        deleteEmptyLunches();
+    }
+
     private void closeLunchesAfterDeadline() {
         //fetch all open lunches:
         List<Lunch> openLunches = this.lunchDao.getByStatus(LunchStatus.OPEN);
         List<Lunch> closedLunches = new ArrayList<>();
-        long now = new Date().getTime();
-
         //for all open lunches:
         for (Lunch lunch : openLunches) {
-            if (lunch.getStatus().equals(LunchStatus.OPEN)) {
-                //close if deadline has passed or deadline is now
-                if (lunch.getDeadline().getTime() <= now) {
-                    lunch.changeStatus(LunchStatus.CLOSED);
-                    closedLunches.add(lunch);
-                }
+            if (lunch.isOpen() && lunch.isAfterDeadline()) {
+                //close if deadline has passed
+                lunch.close();
+                closedLunches.add(lunch);
             }
         }
         //update only changed lunches
         this.lunchDao.save(closedLunches);
-        //log activity
-        LOGGER.info("SCHEDULER: CLOSED " + closedLunches.size() + " lunches.");
+        if(closedLunches.size()>0){
+            LOGGER.info("SCHEDULER: closed "+closedLunches.size()+" lunches.");
+        }
     }
+
+    private void deleteEmptyLunches() {
+        //fetch all closed lunches
+        List<Lunch> closedLunches = this.lunchDao.getByStatus(LunchStatus.CLOSED);
+        List<Lunch> toDeletion = new ArrayList<>();
+
+        for (Lunch lunch : closedLunches) {
+            if (!lunch.hasOrders()) {
+                toDeletion.add(lunch);
+            }
+        }
+        //delete empty lunches
+        this.lunchDao.delete(toDeletion);
+        if(toDeletion.size()>0){
+            LOGGER.info("SCHEDULER: deleted "+toDeletion.size()+" empty lunches.");
+        }
+    }
+
+
+
 }

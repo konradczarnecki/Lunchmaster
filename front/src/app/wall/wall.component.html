@@ -1,24 +1,49 @@
-<div class="wrapper" [ngStyle]="{ background: theme.secColor }">
+<div class="wrapper" [ngClass]="theme.typeB">
 
-  <div id="grid" [ngClass]="{ 'inactive' : tilesInactive }" [@fade]="tilesInactive ? 'hidden' : 'shown'">
+  <div class="grid" #grid
+       [ngClass]="{ 'inactive' : tilesInactive }"
+       [@fade]="tilesInactive ? 'hidden' : 'shown'">
 
-    <app-tile *ngFor="let lunch of lunches; let i = index;" [lunch]="lunch" (click)="openDetails(i)"></app-tile>
+    <app-tile
+      *ngFor="let lunch of lunches; let i = index;"
+      [lunch]="lunch"
+      (click)="openDetails(i)">
+    </app-tile>
 
   </div>
 
-  <app-details *ngIf="selected != -1" [lunch]="lunches[selected]"
-               (close)="onDetailsClosed()" (refresh)="fetchLunches()"
-               (edit)="openEditLunch($event)" (list)="openList($event)" [@slide]>
-
+  <app-details
+    class="slide-topright"
+    *ngIf="selected != -1"
+    [lunch]="lunches[selected]"
+    (close)="onDetailsClosed()"
+    (refresh)="fetchLunches()"
+    (edit)="openEditLunch($event)"
+    (list)="openList($event)"
+    [@slide]>
   </app-details>
 
-  <app-edit-lunch *ngIf="newLunchOpened" [lunch]="lunchToEdit"
-                 (close)="onNewLunchClosed()" (refresh)="onLunchesModified()" [@slide]>
-
+  <app-edit-lunch
+    class="slide-topright"
+    *ngIf="newLunchOpened"
+    [lunch]="lunchToEdit"
+    (close)="onNewLunchClosed()"
+    (refresh)="onLunchesModified()"
+    [@slide]>
   </app-edit-lunch>
 
-  <app-list *ngIf="lunchForList" [lunch]="lunchForList" (close)="onListClosed()" [@slideUp]></app-list>
+  <app-list
+    *ngIf="lunchForList"
+    [lunch]="lunchForList"
+    (close)="onListClosed()"
+    [@slideUp]>
+  </app-list>
 
-  <div id="newLunchButton" [ngStyle]="{ border : theme.border2px, color : theme.secFontColor, background: theme.secColor }" (click)="openNewLunch()" >+</div>
+  <div
+    class="newElementButton"
+    [ngClass]="[tilesInactive ? 'inactive' : '', theme.typeC]"
+    (click)="openNewLunch()"
+    [@fade]="tilesInactive ? 'hidden' : 'shown'">+
+  </div>
 
 </div>

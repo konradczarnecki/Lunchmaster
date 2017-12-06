@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 
 import { WallService } from './service/wall.service';
 import { ThemeService} from '../theme/theme.service';
@@ -10,9 +10,11 @@ import { fadeAnimation, slideAnimation, slideUpAnimation } from './animations';
   selector: 'app-wall',
   templateUrl: './wall.component.html',
   styleUrls: ['./wall.component.scss'],
-  animations : [ slideAnimation, slideUpAnimation, fadeAnimation ],
+  animations : [slideAnimation, slideUpAnimation, fadeAnimation],
 })
 export class WallComponent implements OnInit {
+
+  @ViewChild('grid') grid: ElementRef;
 
   lunches: Lunch[];
   selected: number;
@@ -22,8 +24,9 @@ export class WallComponent implements OnInit {
   lunchForList: Lunch;
 
   constructor(public theme: ThemeService,
-              private service: WallService,
-              private changeDet: ChangeDetectorRef) { }
+              public service: WallService,
+              public changeDet: ChangeDetectorRef,
+              public renderer: Renderer2) { }
 
   get tilesInactive(): boolean {
 
@@ -35,19 +38,7 @@ export class WallComponent implements OnInit {
     this.fetchLunches();
     this.selected = -1;
 
-    window.onresize = this.adjustGrid.bind(this);
-  }
-
-  adjustGrid() {
-
-    const tileWidth = 400;
-    const tilesInWindow = 0.8 * window.innerWidth / tileWidth;
-    const extraGap = tilesInWindow - Math.floor(tilesInWindow);
-    const multiplier = extraGap > 0.3 ? Math.floor(tilesInWindow + 0.3) : tilesInWindow;
-    const gridWidth =  multiplier  * (tileWidth + 15);
-
-    document.getElementById('grid').style.width = gridWidth + 'px';
-    this.changeDet.detectChanges();
+    window.onresize = () => ThemeService.adjustGrid(this);
   }
 
   fetchLunches() {
@@ -55,7 +46,7 @@ export class WallComponent implements OnInit {
     this.service.getLunches().then(lunches => {
 
       this.lunches = lunches;
-      this.adjustGrid();
+      ThemeService.adjustGrid(this);
     });
   }
 

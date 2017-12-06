@@ -1,16 +1,13 @@
-#info {
-  width: 90%;
-  height: 100%;
-  margin: auto;
+@import "../../../common";
 
+#info {
+  $side-column: 23%;
+  @include size(90%, 100%);
+  @include grid-stretch(null, $side-column 1fr $side-column);
+
+  margin: auto;
   transform: translate(3%, 0);
   font-size: 15px;
-
-  display: grid;
-  $side-column: 23%;
-  grid-template-columns: $side-column 1fr $side-column;
-  align-items: stretch;
-  justify-items: stretch;
 
   br {
     line-height: 150%;
@@ -18,13 +15,9 @@
 }
 
 #delivery {
-  text-align: left;
-
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 20px 1fr 20px 1fr;
+  @include grid-stretch(20px 1fr 20px 1fr, 1fr);
   align-items: center;
-  justify-items: stretch;
+  text-align: left;
 }
 
 #restaurant {
@@ -32,7 +25,7 @@
   text-align: right;
 }
 
-#lunchmaster {
+#lunchmaster, .labels, .hours {
   padding-left: 30px;
   text-align: left;
 }
@@ -43,11 +36,6 @@
 
 .hours {
   font-size: 22px;
-}
-
-.labels, .hours {
-  padding-left: 30px;
-  text-align: left;
 }
 
 .infoDetails {

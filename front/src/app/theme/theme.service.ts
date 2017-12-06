@@ -1,79 +1,72 @@
-import { Injectable } from '@angular/core';
-
-import { Theme, themes } from './themes';
+import { ChangeDetectorRef, ElementRef, Injectable, Renderer2 } from '@angular/core';
 
 @Injectable()
 export class ThemeService {
 
-  themes: Theme[];
-  current: number;
-  backgroundIdx: number;
+  themes: string[];
+  current: string;
 
   constructor() {
 
     this.themes = themes;
-    this.backgroundIdx = 1;
-    this.current = Number(localStorage.getItem('theme'));
+    const saved = localStorage.getItem('theme');
+    this.current = saved ? saved : this.themes[0];
   }
 
-  get mainColor(){
-    return this.themes[this.current].mainColor;
+  get typeA(){
+    return this.current + '-a';
   }
 
-  get secColor(){
-    return this.themes[this.current].secColor;
+  get typeB(){
+    return this.current + '-b';
   }
 
-  get tetrColor(){
-
-    return this.themes[this.current].tetrColor === undefined ?
-      this.themes[this.current].secColor : this.themes[this.current].tetrColor;
+  get typeC(){
+    return this.current + '-c';
   }
 
-  get highlightColor(){
-    return this.themes[this.current].highlightColor;
+  get border(){
+    return this.current + '-border1px';
   }
 
-  get fontColor(){
-    return this.themes[this.current].fontColor;
+  get borderB(){
+    return this.current + '-border1pxB';
   }
 
-  get secFontColor(){
-
-    return this.themes[this.current].secFontColor === undefined ?
-      this.themes[this.current].fontColor : this.themes[this.current].secFontColor;
+  get borderRight(){
+    return this.current + '-border1pxRight';
   }
 
-  get backgroundCount(){
-    return this.themes[this.current].backgroundCount;
+  get borderRightB(){
+    return this.current + '-border1pxRightB';
   }
 
-  get background(){
-    return this.backgroundIdx;
+  get font(){
+    return this.current + '-font';
   }
 
-  get border1px(){
-    return 'solid 1px ' + this.themes[this.current].highlightColor;
+  get fontB(){
+    return this.current + '-fontB';
   }
 
-  get border2px(){
-    return 'solid 2px ' +this.themes[this.current].highlightColor;
+  static adjustGrid(component: {renderer: Renderer2, changeDet: ChangeDetectorRef, grid: ElementRef}) {
+
+    const tileWidth = 400;
+    const tilesInWindow = 0.8 * window.innerWidth / tileWidth;
+    const extraGap = tilesInWindow - Math.floor(tilesInWindow);
+    const multiplier = extraGap > 0.3 ? Math.floor(tilesInWindow + 0.3) : tilesInWindow;
+    const gridWidth =  multiplier  * (tileWidth + 15);
+
+    component.renderer.setStyle(component.grid.nativeElement, 'width', gridWidth + 'px');
+    component.changeDet.detectChanges();
   }
 
-  get name() {
-    return this.themes[this.current].name;
+  setTheme(theme: string){
+
+    this.current = theme;
+    localStorage.setItem('theme', theme);
   }
-
-  setTheme(index: number){
-
-    this.current = index;
-    localStorage.setItem('theme', String(index));
-    this.pickBackground();
-  }
-
-  pickBackground() {
-
-    this.backgroundIdx = Math.floor(1 + Math.random() * this.themes[this.current].backgroundCount);
-  }
-
 }
+
+export const themes: string[] = ['pinkraze', 'grass'];
+

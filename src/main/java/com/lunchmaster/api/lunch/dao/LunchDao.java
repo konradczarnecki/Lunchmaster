@@ -28,4 +28,7 @@ public interface LunchDao extends JpaRepository<Lunch, Integer> {
     @Transactional
     void deleteById(int id);
 
+    @Transactional
+    void delete(Lunch lunch);
+
 }

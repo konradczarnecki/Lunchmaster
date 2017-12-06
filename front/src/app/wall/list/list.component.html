@@ -1,13 +1,23 @@
-<div class="frame" id="frame" [ngStyle]="{ border : theme.border1px, background : theme.tetrColor, color : theme.secFontColor }">
+<div class="frame" [ngClass]="theme.typeC">
 
   <div id="close" (click)="clickClose()">&#x25BC;</div>
 
   <div id="header">{{lunch.restaurant.name}}</div>
 
   <div id="sortBy">
+
     <div id="sortLabel">Sort by:</div>
-    <div id="sortByName" class="sorting" [ngStyle]="{ border : borders.name }" (click)="setSorting('name')">Name</div>
-    <div id="sortByDish" class="sorting" [ngStyle]="{ border : borders.dish }" (click)="setSorting('dish')">Dish</div>
+
+    <div id="sortByName" class="sorting"
+      [ngClass]="[borders.name ? theme.borderB : '']"
+      (click)="setSorting('name')">Name
+    </div>
+
+    <div id="sortByDish" class="sorting"
+      [ngClass]="[borders.dish ? theme.borderB : '']"
+      (click)="setSorting('dish')">Dish
+    </div>
+
   </div>
 
   <div id="list">

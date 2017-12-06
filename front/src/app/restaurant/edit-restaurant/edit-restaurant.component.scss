@@ -1,0 +1,16 @@
+@import '../../common', '../../wall/edit-lunch/edit-lunch.component';
+
+
+.frame {
+  @include size(350px, 490px);
+  @include grid-rows(50px repeat(7, 35px) 10px 35px 35px 1fr, 10px);
+
+  position: relative;
+  margin: auto;
+  padding-bottom: 15px;
+
+  border-radius: 5px;
+  font-family: $font;
+  font-size: 20px;
+  overflow: hidden;
+}

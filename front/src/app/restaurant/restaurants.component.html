@@ -1,0 +1,39 @@
+<div class="wrapper" [ngClass]="theme.typeB">
+
+  <div class="grid" #grid
+    [ngClass]="{ 'inactive' : tilesInactive }"
+    [@fade]="tilesInactive ? 'hidden' : 'shown'">
+
+    <app-restaurant-tile
+      *ngFor="let restaurant of restaurants; let i = index;"
+      [restaurant]="restaurant"
+      (click)="openDetails(i)">
+    </app-restaurant-tile>
+
+  </div>
+
+  <app-restaurant-details
+    class="slide-topright"
+    *ngIf="selected != -1"
+    [restaurant]="restaurants[selected]"
+    (close)="onDetailsClosed()"
+    (refresh)="fetchRestaurants()"
+    [@slide]>
+  </app-restaurant-details>
+
+  <app-edit-restaurant
+    class="slide-topright"
+    *ngIf="newRestaurantOpened"
+    (close)="onNewRestaurantClosed()"
+    (refresh)="onRestaurantsModified()"
+    [@slide]>
+  </app-edit-restaurant>
+
+  <div
+    class="newElementButton"
+    [ngClass]="[tilesInactive ? 'inactive' : '', theme.typeC]"
+    (click)="openNewRestaurant()"
+    [@fade]="tilesInactive ? 'hidden' : 'shown'">+
+  </div>
+
+</div>

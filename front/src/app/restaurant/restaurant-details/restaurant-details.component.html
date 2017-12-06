@@ -1,0 +1,70 @@
+<div id="frame" [ngClass]="theme.typeC">
+
+  <div class="filler"></div>
+
+  <div id="info">
+
+    <div id="restaurantName">{{restaurant.name}}</div>
+
+    <div id="restaurantDetails">
+
+      <div id="address" class="detail">{{restaurant.address}}</div>
+      <div id="phone" class="detail">tel. {{restaurant.phone}}</div>
+
+      <div id="link" class="detail">
+        <a [ngClass]="theme.fontB" [href]="restaurant.link">website</a>
+      </div>
+
+    </div>
+
+    <div id="avgTime">
+      <div id="avgLabel">Avg. delivery: </div>
+      <div id="avgValue">{{restaurant.avgDeliveryTime}} min</div>
+    </div>
+
+  </div>
+
+  <div id="menu">
+
+    <div id="topRow">
+
+      <div id="menuLabel">Menu</div>
+
+      <div id="addDish">
+
+        <input type="text" placeholder="New dish"
+          [ngClass]="[theme.fontB, theme.borderB]"
+          [(ngModel)]="dishInput"/>
+
+        <input type="text" placeholder="PLN"
+          [ngClass]="[theme.fontB, theme.borderB]"
+          [(ngModel)]="dishPriceInput"/>
+
+        <div id="addOrderButton"
+          [ngClass]="theme.borderB"
+          (click)="addDish()">+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="filler"></div>
+
+    <div class="menuPosition" *ngFor="let dish of restaurant.dishes">
+
+      <div class="dishName">{{dish.name}}</div>
+      <div class="dishPrice">{{dish.price}} PLN</div>
+
+    </div>
+
+  </div>
+
+  <div id="close"
+    [ngClass]="theme.borderB"
+    [ngStyle]="{ borderTop : 'none'}"
+    (click)="clickClose()" >&#x25B2;
+  </div>
+
+</div>
+

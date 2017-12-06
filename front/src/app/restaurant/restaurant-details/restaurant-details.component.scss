@@ -1,0 +1,124 @@
+@import "../../common";
+
+#frame {
+  @include size(450px, 650px);
+  @include grid-center(50px 140px 1fr, null, 10px);
+  align-items: stretch;
+
+  position: relative;
+  margin: auto;
+  padding-bottom: 15px;
+
+  border-radius: 5px;
+  font-family: $font;
+  font-size: 20px;
+  overflow: hidden;
+}
+
+$width: 90%;
+
+#info {
+  @include grid-stretch(40% 1fr, 60% 1fr);
+  @include self-center;
+  width: $width;
+}
+
+#restaurantName {
+  font-size: 35px;
+}
+
+#restaurantDetails {
+  @include grid-pos(2, 1);
+  padding: 3px;
+  font-size: 15px;
+}
+
+.detail {
+  height: 20px;
+}
+
+#avgTime {
+  @include grid-pos(2, 2);
+  font-size: 20px;
+  transform: translateY(7px);
+}
+
+#menu {
+  @include self-center(true, false);
+  @include grid-rows(50px 20px);
+  grid-auto-rows: 30px;
+  width: $width;
+}
+
+#topRow {
+  width: 100%;
+}
+
+#menuLabel {
+  @include size(30%, 100%);
+  float: left;
+  font-size: 32px;
+}
+
+#addDish {
+  @include grid-columns(160px 60px 40px, 5px);
+
+  height: 100%;
+  float: right;
+  align-items: center;
+
+  $height: 35px;
+
+  input, div {
+    height: $height;
+    box-sizing: border-box;
+    border-radius: 3px;
+  }
+
+  input {
+    padding-left: 5px;
+    background: transparent;
+  }
+
+  div {
+    @include grid-center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  div:hover {
+    cursor: pointer;
+    background: $hover-clr;
+  }
+}
+
+.menuPosition {
+  @include size100p;
+}
+
+.dishName {
+  float: left;
+}
+
+.dishPrice {
+  float: right;
+  transform: translateX(-10px);
+}
+
+#close {
+  @include size(105%, 20px);
+  @include absolute(null, 0, -13px, 0);
+  margin: 10px auto;
+
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  text-align: center;
+}
+
+#close:hover {
+  cursor: pointer;
+  background-color: $hover-clr;
+}
+
+

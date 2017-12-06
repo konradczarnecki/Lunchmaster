@@ -1,0 +1,6 @@
+@import '../common';
+
+.wrapper {
+  @include size100p;
+  padding-top: 50px;
+}

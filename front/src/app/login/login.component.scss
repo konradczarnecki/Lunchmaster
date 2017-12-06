@@ -3,31 +3,20 @@
 $input-height: 45px;
 
 .wrapper {
-  width: 100%;
-  height: 100%;
-}
-
-#loginBox {
-  width: 380px;
-  height: 300px;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-
+  @include size100p;
   font-family: $font;
 }
 
-#username, #password, #buttons {
-  width: 100%;
-  height: $input-height;
-  margin-top: 10px;
-  background: transparent;
+#loginBox {
+  @include size(380px);
+  @include absolute-center;
+}
 
+#username, #password, #buttons {
+  @include size(100%, $input-height);
+  margin-top: 10px;
   box-sizing: border-box;
+  background: transparent;
 }
 
 #username, #password {
@@ -36,22 +25,17 @@ $input-height: 45px;
   text-align: center;
 }
 
-.round {
-  border-radius: 3px;
-}
+#buttons {
 
-#login, #register {
-  width: 48%;
-  height: $input-height;
+  div {
+    @include size(48%, $input-height);
+    @include grid-center;
+  }
 
-  display: grid;
-  align-items: center;
-  justify-items: center;
-}
-
-#login:hover, #register:hover {
-  cursor: pointer;
-  background: $hover-clr;
+  div:hover {
+    cursor: pointer;
+    background: $hover-clr;
+  }
 }
 
 #login {
@@ -60,6 +44,10 @@ $input-height: 45px;
 
 #register {
   float: right;
+}
+
+.round {
+  border-radius: 3px;
 }
 
 .invalid {

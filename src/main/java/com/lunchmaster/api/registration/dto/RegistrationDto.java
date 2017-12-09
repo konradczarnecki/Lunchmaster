@@ -1,5 +1,8 @@
 package com.lunchmaster.api.registration.dto;
 
+import com.lunchmaster.api.registration.validation.UniqueBankAccount;
+import com.lunchmaster.api.registration.validation.UniqueEmail;
+import com.lunchmaster.api.registration.validation.UniqueMobileNumber;
 import com.lunchmaster.api.registration.validation.ValidEmail;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -17,13 +20,16 @@ public class RegistrationDto {
 
     @NotEmpty
     @ValidEmail
+    @UniqueEmail
     private String email;
 
     @NotEmpty
     private String password;
 
+    @UniqueBankAccount
     private String bankAccount;
 
+    @UniqueMobileNumber
     private String mobile;
 
     private String part;

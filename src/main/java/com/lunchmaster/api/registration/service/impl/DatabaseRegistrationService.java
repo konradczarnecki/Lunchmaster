@@ -40,4 +40,19 @@ public class DatabaseRegistrationService  implements RegistrationService{
 
         return userDao.saveAndFlush(user);
     }
+
+    @Override
+    public boolean isEmailUnique(String email) {
+        return userDao.countByEmail(email) == 0;
+    }
+
+    @Override
+    public boolean isMobileUnique(String mobile) {
+        return userDao.countByMobile(mobile) == 0;
+    }
+
+    @Override
+    public boolean isBankAccountUnique(String bankAccount) {
+        return userDao.countByBankAccount(bankAccount) == 0;
+    }
 }

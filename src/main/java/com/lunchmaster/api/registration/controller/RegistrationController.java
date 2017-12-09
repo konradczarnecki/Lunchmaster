@@ -1,9 +1,7 @@
 package com.lunchmaster.api.registration.controller;
 
 import com.lunchmaster.api.login.dto.User;
-import com.lunchmaster.api.login.service.LoginService;
 import com.lunchmaster.api.registration.dto.RegistrationDto;
-import com.lunchmaster.api.registration.exception.EmailAlreadyTakenException;
 import com.lunchmaster.api.registration.service.RegistrationService;
 import com.lunchmaster.utils.exception.RequestBodyNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +20,10 @@ import javax.validation.Valid;
 @RequestMapping("/registration")
 public class RegistrationController {
 
-    private static final String EMAIL_TAKEN_MSG = "Email %s is already taken";
-
-    private LoginService loginService;
     private RegistrationService registrationService;
 
     @Autowired
-    public RegistrationController(LoginService loginService, RegistrationService registrationService) {
-        this.loginService = loginService;
+    public RegistrationController(RegistrationService registrationService) {
         this.registrationService = registrationService;
     }
 
@@ -41,16 +35,8 @@ public class RegistrationController {
             throw new RequestBodyNotValidException(bindingResult.getAllErrors());
         }
 
-        if(emailTaken(dto.getEmail())) {
-            throw new EmailAlreadyTakenException(String.format(EMAIL_TAKEN_MSG, dto.getEmail()));
-        }
-
         User registeredUser = registrationService.saveRegisteredUser(dto);
 
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
-    }
-
-    boolean emailTaken(String email) {
-        return loginService.findUserByEmail(email) != null;
     }
 }

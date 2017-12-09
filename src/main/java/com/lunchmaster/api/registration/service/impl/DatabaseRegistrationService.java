@@ -7,6 +7,7 @@ import com.lunchmaster.api.login.dto.User;
 import com.lunchmaster.api.registration.dto.RegistrationDto;
 import com.lunchmaster.api.registration.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -17,11 +18,13 @@ public class DatabaseRegistrationService  implements RegistrationService{
 
     private UserDao userDao;
     private RoleDao roleDao;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DatabaseRegistrationService(UserDao userDao, RoleDao roleDao) {
+    public DatabaseRegistrationService(UserDao userDao, RoleDao roleDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
         this.roleDao = roleDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,6 +35,8 @@ public class DatabaseRegistrationService  implements RegistrationService{
         List<Role> roles = new LinkedList<>();
         roles.add(roleUser);
         user.setRoles(roles);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userDao.saveAndFlush(user);
     }

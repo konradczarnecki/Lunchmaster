@@ -31,14 +31,14 @@ public class User implements UserDetails {
     @Column(name="last_name")
     private String lastName;
 
-    @Column(name="email")
+    @Column(name="email", unique = true)
     private String email;
 
     @Column(name = "password")
     @JsonIgnore
     private String password;
 
-    @Column(name="mobile")
+    @Column(name="mobile", unique = true)
     private String mobile;
 
     @Column(name="part")
@@ -53,7 +53,7 @@ public class User implements UserDetails {
     @Column(name="floor")
     private int floor;
 
-    @Column(name="bank_account")
+    @Column(name="bank_account", unique = true)
     private String bankAccount;
 
     @Column(name = "account_expired")
@@ -79,10 +79,6 @@ public class User implements UserDetails {
     public User(){
         this.roles = new ArrayList<>();
         this.enabled = true;
-        this.part = "";
-        this.group = "";
-        this.team = "";
-        this.floor = 1;
     }
 
     public User(String email, String password, List<Role> roles){
@@ -90,10 +86,6 @@ public class User implements UserDetails {
         this.password=password;
         this.roles=roles;
         this.enabled = true;
-        this.part = "";
-        this.group = "";
-        this.team = "";
-        this.floor = 1;
     }
 
     public User(RegistrationDto dto) {

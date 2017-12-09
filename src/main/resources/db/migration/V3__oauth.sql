@@ -13,6 +13,7 @@
   Changes since last dump
 */
 
+DROP TABLE IF EXISTS `oauth_client_details`;
 create table oauth_client_details (
   client_id VARCHAR(255) PRIMARY KEY,
   resource_ids VARCHAR(255),
@@ -28,6 +29,7 @@ create table oauth_client_details (
 );
 
 
+DROP TABLE IF EXISTS `oauth_access_token`;
 create table oauth_access_token (
   token_id VARCHAR(255),
   token LONG VARBINARY,
@@ -38,7 +40,7 @@ create table oauth_access_token (
   refresh_token VARCHAR(255)
 );
 
-
+DROP TABLE IF EXISTS `oauth_refresh_token`;
 create table oauth_refresh_token (
   token_id VARCHAR(255),
   token LONG VARBINARY,
@@ -62,8 +64,7 @@ UPDATE `user`
 SET `credentials_expired` = 0,
   `account_expired` = 0,
   `account_locked` = 0,
-  `enabled` = 1,
-  `grp` = ``;
+  `enabled` = 1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

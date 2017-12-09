@@ -166,9 +166,9 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES
-  (1,'Mikolaj','Slefarski','mikolaj.slefarski@gmail.com','737767882','Service Development','VD SA','VD',13,'<bank acc>','pwd', 1, 1, 1, 1),
-  (2,'Jan','Kowalski','jankowalski@nowhere.com','3423453','Service Development','VD SA','VD',13,'<bank acc 2>','pwd', 1, 1, 1, 1),
-  (4,'Yolo','Yolo','olo.yolo@gmail.com','1111111','Service Development','VD SA','VD',13,'<bank acc 4>',NULL, 1, 1, 1, 1);
+  (1,'Mikolaj','Slefarski','mikolaj.slefarski@gmail.com','737767882','Service Development','VD SA','VD',13,'<bank acc>','pwd', 0, 0, 0, 1),
+  (2,'Jan','Kowalski','jankowalski@nowhere.com','3423453','Service Development','VD SA','VD',13,'<bank acc 2>','pwd', 0, 0, 0, 1),
+  (4,'Yolo','Yolo','olo.yolo@gmail.com','1111111','Service Development','VD SA','VD',13,'<bank acc 4>','pwd', 0, 0, 0, 1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

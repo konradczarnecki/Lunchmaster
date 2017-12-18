@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { ThemeService } from '../theme/theme.service';
 import { LoginService } from './login.service';
+import { MatButton } from "@angular/material";
 
 @Component({
   selector: 'app-login',

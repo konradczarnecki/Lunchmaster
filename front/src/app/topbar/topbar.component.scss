@@ -3,11 +3,11 @@
 .wrapper {
   @include size100p;
   @include grid-columns(150px 30px 50px repeat(3, 100px) 1fr 150px 150px 20px);
+  @include mdc-elevation(14);
   align-items: center;
   justify-items: stretch;
 
   position: sticky;
-  box-shadow: 0 4px 8px rgba(60, 60, 60, 0.17);
   font-family: $font;
 }
 

@@ -304,7 +304,14 @@ var LoginService = (function () {
         this.router.navigate(['/login']);
     };
     LoginService.prototype.register = function (user) {
-        this.http;
+        var _this = this;
+        this.http.post(__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].apiHost + '/registration', user).subscribe(function (response) {
+            if (response.json().email === user.email)
+                _this.login(user.email, user.password).then(function (result) {
+                    if (result)
+                        _this.router.navigate(['/wall']);
+                });
+        });
     };
     LoginService.prototype.saveToken = function (token) {
         var expireDate = new Date().getTime() + (1000 * token.expires_in);
@@ -433,7 +440,7 @@ var _a, _b;
 /***/ "../../../../../src/app/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\" [ngClass]=\"theme.typeB\">\n\n  <div id=\"box\" [ngClass]=\"[theme.typeC]\">\n\n    <div class=\"filler\"></div>\n    <div id=\"header\">Create account</div>\n\n    <div class=\"row\" *ngFor=\"let field of fields\">\n      <label>{{field.label}}<input type=\"text\" [placeholder]=\"field.required ? 'Required' : ''\" [ngClass]=\"[theme.borderB, theme.fontB]\" [(ngModel)]=\"user[field.binding]\"></label>\n    </div>\n\n    <div class=\"lastRow\" [ngClass]=\"[theme.borderB, theme.fontB]\" (click)=\"submit()\">SUBMIT</div>\n\n  </div>\n\n</div>\n"
+module.exports = "<div class=\"wrapper\" [ngClass]=\"theme.typeB\">\r\n\r\n  <div id=\"box\" [ngClass]=\"[theme.typeC]\">\r\n\r\n    <div class=\"filler\"></div>\r\n    <div id=\"header\">Create account</div>\r\n\r\n    <div class=\"row\" *ngFor=\"let field of fields\">\r\n      <label>{{field.label}}<input type=\"text\" [placeholder]=\"field.required ? 'Required' : ''\" [ngClass]=\"[theme.borderB, theme.fontB]\" [(ngModel)]=\"user[field.binding]\"></label>\r\n    </div>\r\n\r\n    <div class=\"lastRow\" [ngClass]=\"[theme.borderB, theme.fontB]\" (click)=\"submit()\">SUBMIT</div>\r\n\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -478,12 +485,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var RegisterComponent = (function () {
     function RegisterComponent(theme, loginService) {
         this.theme = theme;
+        this.loginService = loginService;
     }
     RegisterComponent.prototype.ngOnInit = function () {
         this.fields = fields;
         this.user = {};
     };
     RegisterComponent.prototype.submit = function () {
+        this.loginService.register(this.user);
     };
     return RegisterComponent;
 }());

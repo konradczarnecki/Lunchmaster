@@ -4,7 +4,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-
+import { MatCommonModule, MatButtonModule } from "@angular/material";
 import { WallModule } from './wall/wall.module';
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './topbar/topbar.component';
@@ -42,7 +42,9 @@ const routes: Routes = [
     HttpModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCommonModule,
+    MatButtonModule
   ],
   providers: [ ThemeService, LoginService ],
   bootstrap: [ AppComponent ]

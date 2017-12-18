@@ -2,6 +2,7 @@
 
 .frame {
   @include grid-center(20px 50px 30px 1fr, null, 10px);
+  @include mdc-elevation(10);
   justify-items: center;
 
   width: 360px;

@@ -110,7 +110,7 @@ export class LoginService implements CanActivate {
     const user = JSON.parse(localStorage.getItem('user'));
     const expire = Number(localStorage.getItem('token_expires'));
 
-    if(user && expire < new Date().getTime()){
+    if(user && expire > new Date().getTime()){
 
       this.logged = true;
       this.user = user;

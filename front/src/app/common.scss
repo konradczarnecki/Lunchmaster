@@ -24,15 +24,12 @@ $font: 'Lato';
 .newElementButton {
   @include size(100px);
   @include absolute(null, 5vw, 7vh, null);
+  @include mdc-elevation(4);
   @include grid-center;
 
   font-size: 70px;
   border-radius: 100%;
   user-select: none;
-}
-
-.newElementButton:hover {
-  cursor: pointer;
 }
 
 .newElementButton:active {
@@ -50,12 +47,12 @@ $font: 'Lato';
 .tile {
   @include size($tile-width, $tile-height);
   @include grid-center(null, 5px 30% 1fr);
+  @include mdc-elevation(4);
 
   position: relative;
-  border: solid 1px rgba(174, 174, 174, 0.45);
-  border-radius: 3px;
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03));
+  border-radius: 2px;
   font-family: $font;
+  box-sizing: border-box;
 
   img {
     @include size($tile-height - 20px);
@@ -79,13 +76,15 @@ $font: 'Lato';
   }
 }
 
-.tile:hover {
+.tile:hover , .newElementButton:hover {
   cursor: pointer;
+  @include mdc-elevation(8);
+  transform: scale(1.012) translateZ(0);
 }
 
-.tile:active {
-  box-shadow: inset 0 0 2px 1px rgba(200, 200, 200, 0.5);
-  transform: scale(0.99);
+.tile:active, .newElementButton:active {
+  @include mdc-elevation(2);
+  transform: scale(1);
 }
 
 .inactive {

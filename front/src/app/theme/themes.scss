@@ -4,19 +4,20 @@ $pinkraze: (
   mainColor: rgba(221, 174, 230, 0.97),
   secColor: rgb(88, 113, 238),
   tetrColor: rgb(45, 66, 192),
+  tileColor: rgba(255, 255, 255, 0.93),
   highlightColor : rgba(221, 174, 230, 0.5),
   fontColor : rgba(43, 43, 43, 0.81),
-  secFontColor : rgba(210, 210, 210, 0.9),
+  secFontColor : rgba(227, 227, 227, 0.99),
 );
 
 $grass: (
   name : 'grass',
-  mainColor : rgba(145, 235, 70, 0.99),
-  secColor : rgba(240, 235, 242, 0.99),
-  tetrColor : rgba(120, 215, 60, 0.99),
+  mainColor : rgba(79, 92, 235, 0.99),
+  secColor : rgba(255, 255, 255, 1),
+  tetrColor : rgba(88, 108, 205, 0.99),
   highlightColor : rgba(150, 150, 150, 0.3),
-  fontColor : rgba(43, 43, 43, 0.81),
-  secFontColor : rgba(43, 43, 43, 0.7),
+  fontColor : rgba(255, 255, 255, 0.95),
+  secFontColor : rgba(248, 248, 248, 0.99),
 );
 
 $themes: $pinkraze $grass;
@@ -37,6 +38,9 @@ $themes: $pinkraze $grass;
   @else if $type == c {
     @include back-color(map_get($theme, tetrColor), map_get($theme, secFontColor));
   }
+  @else if $type == tile {
+    @include back-color(map_get($theme, tileColor), map_get($theme, fontColor));
+  }
 }
 
 $sides: top, right, bottom, left;
@@ -46,6 +50,7 @@ $sides: top, right, bottom, left;
   .#{map_get($theme, name)}-a { @include type($theme, a) }
   .#{map_get($theme, name)}-b { @include type($theme, b) }
   .#{map_get($theme, name)}-c { @include type($theme, c) }
+  .#{map_get($theme, name)}-tile { @include type($theme, tile) }
 
   .#{map_get($theme, name)}-border1px { border: solid 1px map_get($theme, fontColor); }
   .#{map_get($theme, name)}-border1pxB { border: solid 1px map_get($theme, secFontColor); }
@@ -53,5 +58,9 @@ $sides: top, right, bottom, left;
   .#{map_get($theme, name)}-border1pxRightB { border-right: solid 1px map_get($theme, secFontColor); }
 
   .#{map_get($theme, name)}-font { color: map_get($theme, fontColor); }
-  .#{map_get($theme, name)}-fontB { color: map_get($theme, secFontColor); }
+  .#{map_get($theme, name)}-input {
+    border: none;
+    border-bottom: 1px solid map_get($theme, secFontColor);
+    color: map_get($theme, secFontColor);
+  }
 }

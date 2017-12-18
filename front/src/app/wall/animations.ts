@@ -4,11 +4,11 @@ export const slideAnimation = trigger('slide', [
 
   transition('void => *', [
     style({transform : 'translate(0, -100%)'}),
-    animate('300ms cubic-bezier(.58,.7,.46,1.02)')
+    animate('180ms cubic-bezier(.58,.7,.46,1.02)')
   ]),
 
   transition('* => void', [
-    animate('300ms cubic-bezier(.58,.7,.46,1.02)', style({transform : 'translate(0, -100%)'}))
+    animate('180ms cubic-bezier(.58,.7,.46,1.02)', style({transform : 'translate(0, -100%)'}))
   ])
 ]);
 
@@ -16,7 +16,7 @@ export const slideUpAnimation = trigger('slideUp', [
 
   transition('void => *', [
     style({transform : 'translate(0, 100%)'}),
-    animate('300ms cubic-bezier(.58,.7,.46,1.02)')
+    animate('180ms cubic-bezier(.58,.7,.46,1.02)')
   ]),
 
   transition('* => void', [

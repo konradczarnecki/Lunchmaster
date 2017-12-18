@@ -8,8 +8,20 @@ $input-height: 45px;
 }
 
 #loginBox {
-  @include size(380px);
+  @include size(380px, null);
+  @include grid-center;
+}
+
+#back {
+  @include size(460px, 240px);
   @include absolute-center;
+  @include grid-center;
+  @include mdc-elevation(8);
+  border-radius: 3px;
+}
+
+#banner {
+
 }
 
 #username, #password, #buttons {
@@ -19,23 +31,31 @@ $input-height: 45px;
   background: transparent;
 }
 
+#buttons {
+  margin-top: 25px;
+}
+
 #username, #password {
   padding-left: 15px;
   font-size: 16px;
   text-align: center;
+  width: 320px;
 }
 
 #buttons {
 
-  div {
+  button {
     @include size(48%, $input-height);
     @include grid-center;
+    font-size: 16px;
   }
 
   div:hover {
     cursor: pointer;
     background: $hover-clr;
   }
+
+
 }
 
 #login {
@@ -51,7 +71,7 @@ $input-height: 45px;
 }
 
 .invalid {
-  box-shadow: 0 0 5px 1px rgba(255, 15, 44, 0.28);
+  border-bottom: 1px solid rgba(255, 15, 44, 0.28);
 }
 
 

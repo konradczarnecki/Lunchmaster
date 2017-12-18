@@ -1,31 +1,28 @@
 <div class="wrapper" [ngClass]="theme.typeB">
 
-  <div id="loginBox">
+  <div id="back" [ngClass]="theme.typeC">
+    <div id="loginBox">
 
-    <input id="username" class="round" placeholder="username"
-      [ngClass]="[invalidCredentials ? 'invalid' : '', theme.borderB, theme.fontB]"
-      [(ngModel)]="mail"
-      (keyup.enter)="login()"/>
+      <input id="username" class="round" placeholder="username"
+             [ngClass]="[invalidCredentials ? 'invalid' : '', theme.input]"
+             [(ngModel)]="mail"
+             (keyup.enter)="login()"/>
 
-    <input id="password" class="round" placeholder="password"
-      [ngClass]="[invalidCredentials ? 'invalid' : '', theme.borderB, theme.fontB]"
-      [(ngModel)]="password"
-      (keyup.enter)="login()"/>
+      <input id="password" class="round" placeholder="password"
+             [ngClass]="[invalidCredentials ? 'invalid' : '', theme.input]"
+             [(ngModel)]="password"
+             (keyup.enter)="login()"/>
 
-    <div id="buttons">
+      <div id="buttons">
 
-      <div id="login" class="round"
-        [ngClass]="[theme.borderB, theme.fontB]"
-        (click)="login()">login
-      </div>
+        <button id="login" mat-button
+                (click)="login()">login
+        </button>
 
-      <div id="register" class="round"
-        [ngClass]="[theme.borderB, theme.fontB]"
-        (click)="register()">register
+        <button id="register" mat-button (click)="register()">register</button>
+
       </div>
 
     </div>
-
   </div>
-
 </div>

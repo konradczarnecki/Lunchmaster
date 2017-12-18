@@ -8,14 +8,21 @@ import { WallService } from './service/wall.service';
 import { DetailsComponent } from './details/details.component';
 import { EditLunchComponent } from './edit-lunch/edit-lunch.component';
 import { ListComponent } from './list/list.component';
+import { MatButtonModule } from '@angular/material';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule
   ],
-  declarations: [ WallComponent, TileComponent, DetailsComponent, EditLunchComponent, ListComponent ],
+  declarations: [
+    WallComponent,
+    TileComponent,
+    DetailsComponent,
+    EditLunchComponent,
+    ListComponent],
   providers: [ WallService ]
 })
 export class WallModule { }

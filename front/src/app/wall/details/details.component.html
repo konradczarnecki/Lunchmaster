@@ -14,7 +14,7 @@
         avg:&nbsp; {{lunch.restaurant.avgDeliveryTime}} min<br>
 
         <a target="_blank"
-           [ngClass]="theme.fontB"
+           [ngClass]="theme.input"
            [href]="'http://' + lunch.restaurant.link">website
         </a>
 
@@ -60,7 +60,7 @@
       <div id="addDish">
 
         <input type="text" list="dishes"
-          [ngClass]="[theme.borderB, theme.fontB]"
+          [ngClass]="[theme.input]"
           [(ngModel)]="orderInput"
           (keyup.enter)="addDish()"/>
 
@@ -68,10 +68,9 @@
           <option *ngFor="let dish of lunch.restaurant.dishes" [value]="dish.name">{{dish.name}}</option>
         </datalist>
 
-        <div id="addOrderButton"
-          [ngClass]="[theme.borderB, theme.fontB]"
+        <button id="addOrderButton" mat-button
           (click)="addDish()">+
-        </div>
+        </button>
 
       </div>
 

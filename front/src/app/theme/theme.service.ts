@@ -25,6 +25,10 @@ export class ThemeService {
     return this.current + '-c';
   }
 
+  get tile(){
+    return this.current + '-tile'
+  }
+
   get border(){
     return this.current + '-border1px';
   }
@@ -47,6 +51,10 @@ export class ThemeService {
 
   get fontB(){
     return this.current + '-fontB';
+  }
+
+  get input(){
+    return this.current + '-input';
   }
 
   static adjustGrid(component: {renderer: Renderer2, changeDet: ChangeDetectorRef, grid: ElementRef}) {

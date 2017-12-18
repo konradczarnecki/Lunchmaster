@@ -5,6 +5,7 @@ $row-height: 35px;
 .frame {
   @include size(350px, 260px);
   @include grid-rows(50px repeat(3, $row-height) 65px 1fr, 10px);
+  @include mdc-elevation(10);
   justify-items: center;
 
   position: relative;

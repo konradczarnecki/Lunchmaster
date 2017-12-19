@@ -55,9 +55,6 @@ dependencies {
 }
 
 node {
-	version = '6.11.5'
-	npmVersion = '5.5.1'
-	download = true
 	workDir = file("${project.buildDir}/nodejs")
 	npmWorkDir = file("${project.projectDir}/front")
 	nodeModulesDir = file("${project.projectDir}/front")
@@ -97,4 +94,4 @@ task runJar(type: Exec){
 
 compileJava.dependsOn copyWebcontent
 clean.dependsOn cleanFrontend
-buildFrontend.dependsOn npmInstall
+//buildFrontend.dependsOn npmInstall

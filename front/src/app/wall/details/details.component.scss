@@ -9,7 +9,7 @@
   margin: auto;
   padding-bottom: 15px;
 
-  border-radius: 3px;
+  border-radius: 2px;
   font-family: $font;
   font-size: 20px;
   overflow: hidden;
@@ -20,42 +20,37 @@
 }
 
 #lunchmasterButtons {
-  @include grid-stretch(null, repeat(4, 78px), 8px);
+  @include grid-center(null, repeat(4, 78px), 8px);
 
   width: 89%;
   margin: 10px auto;
 }
 
 .lunchmasterButton {
-  @include size(100%, 30px);
+  @include size(80px, 35px);
   @include grid-center;
+  @include mdc-elevation(4);
 
-  border-radius: 3px;
+  border-radius: 2px;
   font: $font;
-  font-size: 15px;
+  font-size: 13px;
   text-align: center;
   z-index: 2;
 }
 
-.lunchmasterButton:hover {
-  cursor: pointer;
-  background: $hover-clr;
-}
-
 #close {
-  @include size(105%, 20px);
-  @include absolute(null, 0, -13px, -10px);
+  @include size(105%, 25px);
+  @include absolute(null, 0, 0px, -10px);
 
-  margin: 10px auto;
-  border-top: none;
-  border-radius: 3px;
-  font-size: 12px;
+  margin: 10px auto 0;
+  font-size: 14px;
   text-align: center;
+
+  span {
+    position: relative;
+    top: -5px;
+  }
 }
 
-#close:hover {
-  cursor: pointer;
-  background-color: $hover-clr;
-}
 
 

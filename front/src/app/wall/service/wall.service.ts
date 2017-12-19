@@ -49,6 +49,7 @@ export class WallService {
 
       this.http.delete(`${environment.apiHost}/api/lunch/delete?id=` + id, this.requestOptions()).subscribe(response => {
 
+        console.log(response.json().status);
         resolve(response.json().status === 'success');
       });
     });

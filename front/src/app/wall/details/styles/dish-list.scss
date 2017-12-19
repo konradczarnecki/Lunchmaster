@@ -42,15 +42,12 @@
 }
 
 #placeOrder {
-  @include size(100%, 30px);
+  @include size(100%, 35px);
   @include absolute(null, 0, 65px, null);
-  @include grid-center;
+  @include mdc-elevation(4);
+  line-height: 30px;
 
   margin-top: 15px;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
-#placeOrder:hover {
-  cursor: pointer;
-  background-color: $hover-clr;
-}

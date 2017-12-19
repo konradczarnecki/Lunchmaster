@@ -9,21 +9,21 @@
   position: relative;
 
   padding-bottom: 70px;
-  border-radius: 5px;
+  border-radius: 2px;
   font-family: $font;
   font-size: 20px;
   overflow: hidden;
 }
 
 #close {
-  @include size(100%, 20px);
+  @include size(100%, 25px);
   font-size: 14px;
   text-align: center;
-}
 
-#close:hover {
-  cursor: pointer;
-  background-color: $hover-clr;
+  span {
+    position: relative;
+    top: -5px;
+  }
 }
 
 #header {
@@ -42,12 +42,8 @@
 
 .sorting {
   @include grid-center;
-  border-radius: 3px;
-}
-
-.sorting:hover {
-  cursor: pointer;
-  background: $hover-clr;
+  @include mdc-elevation(4);
+  border-radius: 2px;
 }
 
 #list {

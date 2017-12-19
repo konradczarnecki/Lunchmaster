@@ -12,27 +12,25 @@ $row-height: 35px;
   margin: auto;
   padding-bottom: 15px;
 
-  border-radius: 5px;
+  border-radius: 2px;
   font-family: $font;
-  font-size: 20px;
+  font-size: 18px;
 
   overflow: hidden;
 }
 
 #close {
-  @include size(105%, 20px);
-  @include absolute(null, 0, -13px, -10px);
+  @include size(105%, 25px);
+  @include absolute(null, 0, -5px, -10px);
 
-  margin: 10px auto;
-  border-top: none;
-  border-radius: 3px;
+  margin: 10px auto 0;
   font-size: 14px;
   text-align: center;
-}
 
-#close:hover {
-  cursor: pointer;
-  background-color: $hover-clr;
+  span {
+    position: relative;
+    top: -10px;
+  }
 }
 
 $width: 85%;
@@ -54,7 +52,6 @@ input {
   @include size(50%, 100%);
   float: left;
   padding-left: 10px;
-  border-radius: 3px;
   box-sizing: border-box;
   background: transparent;
   font-size: 17px;
@@ -63,15 +60,12 @@ input {
 .submitButton {
   @include size(85%, $row-height);
   @include self-center;
+  @include mdc-elevation(4);
 
   line-height: $row-height;
-  border-radius: 3px;
+  border-radius: 2px;
   text-align: center;
-}
-
-.submitButton:hover {
-  cursor: pointer;
-  background-color: $hover-clr;
+  font-size: 17px;
 }
 
 .disabled {

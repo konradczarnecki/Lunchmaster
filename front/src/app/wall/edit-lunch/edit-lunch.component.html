@@ -7,7 +7,7 @@
     <span class="left">Restaurant</span>
 
     <input class="right" type="text" list="restaurants"
-      [ngClass]="[lunch ? 'disabled' : '', theme.borderB, theme.fontB]"
+      [ngClass]="[lunch ? 'disabled' : '', theme.input]"
       [(ngModel)]="chosenRestaurant"
       [attr.disabled]="lunch"/>
 
@@ -22,7 +22,7 @@
     <span class="left">Deadline</span>
 
     <input class="right" type="text" placeholder="hh:mm"
-      [ngClass]="[theme.borderB, theme.fontB]"
+      [ngClass]="[theme.input]"
       [(ngModel)]="deadline" />
 
   </div>
@@ -32,29 +32,29 @@
     <span class="left">Expected</span>
 
     <input class="right" type="text" placeholder="min"
-      [ngClass]="[theme.borderB, theme.fontB]"
+      [ngClass]="[theme.input]"
       [(ngModel)]="expected" />
 
   </div>
 
-  <div class="submitButton"
+  <button mat-button class="submitButton"
     *ngIf="!lunch"
-    [ngClass]="[theme.borderB]"
+    [ngClass]="[theme.typeA]"
     (click)="submit()" >CREATE LUNCH
-  </div>
+  </button>
 
-  <div class="submitButton"
+  <button mat-button class="submitButton"
     *ngIf="lunch"
-    [ngClass]="[theme.borderB, theme.fontB]"
+    [ngClass]="[theme.typeA]"
     (click)="submit()">SAVE CHANGES
-  </div>
+  </button>
 
-  <div style="height: 5px"></div>
+  <div style="height: 15px"></div>
 
-  <div id="close"
+  <button mat-button id="close"
     [ngClass]="theme.borderB"
     [ngStyle]="{ borderTop : 'none'}"
-    (click)="clickClose()" >&#x25B2;
-  </div>
+    (click)="clickClose()" ><span>&#x25B2;</span>
+  </button>
 
 </div>

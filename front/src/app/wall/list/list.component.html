@@ -1,6 +1,6 @@
 <div class="frame" [ngClass]="theme.typeC">
 
-  <div id="close" (click)="clickClose()">&#x25BC;</div>
+  <button mat-button id="close" (click)="clickClose()"><span>&#x25BC;</span></button>
 
   <div id="header">{{lunch.restaurant.name}}</div>
 
@@ -8,15 +8,15 @@
 
     <div id="sortLabel">Sort by:</div>
 
-    <div id="sortByName" class="sorting"
-      [ngClass]="[borders.name ? theme.borderB : '']"
+    <button mat-button id="sortByName" class="sorting"
+      [ngClass]="[borders.name ? theme.typeA : '']"
       (click)="setSorting('name')">Name
-    </div>
+    </button>
 
-    <div id="sortByDish" class="sorting"
-      [ngClass]="[borders.dish ? theme.borderB : '']"
+    <button mat-button id="sortByDish" class="sorting"
+      [ngClass]="[borders.dish ? theme.typeA : '']"
       (click)="setSorting('dish')">Dish
-    </div>
+    </button>
 
   </div>
 

@@ -68,8 +68,8 @@
           <option *ngFor="let dish of lunch.restaurant.dishes" [value]="dish.name">{{dish.name}}</option>
         </datalist>
 
-        <button id="addOrderButton" mat-button
-          (click)="addDish()">+
+        <button mat-button id="addOrderButton"
+        (click)="addDish()">+
         </button>
 
       </div>
@@ -83,7 +83,7 @@
       <div class="order"
         *ngFor="let order of lunch.orders; let i = index;"
         [id]="'order' + i"
-        [ngClass]="[orderBelongsToUser(i) ? 'pointer' : '', theme.borderB]"
+        [ngClass]="[orderBelongsToUser(i) ? 'pointer' : '', theme.typeA]"
         (mouseover)="showOrderDetails(i)"
         (mouseleave)="hideOrderDetails()"
         (click)="deleteOrder(i)" >{{order.user.firstName}} {{order.user.lastName}}
@@ -105,7 +105,7 @@
           <span class="dishPrice">{{total()}}</span>
         </div>
 
-        <div id="placeOrder" [ngClass]="theme.borderB" (click)="placeOrder()" >ORDER</div>
+        <button mat-button id="placeOrder" [ngClass]="theme.typeA" (click)="placeOrder()" >ORDER</button>
 
       </div>
 
@@ -114,29 +114,24 @@
 
   <div id="lunchmasterButtons" *ngIf="userIsLunchmaster()">
 
-    <div id="list" class="lunchmasterButton" title="Shows list of all orders from this lunch"
-         [ngClass]="[theme.borderB, theme.fontB]" (click)="showList()">LIST</div>
+    <button mat-button id="list" class="lunchmasterButton" title="Shows list of all orders from this lunch" (click)="showList()">LIST</button>
 
-    <div id="delete" class="lunchmasterButton" title="Delete lunch"
-         [ngClass]="[theme.borderB, theme.fontB]" (click)="deleteLunch()" >DELETE</div>
+    <button mat-button  id="delete" class="lunchmasterButton" title="Delete lunch" (click)="deleteLunch()" >DELETE</button>
 
-    <div id="edit" class="lunchmasterButton" title="Edit lunch"
-         [ngClass]="[theme.borderB, theme.fontB]" (click)="editLunch()" >EDIT</div>
+    <button mat-button  id="edit" class="lunchmasterButton" title="Edit lunch" (click)="editLunch()" >EDIT</button>
 
-    <div id="closeLunch" class="lunchmasterButton" title="Close lunch"
-         [ngClass]="[theme.borderB, theme.fontB]">CLOSE</div>
+    <button mat-button  id="closeLunch" class="lunchmasterButton" title="Close lunch">CLOSE</button>
 
   </div>
 
-  <div style="height: 5px"></div>
+  <div style="height: 10px"></div>
 
-  <div id="close" [ngClass]="theme.borderB"
-       [ngStyle]="{ borderTop : 'none'}" (click)="clickClose()" >&#x25B2;</div>
+  <button mat-button id="close" (click)="clickClose()" ><span>&#x25B2;</span></button>
 
 </div>
 
 <div id="orderDetails" *ngIf="orderDetailsIndex != -1"
-     [ngClass]="[theme.typeB, theme.borderB]" #orderDetails>
+     [ngClass]="[theme.typeA]" #orderDetails>
 
   <div *ngFor="let dish of activeOrder().dishes">
     <span class="dishName">{{dish.name}}</span>

@@ -28,6 +28,10 @@
   @include self-center;
 }
 
+#addOrderHeader {
+  transform: translateX(-20px);
+}
+
 #addDish {
 
   input {
@@ -40,22 +44,18 @@
     font-size: 17px;
   }
 
-  .mat-button.mat-small {
-    min-width: 1px;
-  }
-
   button {
-    min-height: 1px !important;
-    min-width: 1px !important;
-    @include size(60px, 100%);
+    @include size(45px, 100%);
     @include grid-center;
     align-self: end;
     float: right;
     box-sizing: border-box;
-    border-radius: 3px;
-    font-size: 30px;
-    font-weight: 600;
+    border-radius: 2px;
+    font-size: 26px;
+    @include mdc-elevation(4);
   }
+
+
 
   //div:hover {
   //  cursor: pointer;
@@ -66,16 +66,17 @@
 .order {
   @include size100p;
   @include grid-center;
-  border-radius: 3px;
+  @include mdc-elevation(4);
+  border-radius: 2px;
 }
 
 .order:hover {
   cursor: default;
-  background-color: $hover-clr;
 }
 
 #orderDetails {
   @include absolute(0, null, null, 0);
+  @include  mdc-elevation(8);
 
   width: 200px;
   padding: 10px;

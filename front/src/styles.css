@@ -2,5 +2,14 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 input::placeholder {
-  color: rgba(180, 180, 180, 0.72);
+  color: rgba(203, 203, 203, 0.78);
+}
+
+:focus {
+  outline:none;
+}
+
+button {
+  min-height: 1px !important;
+  min-width: 1px !important;
 }

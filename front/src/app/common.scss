@@ -2,6 +2,7 @@
 @import 'mixins';
 
 $hover-clr: rgba(224, 224, 224, 0.1);
+$border-rad: 2px;
 
 $tile-width: 400px;
 $tile-height: 120px;
@@ -51,7 +52,7 @@ $font: 'Lato';
   @include mdc-elevation(4);
 
   position: relative;
-  border-radius: 2px;
+  border-radius: $border-rad;
   font-family: $font;
   box-sizing: border-box;
 

@@ -26,7 +26,7 @@ export class ThemeService {
   }
 
   get tile(){
-    return this.current + '-tile'
+    return this.current + '-tile';
   }
 
   get border(){
@@ -76,5 +76,5 @@ export class ThemeService {
   }
 }
 
-export const themes: string[] = ['pinkraze', 'grass'];
+export const themes: string[] = ['blue', 'red', 'grass', 'pinkraze'];
 

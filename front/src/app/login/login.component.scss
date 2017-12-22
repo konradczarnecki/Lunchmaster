@@ -17,11 +17,7 @@ $input-height: 45px;
   @include absolute-center;
   @include grid-center;
   @include mdc-elevation(8);
-  border-radius: 3px;
-}
-
-#banner {
-
+  border-radius: $border-rad;
 }
 
 #username, #password, #buttons {
@@ -49,13 +45,6 @@ $input-height: 45px;
     @include grid-center;
     font-size: 16px;
   }
-
-  div:hover {
-    cursor: pointer;
-    background: $hover-clr;
-  }
-
-
 }
 
 #login {
@@ -67,7 +56,7 @@ $input-height: 45px;
 }
 
 .round {
-  border-radius: 3px;
+  border-radius: $border-rad;
 }
 
 .invalid {

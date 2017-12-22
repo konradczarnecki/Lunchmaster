@@ -12,7 +12,7 @@ $row-height: 35px;
   margin: auto;
   padding-bottom: 15px;
 
-  border-radius: 2px;
+  border-radius: $border-rad;
   font-family: $font;
   font-size: 18px;
 
@@ -63,7 +63,7 @@ input {
   @include mdc-elevation(4);
 
   line-height: $row-height;
-  border-radius: 2px;
+  border-radius: $border-rad;
   text-align: center;
   font-size: 17px;
 }

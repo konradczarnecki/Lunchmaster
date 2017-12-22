@@ -9,7 +9,7 @@
   margin: auto;
   padding-bottom: 15px;
 
-  border-radius: 2px;
+  border-radius: $border-rad;
   font-family: $font;
   font-size: 20px;
   overflow: hidden;
@@ -31,7 +31,7 @@
   @include grid-center;
   @include mdc-elevation(4);
 
-  border-radius: 2px;
+  border-radius: $border-rad;
   font: $font;
   font-size: 13px;
   text-align: center;

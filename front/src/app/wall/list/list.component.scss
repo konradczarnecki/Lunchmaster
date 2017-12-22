@@ -9,7 +9,7 @@
   position: relative;
 
   padding-bottom: 70px;
-  border-radius: 2px;
+  border-radius: $border-rad;
   font-family: $font;
   font-size: 20px;
   overflow: hidden;
@@ -43,7 +43,7 @@
 .sorting {
   @include grid-center;
   @include mdc-elevation(4);
-  border-radius: 2px;
+  border-radius: $border-rad;
 }
 
 #list {

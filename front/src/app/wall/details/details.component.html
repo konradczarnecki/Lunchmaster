@@ -68,9 +68,7 @@
           <option *ngFor="let dish of lunch.restaurant.dishes" [value]="dish.name">{{dish.name}}</option>
         </datalist>
 
-        <button mat-button id="addOrderButton"
-        (click)="addDish()">+
-        </button>
+        <button mat-button id="addOrderButton" (click)="addDish()">+</button>
 
       </div>
 
@@ -115,11 +113,8 @@
   <div id="lunchmasterButtons" *ngIf="userIsLunchmaster()">
 
     <button mat-button id="list" class="lunchmasterButton" title="Shows list of all orders from this lunch" (click)="showList()">LIST</button>
-
     <button mat-button  id="delete" class="lunchmasterButton" title="Delete lunch" (click)="deleteLunch()" >DELETE</button>
-
     <button mat-button  id="edit" class="lunchmasterButton" title="Edit lunch" (click)="editLunch()" >EDIT</button>
-
     <button mat-button  id="closeLunch" class="lunchmasterButton" title="Close lunch">CLOSE</button>
 
   </div>

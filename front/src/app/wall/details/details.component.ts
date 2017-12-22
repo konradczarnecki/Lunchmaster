@@ -56,6 +56,8 @@ export class DetailsComponent implements OnInit {
 
       if(result){
 
+        console.log(result);
+
         this.refresh.emit(true);
         this.dishList = [];
       }

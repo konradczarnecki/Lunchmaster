@@ -40,7 +40,6 @@
     padding-left: 10px;
     box-sizing: border-box;
     background: transparent;
-    border-radius: 3px;
     font-size: 17px;
   }
 
@@ -54,20 +53,13 @@
     font-size: 26px;
     @include mdc-elevation(4);
   }
-
-
-
-  //div:hover {
-  //  cursor: pointer;
-  //  background-color: $hover-clr;
-  //}
 }
 
 .order {
   @include size100p;
   @include grid-center;
   @include mdc-elevation(4);
-  border-radius: 2px;
+  border-radius: $border-rad;
 }
 
 .order:hover {
@@ -80,7 +72,7 @@
 
   width: 200px;
   padding: 10px;
-  border-radius: 3px;
+  border-radius: $border-rad;
   font-family: $font;
 
   display: grid;

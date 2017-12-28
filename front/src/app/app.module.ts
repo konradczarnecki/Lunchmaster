@@ -4,7 +4,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { MatCommonModule, MatButtonModule } from "@angular/material";
+import { MatCommonModule, MatButtonModule } from '@angular/material';
 import { WallModule } from './wall/wall.module';
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './topbar/topbar.component';
@@ -16,12 +16,15 @@ import { ProfileComponent } from './profile/profile.component';
 import { RestaurantsComponent } from './restaurant/restaurants.component';
 import { RestaurantModule } from './restaurant/restaurant.module';
 import { RegisterComponent } from './register/register.component';
+import { BillingComponent } from './billing/billing.component';
+import { BillingModule } from './billing/billing.module';
 
 const routes: Routes = [
   { path : '', redirectTo : '/login', pathMatch : 'full'},
   { path : 'wall', component : WallComponent, canActivate : [LoginService] },
-  { path : 'profile', component : ProfileComponent, canActivate : [LoginService] },
+  { path : 'profile', component : RegisterComponent, canActivate : [LoginService] },
   { path : 'restaurants', component : RestaurantsComponent, canActivate : [LoginService]},
+  { path : 'billing', component : BillingComponent, canActivate : [LoginService]},
   { path : 'login', component : LoginComponent },
   { path : 'register', component : RegisterComponent }
 ];
@@ -32,13 +35,14 @@ const routes: Routes = [
     TopbarComponent,
     LoginComponent,
     ProfileComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule,
     WallModule,
     RestaurantModule,
+    BillingModule,
     HttpModule,
     FormsModule,
     RouterModule.forRoot(routes),

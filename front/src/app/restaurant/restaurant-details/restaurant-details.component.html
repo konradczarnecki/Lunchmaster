@@ -12,7 +12,7 @@
       <div id="phone" class="detail">tel. {{restaurant.phone}}</div>
 
       <div id="link" class="detail">
-        <a [ngClass]="theme.fontB" [href]="restaurant.link">website</a>
+        <a [ngClass]="theme.input" [href]="restaurant.link">website</a>
       </div>
 
     </div>
@@ -33,17 +33,16 @@
       <div id="addDish">
 
         <input type="text" placeholder="New dish"
-          [ngClass]="[theme.fontB, theme.borderB]"
+          [ngClass]="[theme.input]"
           [(ngModel)]="dishInput"/>
 
         <input type="text" placeholder="PLN"
-          [ngClass]="[theme.fontB, theme.borderB]"
+          [ngClass]="[theme.input]"
           [(ngModel)]="dishPriceInput"/>
 
-        <div id="addOrderButton"
-          [ngClass]="theme.borderB"
+        <button mat-button id="addOrderButton"
           (click)="addDish()">+
-        </div>
+        </button>
 
       </div>
 
@@ -60,11 +59,11 @@
 
   </div>
 
-  <div id="close"
-    [ngClass]="theme.borderB"
+  <button mat-button id="close"
     [ngStyle]="{ borderTop : 'none'}"
-    (click)="clickClose()" >&#x25B2;
-  </div>
+     (click)="clickClose()" >
+    <span>&#x25B2;</span>
+  </button>
 
 </div>
 

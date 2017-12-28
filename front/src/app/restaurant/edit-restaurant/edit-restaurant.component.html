@@ -7,18 +7,18 @@
     <span class="left">{{field.label}}</span>
 
     <input class="right" type="text"
-      [ngClass]="[theme.fontB, theme.borderB]"
+      [ngClass]="[theme.input]"
       [(ngModel)]="restaurant[field.binding]"/>
 
   </div>
 
   <div class="filler"></div>
 
-  <div class="submitButton" [ngClass]="theme.borderB" (click)="submit()">PYSZNE.PL IMPORT</div>
-  <div class="submitButton" [ngClass]="theme.borderB" (click)="submit()" >ADD RESTAURANT</div>
+  <button mat-button class="submitButton" [ngClass]="theme.typeA" (click)="submit()">PYSZNE.PL IMPORT</button>
+  <button mat-button class="submitButton" [ngClass]="theme.typeA" (click)="submit()" >ADD RESTAURANT</button>
 
   <div style="height: 5px"></div>
 
-  <div id="close" (click)="clickClose()" >&#x25B2;</div>
+  <button mat-button id="close" (click)="clickClose()" ><span>&#x25B2;</span></button>
 
 </div>

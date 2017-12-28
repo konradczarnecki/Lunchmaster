@@ -19,6 +19,7 @@ $font: 'Lato';
 
 .slide-topright {
   @include absolute(0, -10px, null, null);
+  @include mdc-elevation(10);
   z-index: 2;
 }
 
@@ -92,3 +93,18 @@ $font: 'Lato';
 .inactive {
   pointer-events: none;
 }
+
+#close {
+  @include size(105%, 25px);
+  @include absolute(null, 0, 0px, -10px);
+
+  margin: 10px auto 0;
+  font-size: 14px;
+  text-align: center;
+
+  span {
+    position: relative;
+    top: -5px;
+  }
+}
+

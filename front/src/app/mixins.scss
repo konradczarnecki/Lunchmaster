@@ -65,8 +65,8 @@
   }
 }
 
-@mixin size($dim1, $dim2: -1){
-  @if $dim2 == -1 {
+@mixin size($dim1, $dim2: null){
+  @if $dim2 == null {
     width: $dim1;
     height: $dim1;
   }

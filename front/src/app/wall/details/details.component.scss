@@ -2,7 +2,6 @@
 
 #frame {
   @include grid-rows(60px 100px 1fr 50px, 10px);
-  @include mdc-elevation(10);
 
   width: 700px;
   position: relative;
@@ -38,19 +37,6 @@
   z-index: 2;
 }
 
-#close {
-  @include size(105%, 25px);
-  @include absolute(null, 0, 0px, -10px);
-
-  margin: 10px auto 0;
-  font-size: 14px;
-  text-align: center;
-
-  span {
-    position: relative;
-    top: -5px;
-  }
-}
 
 
 

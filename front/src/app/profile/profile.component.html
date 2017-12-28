@@ -1,3 +1,40 @@
 <div class="wrapper" [ngClass]="theme.typeB">
-  <span id="logout" (click)="logout()">LOGOUT</span>
+
+  <div id="box" [ngClass]="[theme.typeC]">
+
+    <div class="header" *ngIf="!loginService.logged">CREATE ACCOUNT</div>
+    <div class="header" *ngIf="loginService.logged">EDIT PROFILE</div>
+
+    <div class="filler"></div>
+
+    <div id="fields">
+
+      <div id="leftColumn">
+
+        <div *ngFor="let field of leftColumn" class="position"><span>{{field.label}}</span>
+          <input type="text" [ngClass]="theme.input" [(ngModel)]="user[field.binding]"/>
+        </div>
+
+      </div>
+
+      <div id="rightColumn">
+
+        <div *ngFor="let field of rightColumn" class="position"><span>{{field.label}}</span>
+          <input type="text" [ngClass]="theme.input" [(ngModel)]="user[field.binding]"/>
+        </div>
+
+      </div>
+
+      <div id="buttonBox">
+
+        <button mat-button *ngIf="!loginService.logged" [ngClass]="theme.typeA" (click)="register()">CREATE ACCOUNT</button>
+        <button mat-button *ngIf="loginService.logged" [ngClass]="theme.typeA">SAVE CHANGES</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <button mat-button id="logoutButton" *ngIf="loginService.logged" [ngClass]="theme.typeA" (click)="logout()">LOGOUT</button>
+
 </div>

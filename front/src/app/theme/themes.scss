@@ -83,5 +83,6 @@ $sides: top, right, bottom, left;
     border: none;
     border-bottom: 1px solid map_get($theme, secFontColor);
     color: map_get($theme, secFontColor);
+    background: none;
   }
 }

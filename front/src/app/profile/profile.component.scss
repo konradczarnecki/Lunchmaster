@@ -1,13 +1,74 @@
-@import '../common';
+@import "../common";
+
+$input-height: 35px;
+$row-width: 85%;
 
 .wrapper {
   @include size100p;
-  @include grid-center;
-
-  font-size: 40px;
-  font-family: $font;
 }
 
-#logout:hover {
-  cursor: pointer;
+#box {
+  @include size(50vw, 50vh);
+  min-width: 600px;
+  min-height: 500px;
+  @include absolute-center;
+  @include mdc-elevation(10);
+  @include grid-center(100px 30px 1fr, 1fr);
+  font-family: $font;
+  grid-auto-rows: 50px;
+  border-radius: $border-rad;
+}
+
+.header {
+  font-size: 25px;
+}
+
+#fields {
+  @include size100p;
+  @include grid-stretch(1fr 20% 10%, 1fr 1fr);
+  grid-template-areas: "left right" "button button" "bottom bottom";
+
+}
+
+#leftColumn {
+  grid-area: left;
+}
+
+#rightColumn {
+  grid-area: right;
+}
+
+#leftColumn, #rightColumn {
+  @include grid-center();
+  grid-auto-rows: 40px;
+  grid-row-gap: 10px;
+}
+
+#buttonBox {
+  grid-area: button;
+  @include grid-center(1fr, 1fr);
+
+  button {
+    @include size(60%, 35px);
+    @include mdc-elevation(4);
+  }
+}
+
+.position {
+  @include size(80%, 100%);
+
+  span {
+    float: left;
+  }
+
+  input {
+    width: 60%;
+    float: right;
+  }
+}
+
+#logoutButton {
+  @include size(120px, 35px);
+  @include absolute(80px, 80px, null, null);
+  @include mdc-elevation(4);
 }

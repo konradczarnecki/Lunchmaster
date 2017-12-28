@@ -22,14 +22,12 @@ $input-height: 45px;
 
 #username, #password, #buttons {
   @include size(100%, $input-height);
-  margin-top: 5px;
   box-sizing: border-box;
   background: transparent;
 }
 
-
 #buttons {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 #username, #password {
@@ -64,7 +62,8 @@ $input-height: 45px;
 }
 
 .invalid {
-  border-bottom: 1px solid rgba(255, 15, 44, 0.28);
+
+  background-color: rgba(255, 15, 44, 0.28);
 }
 
 

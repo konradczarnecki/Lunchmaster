@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Restaurant } from '../../model';
+import {Dish, Restaurant} from '../../model';
 import { Http, RequestOptions, Headers} from '@angular/http';
 import { environment } from '../../../environments/environment';
 import { LoginService} from '../../login/login.service';
@@ -25,6 +25,17 @@ export class RestaurantService {
     return new Promise<boolean>(resolve => {
 
       this.http.put(`${environment.apiHost}/api/restaurant/save`, restaurant, this.requestOptions()).subscribe(response => {
+
+        resolve(response.json().status === 'success');
+      });
+    });
+  }
+
+  addDish(dish: Dish): Promise<boolean> {
+
+    return new Promise<boolean>(resolve => {
+
+      this.http.put(`${environment.apiHost}/api/restaurant/dish/save`, dish, this.requestOptions()).subscribe(response => {
 
         resolve(response.json().status === 'success');
       });

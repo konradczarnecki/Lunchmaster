@@ -40,9 +40,7 @@
           [ngClass]="[theme.input]"
           [(ngModel)]="dishPriceInput"/>
 
-        <button mat-button id="addOrderButton"
-          (click)="addDish()">+
-        </button>
+        <button mat-button (click)="addDish()">+</button>
 
       </div>
 
@@ -50,12 +48,16 @@
 
     <div class="filler"></div>
 
-    <div class="menuPosition" *ngFor="let dish of restaurant.dishes">
+    <div id="scrollBox">
 
-      <div class="dishName">{{dish.name}}</div>
-      <div class="dishPrice">{{dish.price}} PLN</div>
+      <div class="menuPosition" *ngFor="let dish of restaurant.dishes">
 
+        <div class="dishName">{{dish.name}}</div>
+        <div class="dishPrice">{{dish.price}} PLN</div>
+
+      </div>
     </div>
+
 
   </div>
 

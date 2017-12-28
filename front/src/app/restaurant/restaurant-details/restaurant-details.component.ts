@@ -3,7 +3,7 @@ import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectorRef } fro
 import { ThemeService } from '../../theme/theme.service';
 import { LoginService } from '../../login/login.service';
 import { RestaurantService } from '../service/restaurant.service';
-import { Restaurant } from '../../model';
+import {Dish, Restaurant} from '../../model';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -17,7 +17,7 @@ export class RestaurantDetailsComponent implements OnInit {
   @Output() refresh = new EventEmitter<boolean>();
 
   dishInput: string;
-  dishPriceInput;
+  dishPriceInput: string;
 
   constructor(public theme: ThemeService,
               public service: RestaurantService,
@@ -34,6 +34,26 @@ export class RestaurantDetailsComponent implements OnInit {
   }
 
   addDish(): void {
+
+    if(!/^\d+$/.test(this.dishPriceInput)) return;
+
+    const dish: Dish = {
+      id : null,
+      name : this.dishInput,
+      price : Number(this.dishPriceInput),
+      img : null,
+      restaurantId : this.restaurant.id
+    };
+
+    this.service.addDish(dish).then(result => {
+
+      if(result) {
+        this.refresh.emit(true);
+        this.dishInput = '';
+        this.dishPriceInput = '';
+      }
+    });
+
 
   }
 }

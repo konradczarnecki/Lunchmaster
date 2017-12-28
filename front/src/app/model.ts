@@ -28,7 +28,7 @@ export interface Dish {
   name: string;
   price: number;
   img: string;
-  images: string[];
+  restaurantId: number;
 }
 
 export interface User {

@@ -1,5 +1,7 @@
 @import "../common";
 
+$row-height: 40px;
+
 .wrapper {
   @include size100p;
   @include grid-center(1fr, 50% 50%);
@@ -11,10 +13,20 @@
   @include size(70%, 80%);
   @include mdc-elevation(10);
   @include grid-center(80px, 1fr);
-  grid-auto-rows: 40px;
+  grid-auto-rows: $row-height;
+  grid-row-gap: 10px;
   border-radius: $border-rad;
 }
 
 .header {
   font-size: 32px;
+}
+
+.position {
+  @include size(90%, 100%);
+  @include mdc-elevation(4);
+  box-sizing: border-box;
+  line-height: $row-height;
+  padding-left: 20px;
+  font-size: 18px;
 }

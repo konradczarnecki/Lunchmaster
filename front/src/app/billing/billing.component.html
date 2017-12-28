@@ -1,8 +1,14 @@
-<div class="wrapper">
+<div class="wrapper" [ngClass]="theme.typeB">
 
   <div id="debtors" [ngClass]="theme.typeC">
 
     <div class="header">DEBTORS</div>
+
+    <div *ngFor="let debtor of balance?.orders_IMustGetPaid" [ngClass]="[theme.typeA, 'position']">
+      <span class="name">{{debtor.userFirstName}} {{debtor.userLastName}}</span>
+      <span class="amount">{{debtor}}</span>
+    </div>
+
   </div>
 
   <div id="lenders" [ngClass]="theme.typeC">

@@ -60,4 +60,29 @@ export interface Response {
   content: any;
 }
 
+export interface ThinOrder {
+
+  id: number;
+  userId: number;
+  userFirstName: number;
+  userLastName: number;
+  lunchId: number;
+  date: Date;
+  restaurantName: string;
+  dishes: ThinDish[];
+}
+
+export interface ThinDish {
+
+  id: number;
+  dishName: string;
+  price: number;
+}
+
+export interface Balance {
+
+  orders_INeedToPay: ThinOrder[];
+  orders_IMustGetPaid: ThinOrder[];
+}
+
 export const mockLunches: any[] = [{"id":1,"restaurant":{"id":1,"name":"Chmielarnia","logo":"https://static.pyszne.pl/images/restaurants/pl/53R3NQ3/logo_465x320.png","phone":"611 111 222","address":null,"link":null,"description":null,"avgDeliveryTime":60,"dishes":[{"id":1,"name":"Sample dish 1","price":1.0,"img":"img","images":[]}]},"lunchMaster":{"id":1,"firstName":"Janusz","lastName":"Kowalski","email":"jan.kowalski@nowhere.com","mobile":"666 777 888","part":"PART 1","group":"GROUP 1","team":"TEAM 1","bankAccount":"12 1111 2222 3333 4444 5555 6666","floor":13},"orders":[{"id":31,"user":{"id":1,"firstName":"Janusz","lastName":"Kowalski","email":"jan.kowalski@nowhere.com","mobile":"666 777 888","part":"PART 1","group":"GROUP 1","team":"TEAM 1","bankAccount":"12 1111 2222 3333 4444 5555 6666","floor":13},"dish":[{"id":1,"name":"Sample dish 1","price":1.0,"img":"img","images":[]}]},{"id":31,"user":{"id":1,"firstName":"Janusz","lastName":"Kowalski","email":"jan.kowalski@nowhere.com","mobile":"666 777 888","part":"PART 1","group":"GROUP 1","team":"TEAM 1","bankAccount":"12 1111 2222 3333 4444 5555 6666","floor":13},"dish":[{"id":1,"name":"Sample dish 1","price":1.0,"img":"img","images":[]}]},{"id":31,"user":{"id":1,"firstName":"Janusz","lastName":"Kowalski","email":"jan.kowalski@nowhere.com","mobile":"666 777 888","part":"PART 1","group":"GROUP 1","team":"TEAM 1","bankAccount":"12 1111 2222 3333 4444 5555 6666","floor":13},"dish":[{"id":1,"name":"Sample dish 1","price":1.0,"img":"img","images":[]}]}],"status":"open","deadline":1506708812487,"expectedDelivery":60}];

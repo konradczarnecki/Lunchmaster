@@ -5,6 +5,7 @@ $row-height: 40px;
 .wrapper {
   @include size100p;
   @include grid-center(1fr, 50% 50%);
+  position: relative;
   min-height: 100%;
   font-family: $font;
 }
@@ -25,8 +26,67 @@ $row-height: 40px;
 .position {
   @include size(90%, 100%);
   @include mdc-elevation(4);
+  border-radius: $border-rad;
   box-sizing: border-box;
   line-height: $row-height;
   padding-left: 20px;
+  padding-right: 25px;
   font-size: 18px;
+}
+
+.name {
+  float: left;
+}
+
+$label-height: 0.7;
+
+.positionLabel {
+  @include mdc-elevation(2);
+  line-height: $row-height * $label-height;
+  margin-top: $row-height * (1 - $label-height) / 2;
+  text-align: center;
+  float: right;
+}
+
+.amount {
+  @extend .positionLabel;
+  @include size(null, $row-height * $label-height);
+  padding: 0 5px;
+  color: white;
+}
+
+$green: rgba(84, 163, 99, 0.89);
+$op-green: transparentize($green, 0.4);
+$red: rgba(199, 73, 91, 0.92);
+
+.tick {
+  @extend .positionLabel;
+  @include mdc-elevation(4);
+  @include size($row-height * $label-height, $row-height * $label-height);
+  box-sizing: border-box;
+  border-radius: 100%;
+  margin-left: 15px;
+  overflow: hidden;
+  display: grid;
+
+
+  button {
+    @include self-center;
+    transform: translateX(-2px);
+    //background: $op-green;
+  }
+}
+
+.red {
+  background-color: $red;
+}
+
+.green {
+  background-color: $green;
+}
+
+app-billing-details {
+  @include absolute-center;
+  @include size(12%, 80%);
+  min-height: 80%;
 }

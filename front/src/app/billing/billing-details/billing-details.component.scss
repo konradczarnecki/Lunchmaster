@@ -1,0 +1,30 @@
+@import "../../common";
+
+.wrapper {
+  @include size100p;
+
+}
+
+$top-row: 40px;
+
+.orderTile {
+  @include grid-rows($top-row);
+  @include mdc-elevation(4);
+  margin-bottom: 10px;
+  border-radius: $border-rad;
+  grid-auto-rows: 20px;
+  box-sizing: border-box;
+  padding: 0 15px;
+}
+
+#topRow {
+  line-height: $top-row;
+}
+
+#restaurantName {
+  float: left;
+}
+
+#date {
+  float: right;
+}

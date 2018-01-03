@@ -1,0 +1,12 @@
+<div class="wrapper">
+
+  <div class="orderTile" *ngFor="let order of orders" [ngClass]="theme.typeA">
+
+    <div id="topRow">
+      <span id="restaurantName">{{order.restaurantName}}</span>
+      <span id="date">{{order.date | date: 'dd.MM'}}</span>
+    </div>
+
+  </div>
+
+</div>

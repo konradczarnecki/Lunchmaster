@@ -46,12 +46,12 @@
   button {
     @include size(45px, 100%);
     @include grid-center;
+    @include mdc-elevation(4);
     align-self: end;
     float: right;
     box-sizing: border-box;
-    border-radius: 2px;
+    border-radius: $border-rad;
     font-size: 26px;
-    @include mdc-elevation(4);
   }
 }
 
@@ -70,7 +70,7 @@
   @include absolute(0, null, null, 0);
   @include  mdc-elevation(8);
 
-  width: 200px;
+  width: 250px;
   padding: 10px;
   border-radius: $border-rad;
   font-family: $font;

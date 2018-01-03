@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Balance} from '../model';
+import {Balance} from '../../model';
 import {Headers, Http, RequestOptions} from '@angular/http';
-import {environment} from '../../environments/environment';
-import { LoginService} from '../login/login.service';
+import {environment} from '../../../environments/environment';
+import { LoginService} from '../../login/login.service';
 
 @Injectable()
 export class BillingService {

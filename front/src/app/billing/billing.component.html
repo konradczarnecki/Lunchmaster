@@ -4,9 +4,10 @@
 
     <div class="header">DEBTORS</div>
 
-    <div *ngFor="let debtor of balance?.orders_IMustGetPaid" [ngClass]="[theme.typeA, 'position']">
-      <span class="name">{{debtor.userFirstName}} {{debtor.userLastName}}</span>
-      <span class="amount">{{debtor}}</span>
+    <div *ngFor="let orders of debtors" [ngClass]="[theme.typeA, 'position']" (mouseover)="setOrdersToShow(orders)" (mouseleave)="setOrdersToShow(null)">
+      <span class="name">{{orders[0].userFirstName}} {{orders[0].userLastName}}</span>
+      <div class="tick"><button mat-button>&#x2713;</button></div>
+      <span class="amount green">{{ordersTotal(orders)}} PLN</span>
     </div>
 
   </div>
@@ -14,6 +15,18 @@
   <div id="lenders" [ngClass]="theme.typeC">
 
     <div class="header">LENDERS</div>
+
+    <div *ngFor="let orders of lenders"
+         [ngClass]="[theme.typeA, 'position']" (mouseover)="setOrdersToShow(orders)" (mouseleave)="setOrdersToShow(null)">
+      <span class="name">{{orders[0].userFirstName}} {{orders[0].userLastName}}</span>
+      <div class="tick"><button mat-button>&#x2713;</button></div>
+      <div class="amount red">{{ordersTotal(orders)}} PLN</div>
+    </div>
+
   </div>
 
+  <app-billing-details *ngIf="ordersToShow" [orders]="ordersToShow"></app-billing-details>
+
 </div>
+
+

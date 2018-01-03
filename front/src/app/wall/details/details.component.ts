@@ -142,7 +142,7 @@ export class DetailsComponent implements OnInit {
     this.changeDetector.detectChanges();
 
     const buttonRect = document.getElementById('order' + index).getBoundingClientRect();
-    const absoluteX = buttonRect.left - 230;
+    const absoluteX = buttonRect.left - 280;
     const detailsLeftEdge = document.getElementById('frame').getBoundingClientRect().left;
     const xOffset = absoluteX - detailsLeftEdge;
 

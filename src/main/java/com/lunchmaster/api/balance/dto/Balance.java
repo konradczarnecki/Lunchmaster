@@ -66,6 +66,31 @@ public class Balance {
         to1.getDishes().add(td1);
         to1.getDishes().add(td2);
 
+        //order 1.2
+        ThinOrder to12 = new ThinOrder();
+        to12.setId(4);
+        to12.setUserId(2);
+        to12.setUserFirstName("Jan");
+        to12.setUserLastName("Kowalski");
+        to12.setDate(new Date());
+        to12.setLunchId(4);
+        to12.setRestaurantName("Viet Thai");
+        to12.getDishes().add(td1);
+
+
+        //order 1.3
+        ThinOrder to13 = new ThinOrder();
+        to13.setId(5);
+        to13.setUserId(2);
+        to13.setUserFirstName("Jan");
+        to13.setUserLastName("Kowalski");
+        to13.setDate(new Date());
+        to13.setLunchId(5);
+        to13.setRestaurantName("Viet Thai");
+        to13.getDishes().add(td1);
+        to13.getDishes().add(td2);
+        to13.getDishes().add(td3);
+
         //order 2
         ThinOrder to2 = new ThinOrder();
         to2.setId(2);
@@ -92,6 +117,8 @@ public class Balance {
         //balance
         Balance balance = new Balance();
         balance.getOrders_IMustGetPaid().add(to1);
+        balance.getOrders_IMustGetPaid().add(to12);
+        balance.getOrders_IMustGetPaid().add(to13);
         balance.getOrders_INeedToPay().add(to2);
         balance.getOrders_INeedToPay().add(to3);
 

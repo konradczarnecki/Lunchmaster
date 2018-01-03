@@ -20,6 +20,6 @@ export class TopbarComponent implements OnInit {
   ngOnInit() {
 
     this.themes = themes;
-    this.pages = ['wall', 'billing', 'restaurants', 'profile'];
+    this.pages = ['wall', 'billing', 'restaurants', 'profile', 'help'];
   }
 }

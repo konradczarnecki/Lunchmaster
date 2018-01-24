@@ -61,9 +61,9 @@ node {
 }
 
 flyway {
-	url = 'jdbc:mysql://localhost:3306/lunchmaster_flyway'
-	user = 'root'
-	password = 'root'
+	url = 'jdbc:mysql://138.197.178.123:3306/lunchmaster_flyway'
+	user = 'rem'
+	password = 'rem123'
 	schemas = ['lunchmaster_flyway']
 }
 
